@@ -23,7 +23,7 @@ class Teacher(models.Model):
     patronymic = models.CharField(blank=True, max_length=20)
     phone_number = models.CharField(blank=True, max_length=12)
     personal_email = models.EmailField(max_length=30)
-    discipline = models.TextField()
+    discipline = models.TextField(blank=True)
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
