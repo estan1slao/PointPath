@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="preload" href="./fonts/ZonaPro-Light.woff2" as="font"> -->
+    <link rel="stylesheet" href="./account.css">
+    <title>Личный кабинет учителя</title>
+</head>
+
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <a class="nav-item" href="#"><li>.главная</li></a>
+                    <a class="nav-item" href="#"><li>.проект</li></a>
+                    <a class="nav-item" href="#"><li>.траектория</li></a>
+                </ul>
+                <div class="account">
+                    <a href="#">
+                        <span>Петров Пётр Петрович</span>
+                        <img src="./img/account_icon.svg" width="36" height="36">
+                    </a>
+                </div>
+            </nav>
+            <a class="edit" href="#">
+                <img src="./img/edit.svg" width="24" height="24">
+                <span>редактировать</span>
+            </a>
+        </header>
+    
+        <main>
+            <div class="account-info-block">
+                <div class="circle"></div>
+                <div class="account-info">
+                    <div class="info-1">
+                        <p class="title">ФИО</p>
+                        <p class="info-field">Петров Пётр Петрович</p>
+    
+                        <p class="title">специализация</p>
+                        <p class="info-field">информатика</p>
+                    </div>
+                    <div class="info-2">
+                        <p class="title">эл. почта</p>
+                        <p class='info-field'>petrov.pp@mail.ru</p>
+    
+                        <p class="title">контакты</p>
+                        <ul class="social-icons">
+                            <li>
+                                <a href="#"><img src="./img/telegram.svg" width="56" height="56"></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="./img/vk.svg" width="56" height="56"></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="./img/phone.svg" width="47" height="47"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="info-cards">
+                <div class='skills-block'>
+                    <p class="title">о вас</p>
+                    <p class="skills-text">Я вот такой вот уже молодец, что придумал такой интересный текст, который безусловно
+                        очень важен для моей жизни. Впрочем, я такой недоавтор, недодизайнер, но я все еще тренируюсь.<br>
+                        А так я дизайнер и Frontend-разработчик...
+                    </p>
+                </div>
+                <div class="projects-cards">
+
+                    <div class="active-projects-t" id="active-projects">
+                        <p class="title">активные проекты учеников</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <p class="active-project-item-t">Иванов Иван Иванович</p>
+                                    <img src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p class="active-project-item-t">Обухов Вениамин Давыдович</p>
+                                    <img src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                        </ul>
+                        <a class='more' href="#">
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                        </a>
+                    </div>
+
+                    <div class="archive-projects" id="archive-projects">
+                        <p class="title">архивные проекты учеников</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-item">Попова Юлия Владимировна</p>
+                                    <img src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-item">Коновалова Мария Сергеевна</p>
+                                    <img src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                        </ul>
+                        <a class='more' href="#">
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class='logo-t'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </main>
+    
+        <footer>
+    
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="preload" href="./fonts/ZonaPro-Light.woff2" as="font"> -->
+    <link rel="stylesheet" href="./account.css">
+    <title>Личный кабинет студента</title>
+</head>
+
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <a class="nav-item" href="#"><li>.главная</li></a>
+                    <a class="nav-item" href="#"><li>.проект</li></a>
+                    <a class="nav-item" href="#"><li>.траектория</li></a>
+                </ul>
+                <div class="account">
+                    <a href="#">
+                        <span>Иванов Иван</span>
+                        <img src="./img/account_icon.svg" width="36" height="36">
+                    </a>
+                </div>
+            </nav>
+            <a class="edit" href="#">
+                <img src="./img/edit.svg" width="24" height="24">
+                <span>редактировать</span>
+            </a>
+        </header>
+    
+        <main>
+            <div class="account-info-block">
+                <div class="circle"></div>
+                <div class="account-info">
+                    <div class="info-1">
+                        <p class="title">ФИО</p>
+                        <p class="info-field">Иванов Иван Иванович</p>
+    
+                        <p class="title">класс</p>
+                        <p class="info-field">10 А</p>
+                    </div>
+                    <div class="info-2">
+                        <p class="title">эл. почта</p>
+                        <p class='info-field'>ivanov.ii@mail.ru</p>
+    
+                        <p class="title">контакты</p>
+                        <ul class="social-icons">
+                            <li>
+                                <a href="#"><img src="./img/telegram.svg" width="56" height="56"></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="./img/vk.svg" width="56" height="56"></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="./img/phone.svg" width="47" height="47"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="info-cards">
+                <div class='skills-block'>
+                    <p class="title">что я умею?</p>
+                    <p class="skills-text">Я вот такой вот уже молодец, что придумал такой интересный текст, который безусловно
+                        очень важен для моей жизни. Впрочем, я такой недоавтор, недодизайнер, но я все еще тренируюсь.<br>
+                        А так я дизайнер и Frontend-разработчик...
+                    </p>
+                </div>
+                <div class="projects-cards">
+                    <div class='active-projects-s'>
+                        <p class="title">активные проекты</p>
+                        <a href="#"><p class="active-projects-text">Веб-сервис для отслеживания прогресса в разработке проектов</p></a>
+                        <div class="progress-bar">
+                            <div class="progress-bar-full"></div>
+                        </div>
+                        <p class="title">учитель</p>
+                        <p class="active-projects-text ">Петров Пётр Петрович</p>
+                    </div>
+                    <div class="archive-projects">
+                        <p class="title">архивные проекты</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-item">Новелла на RenPy</p>
+                                    <img src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-item">Сайт-портфолио для студентов</p>
+                                    <img src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                        </ul>
+                        <a class='more' href="#">
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class='logo-s'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </main>
+    
+        <footer>
+    
+        </footer>
+    </div>
+</body>
+
+</html>
