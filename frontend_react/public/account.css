@@ -1,0 +1,274 @@
+@font-face {
+    font-family: 'Zona Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: 
+        local('Zona Pro'),
+        url(./fonts/ZonaPro-Light.woff2) format('woff2'),
+        url(./fonts/ZonaPro-Light.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Zona Pro';
+    font-weight: 600;
+    font-display: swap;
+    src: 
+        local('Zona Pro'),
+        url(./fonts/ZonaPro-SemiBold.woff2) format('woff2'), 
+        url(./fonts/ZonaPro-SemiBold.woff) format('woff');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+    margin: 0;
+    
+    font-family: 'Zona Pro', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    line-height: normal;
+    color: rgba(27, 27, 37, 1);
+}
+
+.body-center {
+    margin: 0 auto;
+    
+    background-image: url(./img/bg.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: rgba(27, 27, 37, 1);
+    text-decoration: none; 
+}
+
+.main-nav {
+    display: flex;
+    width: 1742px;
+    justify-content: space-between;
+
+    margin: 44px 79px 8px 79px;
+}
+
+.nav-list {
+    display: flex;
+    gap: 106px;
+}
+
+.edit {
+    font-size: 20px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    margin: 0;
+    margin-bottom: 36px;
+    margin-right: 79px;
+    padding: 0;
+}
+
+.account {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.account-info-block {
+    display: flex;
+    margin-left: 173px;
+    margin-bottom: 46px;
+}
+
+.circle {
+	width: 169px;
+	height: 169px;
+	border-radius: 50%;
+
+    background: rgba(217, 217, 217, 1);
+    border: 12px solid rgba(173, 184, 240, 1);
+
+    margin-right: 75px;
+}
+
+.account-info {
+    display: flex;
+    gap: 241px;
+}
+
+.info-1 {
+    padding-top: 17px;
+}
+
+.info-2 {
+    padding-top: 5px;
+    margin-right: 75px;
+}
+
+
+.title {
+    color: #5F5F66;
+    font-size: 20px;
+    margin: 0;
+}
+
+.info-field {
+    margin: 0;
+    margin-bottom: 21px;
+    margin-top: 4px;
+    width: 483px;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    gap: 29px;
+}
+
+.skills-block {
+    background-color: #ADB8F0;
+    width: 1600px;
+    border-radius: 30px;
+
+    margin-bottom: 34px;
+    margin-left: 150px;
+}
+
+.skills-text {
+    width: 1532px;
+
+    margin: 0;
+    margin-top: 17px;
+    padding: 0 33px 29px 33px;
+}
+
+.info-cards {
+    font-size: 28px;
+}
+
+.info-cards .title {
+    padding-top: 19px;
+    padding-left: 23px;
+}
+
+.projects-cards {
+    display: flex;
+    gap: 52px;
+    margin-left: 150px;
+}
+
+.active-projects-s {
+    background-color: #CBF6C7;
+    width: 774px;
+    border-radius: 30px;
+    height: 275px;
+}
+
+.progress-bar-full {
+	width: 157px;
+	height: 13px;
+	border-radius: 50px;
+    
+    background: rgba(150, 236, 142, 1);
+}
+
+.active-projects-text {
+    padding: 0;
+    margin: 0;
+
+    padding: 18px 35px 25px 33px; 
+}
+
+.progress-bar {
+	width: 706px;
+	height: 13px;
+	border-radius: 50px;
+    margin: 0 34px;
+    background: rgba(255, 255, 255, 1);
+}
+
+.archive-projects {
+    background-color: #EEE;
+    width: 774px;
+    border-radius: 30px;
+    height: 226px;
+}
+
+.active-projects-t {
+    background-color: rgba(203, 246, 199, 1);
+    width: 774px;
+    border-radius: 30px;
+    height: 226px;
+}
+
+.archive-projects .title,
+.active-projects-t .title
+{
+    margin-bottom: 18px;
+}
+
+.archive-projects ul,
+.active-projects-t ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.archive-project-item,
+.active-project-item-t {
+    padding: 0;
+    margin: 0;
+    margin-right: 60px;
+
+    max-width: 600px;
+
+    padding-left: 33px; 
+}
+
+.archive-projects li a,
+.active-projects-t li a
+{
+    display: flex;
+    align-items: center;
+}
+
+.more {
+    margin-top: 36px;
+    padding-bottom: 37px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.more-cycle {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+
+    background: rgba(95, 95, 102, 1);
+}
+
+.logo-s {
+    display: flex;
+    margin-left: 1509px;
+    margin-top: 35px;
+    margin-bottom: 47px;
+}
+
+.logo-t {
+    display: flex;
+    margin-left: 1509px;
+    margin-top: 84px;
+    margin-bottom: 47px;
+}
