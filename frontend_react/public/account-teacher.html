@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="preload" href="./fonts/ZonaPro-Light.woff2" as="font"> -->
+    <link rel="stylesheet" href="global-style.css">
     <link rel="stylesheet" href="./account.css">
-    <title>Личный кабинет учителя</title>
+    <title>Личный кабинет студента</title>
 </head>
 
 <body>
@@ -14,77 +14,90 @@
         <header>
             <nav class="main-nav">
                 <ul class="nav-list">
-                    <a class="nav-item" href="#"><li>.главная</li></a>
-                    <a class="nav-item" href="#"><li>.проект</li></a>
-                    <a class="nav-item" href="#"><li>.траектория</li></a>
+                    <div class="nav-left">
+                        <a class="nav-item" href="#"><li>.главная</li></a>
+                        <a class="nav-item hidden" href="#"><li>.проект</li></a>
+                        <a class="nav-item hidden" href="#"><li>.траектория</li></a>
+                        <a class="nav-item" href="#"><li>.проекты на рассмотрение</li></a>
+                    </div>
+                    <div class="nav-right">
+                        <a class="nav-item hidden" href="#"><li>.войти</li></a>
+                        <a class="nav-item hidden" href="#"><li>.создать аккаунт</li></a>
+                        <div class="account ">
+                            <a href="#">
+                                <span>Петров Петр Петрович</span>
+                                <img src="./img/account_icon.svg" width="27" height="27">
+                            </a>
+                        </div>
+                    </div>
                 </ul>
-                <div class="account">
-                    <a href="#">
-                        <span>Петров Пётр Петрович</span>
-                        <img src="./img/account_icon.svg" width="36" height="36">
-                    </a>
-                </div>
             </nav>
-            <a class="edit" href="#">
-                <img src="./img/edit.svg" width="24" height="24">
-                <span>редактировать</span>
-            </a>
+            <div class="edit">
+                <a href="#">
+                    <img class="" src="./img/edit.svg" width="24" height="24">
+                    <span class="">редактировать</span>
+                </a>
+            </div>
+            
         </header>
     
         <main>
             <div class="account-info-block">
-                <div class="circle"></div>
-                <div class="account-info">
-                    <div class="info-1">
+                <div class="info-1">
+                    <div class="circle">
+                        <img src="./img/logo-circle.png">
+                    </div>
+                    <div class="fio">
                         <p class="title">ФИО</p>
-                        <p class="info-field">Петров Пётр Петрович</p>
+                        <p class="info-field">Петров Петр Петрович</p>
     
                         <p class="title">специализация</p>
                         <p class="info-field">информатика</p>
                     </div>
-                    <div class="info-2">
-                        <p class="title">эл. почта</p>
-                        <p class='info-field'>petrov.pp@mail.ru</p>
-    
-                        <p class="title">контакты</p>
-                        <ul class="social-icons">
-                            <li>
-                                <a href="#"><img src="./img/telegram.svg" width="56" height="56"></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="./img/vk.svg" width="56" height="56"></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="./img/phone.svg" width="47" height="47"></a>
-                            </li>
-                        </ul>
-                    </div>
+                </div>
+                <div class="info-2">
+                    <p class="title">эл. почта</p>
+                    <p class='info-field'>ivanov.ii@mail.ru</p>
+
+                    <p class="title">контакты</p>
+                    <ul class="social-icons">
+                        <li>
+                            <a href="#"><img src="./img/telegram.svg" width="56" height="56"></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="./img/vk.svg" width="56" height="56"></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="./img/phone.svg" width="47" height="47"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
     
             <div class="info-cards">
-                <div class='skills-block'>
-                    <p class="title">о вас</p>
-                    <p class="skills-text">Я вот такой вот уже молодец, что придумал такой интересный текст, который безусловно
-                        очень важен для моей жизни. Впрочем, я такой недоавтор, недодизайнер, но я все еще тренируюсь.<br>
-                        А так я дизайнер и Frontend-разработчик...
-                    </p>
+                <div class='skills-block-wrapper'>
+                    <div class='skills-block'>
+                        <p class="title">что я умею?</p>
+                        <p class="skills-text">Я вот такой вот уже молодец, что придумал такой интересный текст, который безусловно
+                            очень важен для моей жизни. Впрочем, я такой недоавтор, недодизайнер, но я все еще тренируюсь.<br>
+                            А так я дизайнер и Frontend-разработчик...
+                        </p>
+                    </div>
                 </div>
                 <div class="projects-cards">
-
-                    <div class="active-projects-t" id="active-projects">
+                    <div class="active-projects-t">
                         <p class="title">активные проекты учеников</p>
                         <ul>
                             <li>
                                 <a href="#">
-                                    <p class="active-project-item-t">Иванов Иван Иванович</p>
-                                    <img src="./img/arrow.svg" width="66" height="21">
+                                    <p class="archive-project-text">Иванов Иван Иванович</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <p class="active-project-item-t">Обухов Вениамин Давыдович</p>
-                                    <img src="./img/arrow.svg" width="66" height="21">
+                                    <p class="archive-project-text">Обухов Вениамин Давыдович</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                                 </a>
                             </li>
                         </ul>
@@ -94,20 +107,20 @@
                             <div class="more-cycle"></div>
                         </a>
                     </div>
-
-                    <div class="archive-projects" id="archive-projects">
+                    
+                    <div class="archive-projects">
                         <p class="title">архивные проекты учеников</p>
                         <ul>
                             <li>
                                 <a href="#">
-                                    <p class="archive-project-item">Попова Юлия Владимировна</p>
-                                    <img src="./img/arrow.svg" width="66" height="21">
+                                    <p class="archive-project-text">Новелла на RenPy</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <p class="archive-project-item">Коновалова Мария Сергеевна</p>
-                                    <img src="./img/arrow.svg" width="66" height="21">
+                                    <p class="archive-project-text">Сайт-портфолио для студентов</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                                 </a>
                             </li>
                         </ul>
@@ -117,16 +130,14 @@
                             <div class="more-cycle"></div>
                         </a>
                     </div>
-
                 </div>
-            </div>
-            <div class='logo-t'>
-                <img src="./img/logo.svg" width="321" height="94">
             </div>
         </main>
     
         <footer>
-    
+            <div class='logo-s'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
         </footer>
     </div>
 </body>
