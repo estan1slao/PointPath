@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="enter.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <div class="nav-right">
+                        <a class="nav-item" href="#"><li>.главная</li></a>
+                        <a class="nav-item hidden" href="#"><li>.проект</li></a>
+                        <a class="nav-item hidden" href="#"><li>.траектория</li></a>
+                        <a class="nav-item hidden" href="#"><li>.проекты на рассмотрение</li></a>
+                    </div>
+                    <div class="nav-left">
+                        <a class="nav-item" href="#"><li>.войти</li></a>
+                        <a class="nav-item" href="#"><li>.создать аккаунт</li></a>
+                        <div class="account hidden">
+                            <a href="#">
+                                <span>Иванов Иван</span>
+                                <img src="./img/account_icon.svg" width="36" height="36">
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <a class="edit hidden" href="#"><!--странно что этот класс не работает - надо разобраться -->
+                <img class="hidden" src="./img/edit.svg" width="24" height="24">
+                <span class="hidden">редактировать</span>
+            </a>
+        </header>
+        <main>
+            <div class="motivation">
+                <div class="underlay-motivation">
+                    Ты никогда не будешь знать <br>все. Но ты будешь знать больше.
+                </div>
+                <div>
+                    Главное - не <span class="motivation-span">останавливайся.</span>
+                </div>
+            </div>
+            <div class="form-container">
+                <h1 class="title">.вход</h1>
+                <form>
+                    <input class='enter-input' name='login' placeholder="логин" type="text">
+                    <input class='enter-input' name='password' placeholder="пароль" type="password">
+                    <button class="arrow-button" type="submit"></button>
+                </form>
+            </div>
+        </main>
+        <footer>
+            <div class='logo-s'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
