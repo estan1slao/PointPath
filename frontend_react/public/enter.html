@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global-style.css">
     <link rel="stylesheet" href="enter.css">
     <title>Document</title>
 </head>
@@ -11,13 +12,13 @@
         <header>
             <nav class="main-nav">
                 <ul class="nav-list">
-                    <div class="nav-right">
+                    <div class="nav-left">
                         <a class="nav-item" href="#"><li>.главная</li></a>
                         <a class="nav-item hidden" href="#"><li>.проект</li></a>
                         <a class="nav-item hidden" href="#"><li>.траектория</li></a>
                         <a class="nav-item hidden" href="#"><li>.проекты на рассмотрение</li></a>
                     </div>
-                    <div class="nav-left">
+                    <div class="nav-right">
                         <a class="nav-item" href="#"><li>.войти</li></a>
                         <a class="nav-item" href="#"><li>.создать аккаунт</li></a>
                         <div class="account hidden">
@@ -29,10 +30,12 @@
                     </div>
                 </ul>
             </nav>
-            <a class="edit hidden" href="#"><!--странно что этот класс не работает - надо разобраться -->
-                <img class="hidden" src="./img/edit.svg" width="24" height="24">
-                <span class="hidden">редактировать</span>
-            </a>
+            <div class="edit hidden">
+                <a href="#"> <!--Здесь добавил div, тк ссылка растягивалась-->
+                    <img class="hidden" src="./img/edit.svg" width="24" height="24">
+                    <span class="hidden">редактировать</span>
+                </a>
+            </div>
         </header>
         <main>
             <div class="motivation">
