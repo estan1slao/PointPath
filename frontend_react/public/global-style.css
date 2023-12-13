@@ -59,7 +59,7 @@ a {
 .main-nav {
     display: flex;
     box-sizing: border-box;
-    padding: 44px 79px 8px 79px;
+    padding: 44px 73px 0px 73px;
     width: 100%;
 }
 
@@ -85,9 +85,7 @@ a {
     display: flex;
     justify-content: flex-end;
 
-    margin: 0;
-    margin-bottom: 36px;
-    margin-right: 79px;
+    margin: 8px 73px 0 0;
     padding: 0;
 }
 
@@ -101,5 +99,5 @@ a {
     justify-content: flex-end;
 
     margin-bottom: 52px;
-    margin-right: 79px;
+    margin-right: 73px;
 }
