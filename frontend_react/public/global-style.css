@@ -101,3 +101,21 @@ a {
     margin-bottom: 52px;
     margin-right: 73px;
 }
+
+.input {
+    width: 100%;
+    border-radius: 50px;
+    color: #5F5F66;
+    font-family: 'Zona Pro', sans-serif;
+    box-sizing: border-box;
+    font-size: 28px;
+    padding: 12px 22px;
+}
+
+.title{
+    font-size: 54px;
+    font-weight: 600;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
