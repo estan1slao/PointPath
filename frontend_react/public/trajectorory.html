@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global-style.css">
+    <link rel="stylesheet" href="trajectory.css">
+    <title>Your path</title>
+</head>
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <div class="nav-left">
+                        <a class="nav-item" href="#"><li>.главная</li></a>
+                        <a class="nav-item" href="#"><li>.проекты</li></a>
+                        <a class="nav-item" href="#"><li>.траектория</li></a>
+                        <a class="nav-item hidden" href="#"><li>.проекты на рассмотрение</li></a>
+                    </div>
+                    <div class="nav-right">
+                        <a class="nav-item hidden" href="#"><li>.войти</li></a>
+                        <a class="nav-item hidden" href="#"><li>.создать аккаунт</li></a>
+                        <div class="account">
+                            <a href="#">
+                                <span>Иванов Иван</span>
+                                <img src="./img/exit.svg" width="36" height="36">
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <div class="edit hidden">
+                <a href="#">
+                    <img class="hidden" src="./img/edit.svg" width="24" height="24">
+                    <span class="hidden">редактировать</span>
+                </a>
+            </div>
+        </header>
+        <main>
+            <h1 class="title">.траектория моего проекта</h1>
+            <div class="steps-container">
+                <section class="step planned">
+                    <div class="title-container">
+                        <h2 class="step-title">запланнированные</h2>
+                        <button class="add-task"></button>
+                    </div>
+                    <div class="list-of-tasks">
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                        <div draggable="true" class="task">
+                            <p class="task-title">Создать опрос для ребят</p>
+                            <img class="notification-icon" src="./img/notification-blue.svg">
+                        </div>
+                    </div>
+                </section>
+                <section class="step work">
+                    <div class="title-container">
+                        <h2 class="step-title">в работе</h2>
+                    </div>
+                    <div class="list-of-tasks">
+                        <div draggable="true" class="task">
+                            <p class="task-title">Провести аналитику</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="step checked">
+                    <div class="title-container">
+                        <h2 class="step-title">на проверке</h2>
+                    </div>
+                    <div class="list-of-tasks">
+                        
+                    </div>
+                </section>
+                <section class="step done">
+                    <div class="title-container">
+                        <h2 class="step-title">готово</h2>
+                    </div>
+                    <div class="list-of-tasks">
+                        
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer>
+            <div class='logo'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </footer>
+    </div>
+    <script src="./trajectory.js"></script>
+</body>
+</html>

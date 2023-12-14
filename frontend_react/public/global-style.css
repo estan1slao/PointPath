@@ -44,8 +44,13 @@ a {
     text-decoration: none; 
 }
 
+p {
+    margin: 0;
+    padding: 0;
+}
+
 .hidden {
-    display: none !important; /*display: none !important*/
+    display: none !important;
 }
 
 .body-center {
@@ -54,6 +59,9 @@ a {
     background-repeat: no-repeat;
     background-size: auto;
     width: 100%;
+    /* height: 100vh;
+    position:relative; */
+    /* padding-bottom:52px; */
 }
 
 .main-nav {
@@ -84,7 +92,7 @@ a {
 
     display: flex;
     justify-content: flex-end;
-
+    
     margin: 8px 73px 0 0;
     padding: 0;
 }
@@ -94,10 +102,36 @@ a {
     align-items: center;
 }
 
-.logo-s {
+.logo {
     display: flex;
     justify-content: flex-end;
-
-    margin-bottom: 52px;
     margin-right: 73px;
+    margin-bottom: 52px;
+}
+
+.input {
+    width: 100%;
+    border-radius: 50px;
+    color: #5F5F66;
+    font-family: 'Zona Pro', sans-serif;
+    box-sizing: border-box;
+    font-size: 28px;
+    padding: 12px 22px;
+}
+
+.title{
+    font-size: 54px;
+    font-weight: 600;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.account a {
+    display: flex;
+    align-items: center;
+}
+
+.account span{
+    margin-right: 15px;
 }
