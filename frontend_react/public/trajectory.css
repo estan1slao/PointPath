@@ -58,7 +58,7 @@ main {
     display: flex;
     width: 100%;
     gap: 38px;
-    /* max-height: 557px; */
+    min-height: 457px; /*557*/
 }
 
 .step-title {
@@ -86,4 +86,8 @@ main {
     font-size: 20px;
     border-radius: 15px;
     backdrop-filter: blur(2px);
+}
+
+.logo {
+    margin-top: 70px;
 }
