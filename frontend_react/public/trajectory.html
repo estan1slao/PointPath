@@ -114,6 +114,58 @@
             </div>
         </footer>
     </div>
+
+    <div class="popup hidden">
+        <section class="edit-task wrapper">
+            <button class="close-btn"></button>
+            <input class="popup-text" value="Создать опрос для ребят">
+            <form>
+                <div class="input-wrapper">
+                    <label class="input-label" for="about-input">описание</label>
+                    <input type="text" name="about" id="about-task-input">
+                </div>
+                <div class="input-wrapper">
+                    <label class="input-label" for="profession-input">категория</label>
+                    <input type="text" name="about" id="category-input" value="запланнированные">
+                </div>
+                <div class="additions-wrapper">
+                    <p class="input-label">вложения</p>
+                    <div class="additions-link">
+                        <button class="close-input-btn"></button>
+                        <label type="url" name="about">отчет.docx</label>
+                    </div>
+                    <div class="additions-add-btn">
+                        <button class="close-input-btn"></button>
+                        <label type="url" name="about">добавить</label>
+                    </div>
+                </div>
+                <div class="comments">
+                    <p class="input-label">комментарии</p>
+                    <div class="input-wrapper comment-input">
+                        <input type="text" name="about" id="category-input" value="">
+                    </div>
+                    <div class="comment">
+                        <p class="author">Иванов Иван Иванович</p>
+                        <p class="comment-value">Приложил отчет о проделанной работе с разным оформлением</p>
+                    </div>
+                    <div class="comment">
+                        <p class="author">Петров Петр Петрович</p>
+                        <p class="comment-value">Увидел, молодец!</p>
+                    </div>
+                </div>
+                <div class="control-btns">
+                    <button class="save-button">
+                        <p>удалить задачу</p>
+                        <img src="./img/close-input.svg">
+                    </button>
+                    <button class="save-button">
+                        <p>сохранить</p>
+                        <img src="./img/save.svg">
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
     <script src="./trajectory.js"></script>
 </body>
 </html>
