@@ -185,3 +185,55 @@ select {
 .dropdown-list-item:hover {
     background-color: #B9C5FF;
 }
+
+.success-sendForm.wrapper {
+    background-color: #E694F7;
+}
+
+.success-sendForm > p {
+    font-size: 48px;
+    font-weight: 600;
+    width: 87%;
+    margin-top: 10px;
+    margin-bottom: 74px;
+}
+
+/*нужно на другую страницу переместить*/
+
+.success-choice.wrapper {
+    background-color: #96EC8E;
+}
+
+.success-choice > p {
+    font-size: 48px;
+    font-weight: 600;
+    width: 87%;
+    margin-top: 10px;
+    margin-bottom: 74px;
+}
+
+
+.denied-form.wrapper {
+    background-color: #E694F7;
+}
+
+.denied-form > p {
+    font-size: 48px;
+    font-weight: 600;
+    width: 87%;
+    margin-top: 10px;
+    margin-bottom: 74px;
+}
+
+
+.approve-form.wrapper {
+    background-color: #96EC8E;
+}
+
+.approve-form > p {
+    font-size: 48px;
+    font-weight: 600;
+    width: 90%;
+    margin-top: 30px;
+    margin-bottom: 130px;
+}

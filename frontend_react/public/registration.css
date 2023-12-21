@@ -93,9 +93,52 @@ input[type="submit"] {
     align-items: center;
     justify-content: space-between;
 }
-/* 
-footer {
-    position: absolute;
-    right: 73px;
-    bottom: 52px;
-} */
+
+.success-registration.wrapper {
+    background-color: #BDBDBF;
+}
+
+.success-wrapper {
+    display: block;
+    padding-left: 20px;
+    width: 280px;
+    border-radius: 50px;
+    border: 2px solid #96EC8E;
+    background: #CBF6C7;
+}
+
+/*Нужно будет поместить на каждую страницу, где возможен выход из аккаунта*/
+
+.exit-approve.wrapper {
+    background-color: #BDBDBF;
+}
+
+.exit-approve > p {
+    align-self: center;
+    font-size: 56px;
+    font-weight: 600;
+    width: 93%;
+    margin-top: 44px;
+    margin-bottom: 47px;
+}
+
+.move-links {
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    width: 90%;
+    margin-bottom: 139px;
+}
+
+.move-links img{
+    transform: rotate(180deg);
+    margin-right: 16px;
+}
+
+.exit-approve.popup-link {
+    align-self: flex-start;
+}
+
+.exit-link {
+    align-self: flex-end;
+}
