@@ -87,8 +87,22 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class ProfileSerializer(serializers.ModelSerializer):
-    #notes = NoteSerializer(many=True, read_only=True)
+    #info = StudentSerializer(read_only=True)
 
     class Meta:
         model = Account
         fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation
