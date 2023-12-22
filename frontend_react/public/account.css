@@ -126,6 +126,8 @@ main {
     width: 100%;
     border-radius: 30px;
     height: 100%;
+
+    cursor: pointer;
 }
 
 .progress-bar-wrapper {
@@ -205,6 +207,8 @@ main {
     display: flex;
     justify-content: center;
     gap: 5px;
+
+    cursor: pointer;
 }
 
 .more-cycle {

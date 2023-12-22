@@ -1,0 +1,88 @@
+.body-center {
+    background-image: url(./img/bg-project-page.png);
+}
+
+header {
+    margin-bottom: 99px;
+}
+
+.back-button {
+    cursor: pointer;
+    font-family: Zona Pro;
+    font-size: 28px;
+    color: #8A8A8F;
+
+    margin-left: 158px;
+}
+
+.title-block {
+    display: flex;
+    margin-left: 158px;
+    justify-content: space-between;
+}
+
+.title-wrapper {
+    max-width: 964px;
+}
+
+.title {
+    font-size: 70px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+.green-line {
+    width: 73%;
+    height: 13px;
+    border-radius: 50px;
+    background: #CBF6C7;
+
+    margin: 18px 0 25px 0;
+}
+
+.buttons-block {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 35px;
+    margin-right: 142px; 
+}
+
+.take-button {
+    border-radius: 50px;
+    border: 1px solid #1B1B25;
+    background: #CBF6C7;
+
+    cursor: pointer;
+    font-family: Zona Pro;
+    font-size: 36px;
+
+    width: 470px;
+    height: 100px;
+}
+
+.approve {
+    margin-bottom: 16px;
+    background-color: #B9C5FF;
+}
+
+.reject {
+    background-color: #FFB2B2;
+}
+
+.proj-info {
+    margin-left: 158px;
+    max-width: 1350px;
+}
+
+.proj-label {
+    color: #5F5F66;
+    display: block;
+    font-size: 20px;
+}
+
+.proj-text {
+    font-size: 32px;
+    margin-bottom: 38px;
+}

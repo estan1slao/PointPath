@@ -102,3 +102,7 @@ header {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+footer {
+    margin-top: 95px;
+}
