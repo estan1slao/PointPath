@@ -73,6 +73,32 @@ class Project(models.Model):
         return self.topic
 
 
+class Tasks(models.Model):
+    card_id = models.IntegerField(primary_key=True, unique=True)
+    project_id = models.ForeignKey('Project', on_delete=models.PROTECT)
+    category = models.CharField(max_length=50)
+    task = models.TextField()
+    description = models.TextField()
+
+    def __str__(self):
+        return self.task
+
+
+class Comments(models.Model):
+    card_id = models.ForeignKey('Tasks', on_delete=models.PROTECT)
+    user_id = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.content
+
+
+class Files(models.Model):
+    card_id = models.ForeignKey('Tasks', on_delete=models.PROTECT)
+    user_id = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    file = models.FileField()
+
+
 class Account(AbstractUser):
     #id = models.IntegerField(primary_key=True, unique=True)
     role = models.CharField(max_length=20)
