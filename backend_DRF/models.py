@@ -22,16 +22,17 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.surname} {self.name}"
 
-
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+def create_student_profile(sender, instance, created, **kwargs):
+    role = instance.role
+    if created and role == "ученик":
         Student.objects.create(user=instance)
 
-
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.student.save()
+def save_student_profile(sender, instance, **kwargs):
+    role = instance.role
+    if role == "ученик":
+        instance.student.save()
 
 
 class Teacher(models.Model):
@@ -47,16 +48,17 @@ class Teacher(models.Model):
     def __str__(self):
         return f"{self.surname} {self.name}"
 
-
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+def create_teacher_profile(sender, instance, created, **kwargs):
+    role = instance.role
+    if created and role == "учитель":
         Teacher.objects.create(user=instance)
 
-
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.teacher.save()
+def save_teacher_profile(sender, instance, **kwargs):
+    role = instance.role
+    if role == "учитель":
+        instance.teacher.save()
 
 
 class Project(models.Model):

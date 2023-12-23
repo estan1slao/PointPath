@@ -45,19 +45,22 @@ class ProjectViewSet(viewsets.ModelViewSet):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
+
 #Register User
 class RegisterView(generics.CreateAPIView):
     queryset = Account.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-    # api/profile  and api/profile/update
+
+# api/profile  and api/profile/update
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getProfile(request):
     user = request.user
     serializer = ProfileSerializer(user, many=False)
     return Response(serializer.data)
+
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
