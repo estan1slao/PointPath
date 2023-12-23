@@ -63,12 +63,6 @@ main {
     gap: 29px;
 }
 
-
-
-
-
-
-
 .info-cards {
     font-size: 28px;
 }
@@ -102,12 +96,6 @@ main {
     margin-top: 17px;
     padding: 0 33px 29px 33px;
 }
-
-
-
-
-
-
 
 .projects-cards {
     width: 100%;
@@ -219,9 +207,6 @@ main {
     background: rgba(95, 95, 102, 1);
 }
 
-
-
-
 .archive-student-projects.wrapper {
     background-color: #BDBDBF;
     height: fit-content;
@@ -261,14 +246,14 @@ main {
 .active-student-projects.wrapper {
     background: #96EC8E;
     height: fit-content;
-    background-image: url(./img/popupBG.png);
+    background-image: url(../img/popupBG.png);
 }
 
 .edit-profile.wrapper {
     background: #96EC8E;
     width: 1080px;
     height: fit-content;
-    background-image: url(./img/popupBG.png);
+    background-image: url(../img/popupBG.png);
 }
 
 
@@ -349,6 +334,6 @@ input:focus {
     height: 20px;
     background-color: transparent;
     border: none;
-    background-image: url('./img/close-input.svg');
+    background-image: url('../img/close-input.svg');
     margin-bottom: 6px;
 }

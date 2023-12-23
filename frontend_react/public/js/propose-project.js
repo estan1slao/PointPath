@@ -16,7 +16,7 @@ dropdownList.forEach((dropdown) => {
 
     dropdownButton.addEventListener('click', clickButton);
 
-    function clickItem (evt) {
+    function clickItem () {
         dropdownButton.innerText = this.innerText;
         input.value = this.dataset.value;
         closeDropdown();

@@ -24,7 +24,7 @@ main {
 .add-task {
     background: none;
     border: none;
-    background-image: url(./img/add_task.svg);
+    background-image: url(../img/add_task.svg);
     width: 28px;
     height: 28px;
 }
@@ -166,7 +166,7 @@ input:focus {
     height: 20px;
     background-color: transparent;
     border: none;
-    background-image: url('./img/close-input.svg');
+    background-image: url('../img/close-input.svg');
     margin-bottom: 6px;
     margin-right: 13px;
 }

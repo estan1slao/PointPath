@@ -32,11 +32,12 @@ input[type="submit"] {
     border: none;
     padding: 0;
     background-color:transparent;
-    background-image: url('./img/arrow.svg');
+    background-image: url('../img/arrow.svg');
     background-size: cover;
     width: 66px;
     height: 21px;
     margin-top: 41px;
+    cursor: pointer;
 }
 
 .registration-title {
@@ -68,6 +69,28 @@ input[type="submit"] {
     width: 100%;
     padding: 0 67px;
     justify-content: space-between;
+}
+
+.role-button {
+    font-family: Zona Pro;
+    font-size: 28px;
+    color: #5F5F66;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+}
+
+.role-button:hover {
+    border-bottom: 1px solid #B9C5FF;
+}
+
+.role-button:active {
+    color: #B9C5FF;
+    border-bottom: 1px solid #B9C5FF;
+}
+
+.active-role-button {
+    color: #B9C5FF;
+    border-bottom: 1px solid #B9C5FF;
 }
 
 .arrow-button-left {
@@ -137,6 +160,14 @@ input[type="submit"] {
 
 .exit-approve.popup-link {
     align-self: flex-start;
+}
+
+.popup-link {
+    cursor: pointer;
+}
+
+.close-btn {
+    cursor: pointer;
 }
 
 .exit-link {

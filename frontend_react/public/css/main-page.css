@@ -1,5 +1,5 @@
 .body-center {
-    background-image: url(./img/bg-main.png);
+    background-image: url(../img/bg-main.png);
 }
 
 header {
@@ -22,7 +22,7 @@ main {
 
 .motivation-text {
     display: inline-block;
-    background-image: url(./img/green-main-label-bg.png);
+    background-image: url(../img/green-main-label-bg.png);
     background-repeat: no-repeat;
     padding: 17px 19px 12px 17px;
     margin-bottom: 45px;

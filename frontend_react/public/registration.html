@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="global-style.css">
-    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/registration.css">
     <title>Registration</title>
 </head>
 <body>
@@ -39,25 +39,33 @@
         </header>
         <main>
             <h1 class="title registration-title">.новый аккаунт</h1>
-            <form class="second-part">
-                <input class='input registration-input hidden' name='surname' placeholder="фамилия" type="text">
-                <input class='input registration-input hidden' name='name' placeholder="имя" type="text">
-                <input class='input registration-input hidden' name='patronymic' placeholder="отчество" type="text">
-                <input class='input registration-input hidden' name='email' placeholder="эл. почта" type="email">
-                <div class="choose_role-container hidden">
-                    <h2 class="choose_role-title">выберете роль</h2>
-                    <div class="choose_role">
-                        <input type="submit" placeholder="ученик" name="student" value="ученик">
-                        <input type="submit" placeholder="учитель" name="teacher" value="учитель">
+            <form class="second-part" method="post" action="http://127.0.0.1:8000/register/" >
+                <!-- добавил div, чтобы удобнее было вешать hidden'ы -->
+                <div class="reg-first-part"> 
+                    <input class='input registration-input first-part' id="surname" name='surname' placeholder="фамилия" type="text">
+                    <input class='input registration-input first-part' id="name" name='name' placeholder="имя" type="text">
+                    <input class='input registration-input first-part' id="patronymic" name='patronymic' placeholder="отчество" type="text">
+                    <input class='input registration-input first-part' id="email" name='email' placeholder="эл. почта" type="email">
+                    <div class="choose_role-container ">
+                        <h2 class="choose_role-title">выберете роль</h2>
+                        <div class="choose_role">
+                            <button class="role-button" type="button" id="student" data-value="ученик">ученик</button>
+                            <button class="role-button" type="button" id="teacher" data-value="учитель">учитель</button>
+                        </div>
                     </div>
+                    <input class="role-input first-part" id="role" name="role" hidden/>
+                    <button class="arrow-button " type="button"></button>
                 </div>
-                <button class="arrow-button hidden" type="none"></button>
-                <input class='input registration-input' name='login' placeholder="логин" type="text">
-                <input class='input registration-input' name='password' placeholder="пароль" type="password">
-                <input class='input registration-input' placeholder="повторите пароль" type="password">
-                <div class="form-end">
-                    <button class="arrow-button arrow-button-left" type="none"></button>
-                    <button class="account-submit">cоздать аккаунт</button>
+                
+                <!-- добавил div, чтобы удобнее было вешать hidden'ы -->
+                <div class="reg-second-part hidden">
+                    <input class='input registration-input' id="username" name='username' placeholder="логин" type="text">
+                    <input class='input registration-input' id="password" name='password' placeholder="пароль" type="password">
+                    <input class='input registration-input' id="password2" name="password2" placeholder="повторите пароль" type="password">
+                    <div class="form-end">
+                        <button class="arrow-button arrow-button-left" type="button"></button>
+                        <button class="account-submit" type="submit">cоздать аккаунт</button>
+                    </div>
                 </div>
             </form>
         </main>
@@ -72,7 +80,7 @@
         <section class="success-registration wrapper">
             <button class="close-btn"></button>
             <p class="popup-text">Регистрация <span class="success-wrapper">успешно</span> завершена</p>
-            <a class="popup-link">
+            <a class="popup-link" href="./account-student.html">
                 <span>в личный кабинет</span>
                 <img src="./img/arrow.svg">
             </a>
@@ -92,5 +100,6 @@
             </div>
         </section>
     </div>
+    <script src="./js/registration.js"></script>
 </body>
 </html>
