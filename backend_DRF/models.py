@@ -22,10 +22,12 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.surname} {self.name}"
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Student.objects.create(user=instance)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -44,6 +46,17 @@ class Teacher(models.Model):
 
     def __str__(self):
         return f"{self.surname} {self.name}"
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Teacher.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.teacher.save()
 
 
 class Project(models.Model):

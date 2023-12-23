@@ -13,7 +13,6 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-
 class TeacherSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
@@ -28,13 +27,12 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = "__all__"
-
-
 # class AccountSerializer(serializers.ModelSerializer):
 #     #password = serializers.CharField(write_only=True, max_length=15)
 #     class Meta:
 #         model = Account
 #         fields = "__all__"
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -47,6 +45,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # ...
 
         return token
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -85,6 +84,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     #info = StudentSerializer(read_only=True)
