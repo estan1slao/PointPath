@@ -23,10 +23,12 @@
                     <div class="nav-right">
                         <a class="nav-item hidden" href="#"><li>.войти</li></a>
                         <a class="nav-item hidden" href="#"><li>.создать аккаунт</li></a>
-                        <div class="account ">
+                        <div class="account">
                             <a href="./account-student.html">
                                 <span id="fi">Иванов Иван</span>
                                 <img src="./img/account_icon.svg" width="27" height="27">
+                                <span>Иванов Иван</span>
+                                <img src="./img/exit.svg" width="27" height="27">
                             </a>
                         </div>
                     </div>
@@ -201,7 +203,24 @@
             </form>
         </section>
     </div>
+    
+    <div class="popup hidden">
+        <section class="exit-approve wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text">Выйти из системы?</p>
+            <div class="move-links">
+                <a class="popup-link return-link">
+                    <img src="./img/arrow.svg">
+                    <span>вернуться назад</span>
+                </a>
+                <a href="./main-page.html" class="popup-link exit-link">выйти</a>
+            </div>
+        </section>
+    </div>
+  
     <script src="./js/account.js"></script>
+    <script src="./js/popups/exit-approve.js"></script>
+    <script src="./js/popups/archive-projects-student.js"></script>
 </body>
 
 </html>
