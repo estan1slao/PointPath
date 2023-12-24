@@ -1,17 +1,3 @@
-// пример json-файла на регу
-
-// const userDataRegister = {
-//     username: 'insaneee1',
-//     email: 'daybov1_al@mail.ru',
-//     password: 'sanya123',
-//     password2: 'sanya123',
-//     role: 'ученик',
-//     name: 'Александр',
-//     surname: 'Дайбов',
-//     patronymic: 'Валерьевич',
-// }
-
-
 const form = document.querySelector('.second-part');
 
 const roleInput = form.querySelector('#role');
@@ -185,23 +171,6 @@ function setTokens (res) {
     document.cookie = "refresh=" + encodeURIComponent(res.refresh) + "; expires=дата_истечения; path=/";
 }
 
-function getTokens () {
-    const cookies = document.cookie.split('; ');
-
-    cookies.forEach((token) => {
-        const [name, value] = token.split('=');
-        if (name === 'access') {
-            tokens.access = value;
-        } else if (name === 'refresh') {
-            tokens.refresh = value;
-        }
-    })
-    console.log(tokens);
-}
-
-const tokens = {};
-
 function successLogin (res) {
     setTokens(res);
-    // getTokens();
 }

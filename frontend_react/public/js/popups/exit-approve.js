@@ -4,9 +4,6 @@ const exitBtn = document.querySelector('.account').querySelector('img');
 function closeHandler (evt) {
     evt.preventDefault();
     exitApprovePopup.classList.add('hidden');
-
-    closeBtn.removeEventListener('click', closeHandler);
-    returnBtn.removeEventListener('click', closeHandler);
 }
 
 function exitBtnHandler (evt) {
