@@ -25,6 +25,8 @@
                         <a class="nav-item hidden" href="#"><li>.создать аккаунт</li></a>
                         <div class="account">
                             <a href="./account-student.html">
+                                <span id="fi">Иванов Иван</span>
+                                <img src="./img/account_icon.svg" width="27" height="27">
                                 <span>Иванов Иван</span>
                                 <img src="./img/exit.svg" width="27" height="27">
                             </a>
@@ -49,7 +51,7 @@
                     </div>
                     <div class="fio">
                         <p class="title">ФИО</p>
-                        <p class="info-field">Иванов Иван Иванович</p>
+                        <p class="info-field" id="fio">Иванов Иван Иванович</p>
     
                         <p class="title">класс</p>
                         <p class="info-field">10 А</p>
@@ -57,7 +59,7 @@
                 </div>
                 <div class="info-2">
                     <p class="title">эл. почта</p>
-                    <p class='info-field'>ivanov.ii@mail.ru</p>
+                    <p class='info-field' id="email">ivanov.ii@mail.ru</p>
 
                     <p class="title">контакты</p>
                     <ul class="social-icons">
@@ -201,7 +203,7 @@
             </form>
         </section>
     </div>
-
+    
     <div class="popup hidden">
         <section class="exit-approve wrapper">
             <button class="close-btn"></button>
@@ -215,7 +217,8 @@
             </div>
         </section>
     </div>
-
+  
+    <script src="./js/account.js"></script>
     <script src="./js/popups/exit-approve.js"></script>
     <script src="./js/popups/archive-projects-student.js"></script>
 </body>
