@@ -42,10 +42,10 @@
             <form class="second-part" method="post" action="http://127.0.0.1:8000/register/" >
                 <!-- добавил div, чтобы удобнее было вешать hidden'ы -->
                 <div class="reg-first-part"> 
-                    <input class='input registration-input first-part' id="surname" name='surname' placeholder="фамилия" type="text">
-                    <input class='input registration-input first-part' id="name" name='name' placeholder="имя" type="text">
-                    <input class='input registration-input first-part' id="patronymic" name='patronymic' placeholder="отчество" type="text">
-                    <input class='input registration-input first-part' id="email" name='email' placeholder="эл. почта" type="email">
+                    <input class='input registration-input first-part-reg' id="surname" name='surname' placeholder="фамилия" type="text">
+                    <input class='input registration-input first-part-reg' id="name" name='name' placeholder="имя" type="text">
+                    <input class='input registration-input first-part-reg' id="patronymic" name='patronymic' placeholder="отчество" type="text">
+                    <input class='input registration-input first-part-reg' id="email" name='email' placeholder="эл. почта" type="email">
                     <div class="choose_role-container ">
                         <h2 class="choose_role-title">выберете роль</h2>
                         <div class="choose_role">
@@ -53,15 +53,15 @@
                             <button class="role-button" type="button" id="teacher" data-value="учитель">учитель</button>
                         </div>
                     </div>
-                    <input class="role-input first-part" id="role" name="role" hidden/>
+                    <input class="role-input first-part-reg" id="role" name="role" hidden/>
                     <button class="arrow-button " type="button"></button>
                 </div>
                 
                 <!-- добавил div, чтобы удобнее было вешать hidden'ы -->
                 <div class="reg-second-part hidden">
-                    <input class='input registration-input' id="username" name='username' placeholder="логин" type="text">
-                    <input class='input registration-input' id="password" name='password' placeholder="пароль" type="password">
-                    <input class='input registration-input' id="password2" name="password2" placeholder="повторите пароль" type="password">
+                    <input class='input registration-input second-part-reg' id="username" name='username' placeholder="логин" type="text">
+                    <input class='input registration-input second-part-reg' id="password" name='password' placeholder="пароль" type="password">
+                    <input class='input registration-input second-part-reg' id="password2" name="password2" placeholder="повторите пароль" type="password">
                     <div class="form-end">
                         <button class="arrow-button arrow-button-left" type="button"></button>
                         <button class="account-submit" type="submit">cоздать аккаунт</button>

@@ -1,7 +1,5 @@
 const button = document.querySelector('.enter-title');
 
-const tokens = {};
-
 const userDataLogin = {
     username: 'insaneee1',
     password: 'sanya123',
@@ -33,6 +31,8 @@ button.addEventListener('click', () => {
         console.log('Ошибка');
     });
 })
+
+const tokens = {};
 
 function getTokens () {
     const cookies = document.cookie.split('; ');
