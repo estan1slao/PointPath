@@ -223,3 +223,47 @@ button {
     width: 714px;
     height: 477px;
 }
+
+/*стили попапа выхода*/
+
+.exit-approve.wrapper {
+    background-color: #BDBDBF;
+}
+
+.exit-approve > p {
+    align-self: center;
+    font-size: 56px;
+    font-weight: 600;
+    width: 93%;
+    margin-top: 44px;
+    margin-bottom: 47px;
+}
+
+.move-links {
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    width: 90%;
+    margin-bottom: 139px;
+}
+
+.move-links img{
+    transform: rotate(180deg);
+    margin-right: 16px;
+}
+
+.exit-approve.popup-link {
+    align-self: flex-start;
+}
+
+.popup-link {
+    cursor: pointer;
+}
+
+.close-btn {
+    cursor: pointer;
+}
+
+.exit-link {
+    align-self: flex-end;
+}
