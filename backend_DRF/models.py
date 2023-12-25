@@ -73,11 +73,11 @@ class Project(models.Model):
 
 
 class Tasks(models.Model):
-    card_id = models.IntegerField(primary_key=True, unique=True)
-    project = models.ForeignKey('Project', on_delete=models.PROTECT)
-    category = models.CharField(max_length=50)
-    task = models.TextField()
-    description = models.TextField()
+    card_id = models.IntegerField(primary_key=True, unique=True, blank=True)
+    project = models.ForeignKey('Project', on_delete=models.PROTECT, blank=True)
+    category = models.CharField(max_length=50, blank=True)
+    task = models.TextField(blank=True)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.task

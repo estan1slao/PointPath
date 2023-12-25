@@ -138,4 +138,23 @@ class CardsSerializer(serializers.ModelSerializer):
         model = Tasks
         fields = "__all__"
 
+    def create(self, validated_data):
+        task = Tasks.objects.create(
+            card_id=validated_data['card_id'],
+            category=validated_data['category'],
+            task=validated_data['task'],
+            description=validated_data['description'],
+            project=validated_data['project'],
+        )
 
+        task.save()
+        return task
+
+    def update(self, instance, validated_data):
+        instance.card_id = validated_data.get("card_id", instance.card_id)
+        instance.category = validated_data.get("category", instance.category)
+        instance.task = validated_data.get("task", instance.task)
+        instance.description = validated_data.get("description", instance.description)
+        instance.project = validated_data.get("project", instance.project)
+        instance.save()
+        return instance

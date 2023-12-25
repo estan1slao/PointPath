@@ -118,8 +118,50 @@ class CardsView(generics.CreateAPIView):
 def getCards(request):
     if request.method == 'GET':
         user = request.user
-        project_id = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
+        project = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
         cards = Tasks.objects.raw(
-            f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project_id])
+            f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
         serializer = CardsSerializer(cards)
         return Response({'post': serializer.data})
+
+
+class CardUpdateView(APIView):
+    def check(self, user_id, pk):
+        project = Project.objects.raw(
+            "SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
+        if len(project) == 0:
+            return Response({"message": "У вас нет доступа для удаления данных"})
+        cards = Tasks.objects.raw(
+            f"SELECT card_id FROM backend_DRF_tasks WHERE project_id=%s",
+            [project[0].project_id])
+        cards_id_list = [card.card_id for card in cards]
+        if not (pk in cards_id_list):
+            return Response({"message": "У вас нет доступа для удаления данных"})
+
+    def put(self, request, *args, **kwargs):
+        user_id = request.user.id
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Метод PUT не определён"})
+        try:
+            instance = Tasks.objects.get(card_id=pk)
+        except:
+            return Response({"error": "Объект не найден"})
+        self.check(user_id, pk)
+        serializer = CardsSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post": serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        user_id = request.user.id
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Метод delete не определён"})
+        self.check(user_id, pk)
+        Tasks.objects.filter(card_id=pk).delete()
+        return Response({"post": "delete card " + str(pk)})
+
+#class CardUpdateView(generics.UpdateAPIView):
+   #queryset = Tasks.objects.all()
+   #serializer_class = CardsSerializer
