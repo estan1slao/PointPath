@@ -1,5 +1,10 @@
+from django.contrib.auth.handlers.modwsgi import check_password
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
-from rest_framework import serializers
+from rest_framework import serializers, status
+from rest_framework.response import Response
+from rest_framework.serializers import raise_errors_on_nested_writes
+from rest_framework.utils import model_meta
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -87,11 +92,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    #info = StudentSerializer(read_only=True)
-
     class Meta:
         model = Account
-        fields = '__all__'
+        fields = ('id', 'password', 'username', 'first_name', 'last_name', 'email', 'role', 'patronymic', 'about',
+                  'vk', 'telegram', 'phone_number')
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -106,3 +110,24 @@ class ProfileSerializer(serializers.ModelSerializer):
             representation['info'] = teachers_data
 
         return representation
+
+    def update(self, instance, validated_data):
+        if "password" in validated_data:
+            raise serializers.ValidationError("Чтобы поменять пароль обратитесь по адресу: /update-password/")
+
+        if "role" in validated_data:
+            raise serializers.ValidationError("Невозможно поменять роль у пользователя.")
+
+        if "username" in validated_data:
+            raise serializers.ValidationError("Невозможно поменять username у пользователя.")
+
+        if "email" in validated_data:
+            raise serializers.ValidationError("Невозможно поменять email у пользователя.")
+
+
+        validated_data.pop('role', None)
+        validated_data.pop('username', None)
+        validated_data.pop('email', None)
+        validated_data.pop('password', None)
+
+        return super(ProfileSerializer, self).update(instance, validated_data)

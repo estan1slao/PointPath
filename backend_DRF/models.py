@@ -14,7 +14,6 @@ class Student(models.Model):
     #name = models.CharField(max_length=20)
     #surname = models.CharField(max_length=20)
     #patronymic = models.CharField(blank=True, max_length=20)
-    phone_number = models.TextField(blank=True, max_length=12, null=True) #CharField
     #personal_email = models.EmailField(max_length=30)
     grade = models.CharField(max_length=4, null=True) #blank=True
     user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
@@ -43,7 +42,7 @@ class Teacher(models.Model):
     phone_number = models.TextField(blank=True, max_length=12, null=True) #CharField
     #personal_email = models.EmailField(max_length=30)
     discipline = models.TextField(null=True) #blank=True
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
+    user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return f"{self.surname} {self.name}"
@@ -103,6 +102,10 @@ class Account(AbstractUser):
     #id = models.IntegerField(primary_key=True, unique=True)
     role = models.CharField(max_length=20)
     patronymic = models.CharField(blank=True, max_length=20)
+    phone_number = models.TextField(blank=True, max_length=12, null=True) #CharField
+    telegram = models.TextField(blank=True, null=True)
+    vk = models.TextField(blank=True, null=True)
+    about = models.TextField(blank=True, null=True, max_length=950)
     #login = models.TextField(unique=True)
     #password = models.CharField(max_length=15) #delete max_lenght=15
 
