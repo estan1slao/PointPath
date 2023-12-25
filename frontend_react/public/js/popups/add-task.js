@@ -1,3 +1,4 @@
+const URL_CARDS = 'http://127.0.0.1:8000/cards/';
 const addTaskBtn = document.querySelector('.add-task');
 const taskPopup = document.querySelector('.edit-task').closest('.popup');
 
@@ -12,11 +13,11 @@ function saveBtnHandler (evt) {
     const date = new Date();
 
     let object = {
-        id_card: Date.parse(date),
-        type: 'planned',
-        theme: document.querySelector('#theme-task-input').value,
-        about: document.querySelector('#about-task-input').value,
-        id_project: 1
+        card_id: Date.parse(date),
+        category: 'planned',
+        task: document.querySelector('#theme-task-input').value,
+        description: document.querySelector('#about-task-input').value,
+        project: 1
     };
 
     const data = JSON.stringify(object);
@@ -33,8 +34,6 @@ function addTaskBtnHandler (evt) {
     const closeBtn = taskPopup.querySelector('.close-btn');
     const saveBtn = taskPopup.querySelector('.save-button');
 
-    console.log(saveBtn);
-
     saveBtn.addEventListener('click', saveBtnHandler);
     closeBtn.addEventListener('click', closeBtnTaskHandler);
 }
@@ -50,15 +49,12 @@ function sendDataCard(url, data) {
     },
     )
     .then((response) => {
-        if(response.ok){
-            console.log(response);
-        }
-        else {
-            console.log('Ошибка 4');
+        if(!response.ok){
+            console.log('Ошибка в POST запросе при создании карточки');
         }
     })
     .catch(() => {
-        console.log('Ошибка 3');
+        console.log('Ошибка в POST запросе при создании карточки, но не в URL');
     })
 }
 
