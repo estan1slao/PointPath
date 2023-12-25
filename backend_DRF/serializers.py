@@ -131,3 +131,71 @@ class ProfileSerializer(serializers.ModelSerializer):
         validated_data.pop('password', None)
 
         return super(ProfileSerializer, self).update(instance, validated_data)
+
+class TeacherOffersProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('topic', 'about', 'field_of_activity')
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        if user.role == 'учитель':
+            project = Project.objects.create(
+                topic=validated_data['topic'],
+                about=validated_data['about'],
+                field_of_activity=validated_data['field_of_activity'],
+                teacher_id=user.id,
+                student_id=None,
+                state=0
+            )
+            project.save()
+            return project
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+
+
+class StudentChoosesProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = "__all__"
+
+    def get_value(self, dictionary):
+        if (dictionary.get("student_id") is None):
+            return super().get_value()
+
+    def update(self, instance, validated_data):
+        if "student_id" in validated_data:
+            # Обновление значения поля active на 1
+            instance.active = 1
+            instance.save()
+            return super().update(instance, validated_data["student_id"])
+
+
+class StudentOffersProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('topic', 'about', 'field_of_activity', 'student_id', 'teacher_id')
+
+    def create(self, validated_data):
+        project = Project.objects.create(
+            topic=validated_data['topic'],
+            about=validated_data['about'],
+            field_of_activity=validated_data['field_of_activity'],
+            student_id=self.data.get("id"),
+            teacher_id=validated_data['teacher_id'],
+        )
+        project.save()
+        return project
+
+class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = "__all__"
+
+    def get_value(self, dictionary):
+        if (dictionary.get("teacher_id") == self.data.get("id")):
+            return super().get_value()
+
+    def update(self, instance, validated_data):
+        if "state" in validated_data:
+            return super().update(instance, validated_data["state"])

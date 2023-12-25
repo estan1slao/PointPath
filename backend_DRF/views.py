@@ -106,6 +106,26 @@ def updatePassword(request):
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
 
+class TeacherOffersProjectViewSet(mixins.CreateModelMixin,
+                     GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = TeacherOffersProjectSerializer
+
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def teacherOffersProject(request):
+#     user = request.user
+#     serializer = TeacherOffersProjectSerializer(user, data=request.data, partial=True)
+#     if (user.role == 'учитель'):
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         else:
+#             return Response(serializer.data)
+#     else:
+#         return Response({"error": "Роль пользователя не учитель."}, status=status.HTTP_400_BAD_REQUEST)
+
+
 #api/notes
 # @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
