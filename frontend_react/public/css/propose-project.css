@@ -98,8 +98,13 @@ select {
 
 .form-button {
     color: #8A8A8F;
-    font-size: 28px;
     cursor: pointer;
+}
+
+.form-button button {
+    font-family: 'Zona Pro', sans-serif;
+    font-size: 28px;
+    color: #8A8A8F;
 }
 
 
@@ -196,44 +201,4 @@ select {
     width: 87%;
     margin-top: 10px;
     margin-bottom: 74px;
-}
-
-/*нужно на другую страницу переместить*/
-
-.success-choice.wrapper {
-    background-color: #96EC8E;
-}
-
-.success-choice > p {
-    font-size: 48px;
-    font-weight: 600;
-    width: 87%;
-    margin-top: 10px;
-    margin-bottom: 74px;
-}
-
-
-.denied-form.wrapper {
-    background-color: #E694F7;
-}
-
-.denied-form > p {
-    font-size: 48px;
-    font-weight: 600;
-    width: 87%;
-    margin-top: 10px;
-    margin-bottom: 74px;
-}
-
-
-.approve-form.wrapper {
-    background-color: #96EC8E;
-}
-
-.approve-form > p {
-    font-size: 48px;
-    font-weight: 600;
-    width: 90%;
-    margin-top: 30px;
-    margin-bottom: 130px;
 }

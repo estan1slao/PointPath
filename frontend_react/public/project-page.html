@@ -72,10 +72,10 @@
                 </div>
                 
                 <div class="buttons-block">
-                    <button class="take-button ">хочу взять проект</button>
-                    <button class="take-button hidden">перейти к траектории</button>
-                    <button class="take-button approve hidden">одобрить заявку</button>
-                    <button class="take-button reject hidden">отклонить заявку</button>
+                    <button class="take-button student-choice hidden">хочу взять проект</button>
+                    <button class="take-button trajectory hidden">перейти к траектории</button>
+                    <button class="take-button approve">одобрить заявку</button>
+                    <button class="take-button reject">отклонить заявку</button>
                 </div>
             </div>
 
@@ -107,8 +107,44 @@
             </section>
         </div>
 
+        <div class="popup hidden">
+            <section class="success-choice wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text ">Выбор прошел успешно. Самое время приступить к реализации! </p>
+                <a href="./account-student.html" class="popup-link">
+                    <span>в личный кабинет</span>
+                    <img src="./img/arrow.svg">
+                </a>
+            </section>
+        </div>
+
+        <div class="popup hidden">
+            <section class="approve-form wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text">Вы утвердили проект. Ученик вскоре узнает об этом! </p>
+                <a href="./catalog.html" class="popup-link">
+                    <span>вернуться назад</span>
+                    <img src="./img/arrow.svg">
+                </a>
+            </section>
+        </div>
+    
+        <div class="popup hidden">
+            <section class="denied-form wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text ">Проект был успешно отклонен. Ученику отправлено оповещение. </p>
+                <a href="./catalog.html" class="popup-link">
+                    <span>вернуться назад</span>
+                    <img src="./img/arrow.svg">
+                </a>
+            </section>
+        </div>
+
     </div>
 
+    
     <script src="./js/popups/exit-approve.js"></script>
+    <script src="./js/popups/success-choice.js"></script>
+    <script src="./js/popups/form-approve-teacher.js"></script>
 </body>
 </html>
