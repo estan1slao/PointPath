@@ -11,8 +11,10 @@ const regSecondPart = form.querySelector('.reg-second-part');
 
 const popup = document.querySelector('.popup')
 
+
+// TODO: вынести в константы
 const URL_REG = 'http://127.0.0.1:8000/register/';
-const URL_LOGIN = 'http://127.0.0.1:8000/token/'
+const URL_LOGIN = 'http://127.0.0.1:8000/token/';
 
 studentRoleButton.addEventListener('click', () => {
     studentRoleButton.classList.add('active-role-button');
@@ -26,6 +28,8 @@ teacherRoleButton.addEventListener('click', () => {
     roleInput.value = teacherRoleButton.dataset.value;
 });
 
+
+// TODO: вынести эту функцию в утилиты
 function checkEmptyInputs (inputs) {
     let flag = true;
     inputs.forEach((input) => {
@@ -50,6 +54,8 @@ backButton.addEventListener('click', () => {
     regSecondPart.classList.add('hidden');
 });
 
+
+// TODO: вынести эту функцию в утилиты
 function getJSONForm (formValues) {
     const formData = new FormData(formValues);
     let object = {};
@@ -140,6 +146,7 @@ document.addEventListener('click', clickOutsidePopup);
 
 // авторизация (вход после реги)
 
+// TODO: вынести эту функцию в утилиты
 function postDataLogin (url, data, onSuccess) {
     fetch(url,
     {
@@ -166,6 +173,8 @@ function postDataLogin (url, data, onSuccess) {
     });
 }
 
+
+// TODO: вынести эту функцию в утилиты
 function setTokens (res) {
     document.cookie = "access=" + encodeURIComponent(res.access) + "; expires=дата_истечения; path=/";
     document.cookie = "refresh=" + encodeURIComponent(res.refresh) + "; expires=дата_истечения; path=/";

@@ -48,9 +48,9 @@
             </div>
             <div class="form-container">
                 <h1 class="title enter-title">.вход</h1>
-                <form>
-                    <input class='input enter-input' name='login' placeholder="логин" type="text">
-                    <input class='input enter-input' name='password' placeholder="пароль" type="password">
+                <form class="login-form" method="post" action="http://127.0.0.1:8000/token/">
+                    <input class='input enter-input' id="username" name='username' placeholder="логин" type="text">
+                    <input class='input enter-input' id="password" name='password' placeholder="пароль" type="password">
                     <button class="arrow-button" type="submit"></button>
                 </form>
             </div>

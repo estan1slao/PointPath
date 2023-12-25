@@ -73,6 +73,7 @@ header {
 
 .proj-info {
     margin-left: 158px;
+    margin-right: 158px;
     max-width: 1350px;
 }
 
@@ -83,6 +84,7 @@ header {
 }
 
 .proj-text {
+    width: 100%;
     font-size: 32px;
     margin-bottom: 38px;
 }
