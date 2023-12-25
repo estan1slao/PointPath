@@ -106,55 +106,20 @@ def updatePassword(request):
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
 
-#api/notes
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def getNotes(request):
-#     public_notes = Note.objects.filter(is_public=True).order_by('-updated')[:10]
-#     user_notes = request.user.notes.all().order_by('-updated')[:10]
-#     notes = public_notes | user_notes
-#     serializer = NoteSerializer(notes, many=True)
-#     return Response(serializer.data)
+
+class CardsView(generics.CreateAPIView):
+    queryset = Tasks.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = CardsSerializer
 
 
-# class AccountChangePasswordView(APIView):
-#     def post(self, request):
-#         user = request.user
-#         serializer = ChangePasswordSerializer(
-#             instance=user, data=request.data
-#         )
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(status=HTTP_204_NO_CONTENT)
-
-
-
-# class AccountViewSet(mixins.CreateModelMixin,
-#                      mixins.UpdateModelMixin,
-#                      mixins.DestroyModelMixin,
-#                      GenericViewSet):
-#     queryset = Account.objects.all()
-#     serializer_class = AccountSerializer
-    # def update(self, request, *args, **kwargs):
-    #     if IsOwner():
-    #         instance = self.get_object()
-    #         partial = kwargs.pop('partial', False)
-    #         serializer = self.get_serializer(instance, data=request.data, partial=partial)
-    #         serializer.is_valid(raise_exception=True)
-    #         self.perform_update(serializer)
-    #
-    #         if getattr(instance, '_prefetched_objects_cache', None):
-    #             # If 'prefetch_related' has been applied to a queryset, we need to
-    #             # forcibly invalidate the prefetch cache on the instance.
-    #             instance._prefetched_objects_cache = {}
-    #
-    #         return Response(serializer.data)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-    #
-    # def destroy(self, request, *args, **kwargs):
-    #     if IsOwner():
-    #         instance = self.get_object()
-    #         self.perform_destroy(instance)
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-    # permission_classes = (IsAdminUser, )
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getCards(request):
+    if request.method == 'GET':
+        user = request.user
+        project_id = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE user_id=%s", [user.id])
+        cards = Tasks.objects.raw(
+            f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project_id])
+        serializer = CardsSerializer(cards)
+        return Response({'post': serializer.data})
