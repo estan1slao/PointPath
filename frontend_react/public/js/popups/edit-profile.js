@@ -3,28 +3,30 @@ const editBtn = document.querySelector('.edit');
 
 function saveBtnHandler (evt) {
     evt.preventDefault();
-    
 
-    closeBtn.removeEventListener('click', closeHandler);
-    saveBtn.removeEventListener('click', saveBtnHandler);
+    // сюда надо добавить запрос
+    // надо подумать над удалением обработчиков
+
+    this.removeEventListener('click', saveBtnHandler);
 }
 
-function closeHandler (evt) {
+function closeHandlerEditPr (evt) {
     evt.preventDefault();
     editProfilePopup.classList.add('hidden');
 
-    closeBtn.removeEventListener('click', closeHandler);
-    saveBtn.removeEventListener('click', saveBtnHandler);
+    this.removeEventListener('click', closeHandlerEditPr);
 }
 
 function editBtnHandler (evt) {
     evt.preventDefault();
     editProfilePopup.classList.remove('hidden');
 
+    // надо подумать над удалением обработчиков
+
     const closeBtn = editProfilePopup.querySelector('.close-btn');
     const saveBtn = editProfilePopup.querySelector('.save-button');
 
-    closeBtn.addEventListener('click', closeHandler);
+    closeBtn.addEventListener('click', closeHandlerEditPr);
     saveBtn.addEventListener('click', saveBtnHandler);
 }
 

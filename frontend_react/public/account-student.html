@@ -15,19 +15,29 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <div class="nav-left">
-                        <a class="nav-item" href="./main-page.html"><li>.главная</li></a>
-                        <a class="nav-item" href="./project-choice.html"><li>.проект</li></a>
-                        <a class="nav-item" href="./trajectory.html"><li>.траектория</li></a>
-                        <a class="nav-item hidden" href="#"><li>.проекты на рассмотрение</li></a>
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item hidden" href="#">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
                     </div>
                     <div class="nav-right">
-                        <a class="nav-item hidden" href="#"><li>.войти</li></a>
-                        <a class="nav-item hidden" href="#"><li>.создать аккаунт</li></a>
+                        <a class="nav-item hidden" href="#">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item hidden" href="#">
+                            <li>.создать аккаунт</li>
+                        </a>
                         <div class="account">
                             <a href="./account-student.html">
                                 <span id="fi">Иванов Иван</span>
-                                <img src="./img/account_icon.svg" width="27" height="27">
-                                <span>Иванов Иван</span>
                                 <img src="./img/exit.svg" width="27" height="27">
                             </a>
                         </div>
@@ -40,9 +50,9 @@
                     <span class="">редактировать</span>
                 </a>
             </div>
-            
+
         </header>
-    
+
         <main>
             <div class="account-info-block">
                 <div class="info-1">
@@ -52,9 +62,10 @@
                     <div class="fio">
                         <p class="title">ФИО</p>
                         <p class="info-field" id="fio">Иванов Иван Иванович</p>
-    
+
                         <p class="title">класс</p>
-                        <p class="info-field">10 А</p>
+                        <!-- <p class="title">специализация</p> -->
+                        <p class="info-field">не указано</p>
                     </div>
                 </div>
                 <div class="info-2">
@@ -75,18 +86,16 @@
                     </ul>
                 </div>
             </div>
-    
+
             <div class="info-cards">
                 <div class='skills-block-wrapper'>
                     <div class='skills-block'>
                         <p class="title">что я умею?</p>
-                        <p class="skills-text">Я вот такой вот уже молодец, что придумал такой интересный текст, который безусловно
-                            очень важен для моей жизни. Впрочем, я такой недоавтор, недодизайнер, но я все еще тренируюсь.<br>
-                            А так я дизайнер и Frontend-разработчик...
+                        <p class="skills-text">Здесь пока ничего нет, но вы можете рассказать немного о себе :)
                         </p>
                     </div>
                 </div>
-                <div class="projects-cards">
+                <div class="projects-cards student">
                     <div class='active-projects-s'>
                         <p class="title">активный проект</p>
                         <p class="active-projects-text">Веб-сервис для отслеживания прогресса в разработке проектов</p>
@@ -98,7 +107,7 @@
                         <p class="title">учитель</p>
                         <p class="active-projects-text ">Петров Пётр Петрович</p>
                     </div>
-                    
+
                     <div class="archive-projects">
                         <p class="title">архивные проекты</p>
                         <ul>
@@ -122,9 +131,57 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="projects-cards teacher hidden">
+                    <div class="active-projects-t">
+                        <p class="title">активные проекты учеников</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Иванов Иван Иванович</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Обухов Вениамин Давыдович</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                        </ul>
+                        <a class='more' href="#">
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                        </a>
+                    </div>
+                    
+                    <div class="archive-projects">
+                        <p class="title">архивные проекты учеников</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Новелла на RenPy</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Сайт-портфолио для студентов</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                        </ul>
+                        <a class='more' href="#">
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </main>
-    
+
         <footer>
             <div class='logo'>
                 <img src="./img/logo.svg" width="321" height="94">
@@ -203,7 +260,7 @@
             </form>
         </section>
     </div>
-    
+
     <div class="popup hidden">
         <section class="exit-approve wrapper">
             <button class="close-btn"></button>
@@ -217,10 +274,11 @@
             </div>
         </section>
     </div>
-  
-    <script src="./js/account.js"></script>
+
     <script src="./js/popups/exit-approve.js"></script>
     <script src="./js/popups/archive-projects-student.js"></script>
+    <script src="./js/popups/edit-profile.js"></script>
+    <script src="./js/account.js"></script>
 </body>
 
 </html>

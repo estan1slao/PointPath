@@ -1,17 +1,3 @@
-// пример json-файла на регу
-
-// const userDataRegister = {
-//     username: 'insaneee1',
-//     email: 'daybov1_al@mail.ru',
-//     password: 'sanya123',
-//     password2: 'sanya123',
-//     role: 'ученик',
-//     name: 'Александр',
-//     surname: 'Дайбов',
-//     patronymic: 'Валерьевич',
-// }
-
-
 const form = document.querySelector('.second-part');
 
 const roleInput = form.querySelector('#role');
@@ -25,8 +11,10 @@ const regSecondPart = form.querySelector('.reg-second-part');
 
 const popup = document.querySelector('.popup')
 
+
+// TODO: вынести в константы
 const URL_REG = 'http://127.0.0.1:8000/register/';
-const URL_LOGIN = 'http://127.0.0.1:8000/token/'
+const URL_LOGIN = 'http://127.0.0.1:8000/token/';
 
 studentRoleButton.addEventListener('click', () => {
     studentRoleButton.classList.add('active-role-button');
@@ -40,6 +28,8 @@ teacherRoleButton.addEventListener('click', () => {
     roleInput.value = teacherRoleButton.dataset.value;
 });
 
+
+// TODO: вынести эту функцию в утилиты
 function checkEmptyInputs (inputs) {
     let flag = true;
     inputs.forEach((input) => {
@@ -64,6 +54,8 @@ backButton.addEventListener('click', () => {
     regSecondPart.classList.add('hidden');
 });
 
+
+// TODO: вынести эту функцию в утилиты
 function getJSONForm (formValues) {
     const formData = new FormData(formValues);
     let object = {};
@@ -154,6 +146,7 @@ document.addEventListener('click', clickOutsidePopup);
 
 // авторизация (вход после реги)
 
+// TODO: вынести эту функцию в утилиты
 function postDataLogin (url, data, onSuccess) {
     fetch(url,
     {
@@ -180,28 +173,13 @@ function postDataLogin (url, data, onSuccess) {
     });
 }
 
+
+// TODO: вынести эту функцию в утилиты
 function setTokens (res) {
     document.cookie = "access=" + encodeURIComponent(res.access) + "; expires=дата_истечения; path=/";
     document.cookie = "refresh=" + encodeURIComponent(res.refresh) + "; expires=дата_истечения; path=/";
 }
 
-function getTokens () {
-    const cookies = document.cookie.split('; ');
-
-    cookies.forEach((token) => {
-        const [name, value] = token.split('=');
-        if (name === 'access') {
-            tokens.access = value;
-        } else if (name === 'refresh') {
-            tokens.refresh = value;
-        }
-    })
-    console.log(tokens);
-}
-
-const tokens = {};
-
 function successLogin (res) {
     setTokens(res);
-    // getTokens();
 }
