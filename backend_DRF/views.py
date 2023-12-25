@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins, status, generics
 from rest_framework.decorators import action, api_view, permission_classes
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT
@@ -105,6 +105,88 @@ def updatePassword(request):
     user.save()
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
+
+  
+class TeacherOffersProjectViewSet(mixins.CreateModelMixin,
+                     GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = TeacherOffersProjectSerializer
+
+
+class StudentGetProjectViewSet(mixins.ListModelMixin,
+                                    GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = StudentGetProjectSerializer
+
+    def get_queryset(self):
+        return Project.objects.filter(student_id__isnull=True)
+
+
+class StudentChoosesProjectUpdateView(UpdateAPIView):
+    queryset = Project.objects.filter(student_id__isnull=True)
+    serializer_class = StudentChoosesProjectSerializer
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'ученик':
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data={'state': 1, 'student_id': user.id}, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли ученик!")
+
+
+class StudentOffersProjectViewSet(mixins.CreateModelMixin,
+                     GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = StudentOffersProjectSerializer
+
+class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
+                             GenericViewSet):
+    queryset = Project.objects.filter(state=0)
+    serializer_class = TeacherViewProjectsSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+
+class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
+                                 mixins.DestroyModelMixin,
+                                 GenericAPIView):
+    queryset = Project.objects.filter(state=0)
+    serializer_class = TeacherAcceptsProjectsSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+
+    def destroy(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'учитель':
+            instance = self.get_object()
+            self.perform_destroy(instance)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'учитель':
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data={'state': 1, 'id': self.get_object().id}, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
 
 
 class CardsView(generics.CreateAPIView):
