@@ -65,7 +65,7 @@ class Project(models.Model):
     topic = models.TextField()
     student = models.ForeignKey('Student', on_delete=models.PROTECT)
     teacher = models.ForeignKey('Teacher', on_delete=models.PROTECT)
-    material_link = models.URLField() #? blank=True
+    material_link = models.URLField(blank=True, null=True)
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
@@ -73,19 +73,19 @@ class Project(models.Model):
 
 
 class Tasks(models.Model):
-    card_id = models.IntegerField(primary_key=True, unique=True)
-    project_id = models.ForeignKey('Project', on_delete=models.PROTECT)
-    category = models.CharField(max_length=50)
-    task = models.TextField()
-    description = models.TextField()
+    card_id = models.IntegerField(primary_key=True, unique=True, blank=True)
+    project = models.ForeignKey('Project', on_delete=models.PROTECT, blank=True)
+    category = models.CharField(max_length=50, blank=True)
+    task = models.TextField(blank=True)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.task
 
 
 class Comments(models.Model):
-    card_id = models.ForeignKey('Tasks', on_delete=models.PROTECT)
-    user_id = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    card = models.ForeignKey('Tasks', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     content = models.TextField()
 
     def __str__(self):
@@ -93,8 +93,8 @@ class Comments(models.Model):
 
 
 class Files(models.Model):
-    card_id = models.ForeignKey('Tasks', on_delete=models.PROTECT)
-    user_id = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    card = models.ForeignKey('Tasks', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     file = models.FileField()
 
 

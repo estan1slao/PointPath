@@ -106,55 +106,62 @@ def updatePassword(request):
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
 
-#api/notes
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def getNotes(request):
-#     public_notes = Note.objects.filter(is_public=True).order_by('-updated')[:10]
-#     user_notes = request.user.notes.all().order_by('-updated')[:10]
-#     notes = public_notes | user_notes
-#     serializer = NoteSerializer(notes, many=True)
-#     return Response(serializer.data)
+
+class CardsView(generics.CreateAPIView):
+    queryset = Tasks.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = CardsSerializer
 
 
-# class AccountChangePasswordView(APIView):
-#     def post(self, request):
-#         user = request.user
-#         serializer = ChangePasswordSerializer(
-#             instance=user, data=request.data
-#         )
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(status=HTTP_204_NO_CONTENT)
+@api_view(['GET'])
+#@permission_classes([IsAuthenticated])
+def getCards(request):
+        #user = request.user
+        #project = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
+        #cards = Tasks.objects.raw(
+            #f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
+        cards = Tasks.objects.all()
+        serializer = CardsSerializer(cards, many=True)
+        return Response(serializer.data)
 
 
+class CardUpdateView(APIView):
+    def check(self, user_id, pk):
+        project = Project.objects.raw(
+            "SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
+        if len(project) == 0:
+            return Response({"message": "У вас нет доступа для удаления данных"})
+        cards = Tasks.objects.raw(
+            f"SELECT card_id FROM backend_DRF_tasks WHERE project_id=%s",
+            [project[0].project_id])
+        cards_id_list = [card.card_id for card in cards]
+        if not (pk in cards_id_list):
+            return Response({"message": "У вас нет доступа для удаления данных"})
 
-# class AccountViewSet(mixins.CreateModelMixin,
-#                      mixins.UpdateModelMixin,
-#                      mixins.DestroyModelMixin,
-#                      GenericViewSet):
-#     queryset = Account.objects.all()
-#     serializer_class = AccountSerializer
-    # def update(self, request, *args, **kwargs):
-    #     if IsOwner():
-    #         instance = self.get_object()
-    #         partial = kwargs.pop('partial', False)
-    #         serializer = self.get_serializer(instance, data=request.data, partial=partial)
-    #         serializer.is_valid(raise_exception=True)
-    #         self.perform_update(serializer)
-    #
-    #         if getattr(instance, '_prefetched_objects_cache', None):
-    #             # If 'prefetch_related' has been applied to a queryset, we need to
-    #             # forcibly invalidate the prefetch cache on the instance.
-    #             instance._prefetched_objects_cache = {}
-    #
-    #         return Response(serializer.data)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-    #
-    # def destroy(self, request, *args, **kwargs):
-    #     if IsOwner():
-    #         instance = self.get_object()
-    #         self.perform_destroy(instance)
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-    # permission_classes = (IsAdminUser, )
+    def put(self, request, *args, **kwargs):
+        user_id = request.user.id
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Метод PUT не определён"})
+        try:
+            instance = Tasks.objects.get(card_id=pk)
+        except:
+            return Response({"error": "Объект не найден"})
+        self.check(user_id, pk)
+        serializer = CardsSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post": serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        user_id = request.user.id
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Метод delete не определён"})
+        self.check(user_id, pk)
+        Tasks.objects.filter(card_id=pk).delete()
+        return Response({"post": "delete card " + str(pk)})
+
+#class CardUpdateView(generics.UpdateAPIView):
+   #queryset = Tasks.objects.all()
+   #serializer_class = CardsSerializer

@@ -39,5 +39,10 @@ urlpatterns = [
     # Profile
     path('profile/', views.getProfile, name='profile'),
     path('profile/update/', views.updateProfile, name='update-profile'),
-    path('profile/update-password/', views.updatePassword, name='update-password')
+    path('profile/update-password/', views.updatePassword, name='update-password'),
+
+    #Tasks
+    path('cards/', views.CardsView.as_view(), name='save-cards'),
+    path('getcards/', views.getCards, name='get-Cards'),
+    path('card/<int:pk>', views.CardUpdateView.as_view(), name='update-card')
 ]
