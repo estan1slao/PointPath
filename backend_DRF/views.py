@@ -151,28 +151,40 @@ class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
         user = self.request.user
         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
 
-# class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
-#                                  mixins.DestroyModelMixin,
-#                                  GenericAPIView):
-#     queryset = Project.objects.filter(state=0)
-#     serializer_class = TeacherAcceptsProjectsSerializer
-#
-#     def get_queryset(self):
-#         user = self.request.user
-#         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
-#
-#     def destroy(self, request, *args, **kwargs):
-#         user = request.user
-#         if user.role == 'учитель':
-#             ...
-#         else:
-#             raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
-#
-#     def update(self, request, *args, **kwargs):
-#         user = request.user
-#         if user.role == 'учитель':
-#             ...
-#         else:
-#             raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
+                                 mixins.DestroyModelMixin,
+                                 GenericAPIView):
+    queryset = Project.objects.filter(state=0)
+    serializer_class = TeacherAcceptsProjectsSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+
+    def destroy(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'учитель':
+            instance = self.get_object()
+            self.perform_destroy(instance)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'учитель':
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data={'state': 1, 'id': self.get_object().id}, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
 
 
