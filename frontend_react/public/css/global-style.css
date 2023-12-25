@@ -53,6 +53,8 @@ button {
     background: none;
     border: none;
     padding: 0;
+    cursor: pointer;
+    font-family: Zona Pro;
 }
 
 .hidden {
@@ -107,8 +109,6 @@ button {
 }
 
 .edit {
-    font-size: 20px;
-
     display: flex;
     justify-content: flex-end;
     
@@ -116,9 +116,11 @@ button {
     padding: 0;
 }
 
-.edit a {
+.edit-button {
     display: flex;
     align-items: center;
+
+    font-size: 20px;
 }
 
 .logo {

@@ -45,10 +45,10 @@
                 </ul>
             </nav>
             <div class="edit">
-                <a href="#">
+                <button class="edit-button" type="button">
                     <img class="" src="./img/edit.svg" width="24" height="24">
                     <span class="">редактировать</span>
-                </a>
+                </button>
             </div>
 
         </header>
@@ -65,7 +65,7 @@
 
                         <p class="title">класс</p>
                         <!-- <p class="title">специализация</p> -->
-                        <p class="info-field">не указано</p>
+                        <p class="info-field" id="grade">не указан</p>
                     </div>
                 </div>
                 <div class="info-2">
@@ -74,16 +74,17 @@
 
                     <p class="title">контакты</p>
                     <ul class="social-icons">
-                        <li>
-                            <a href="#"><img src="./img/telegram.svg" width="56" height="56"></a>
+                        <li class="hidden">
+                            <a id="tg"><img src="./img/telegram.svg" width="56" height="56"></a>
                         </li>
-                        <li>
-                            <a href="#"><img src="./img/vk.svg" width="56" height="56"></a>
+                        <li class="hidden">
+                            <a id="vk" ><img src="./img/vk.svg" width="56" height="56"></a>
                         </li>
-                        <li>
-                            <a href="#"><img src="./img/phone.svg" width="47" height="47"></a>
+                        <li class="hidden">
+                            <a id="phone"><img src="./img/phone.svg" width="47" height="47"></a>
                         </li>
                     </ul>
+                    <div class="no-contacts">не указаны</div>
                 </div>
             </div>
 
@@ -226,37 +227,41 @@
         <section class="edit-profile wrapper">
             <button class="close-btn"></button>
             <p class="popup-text">Редактирование профиля</p>
-            <form>
+            <form class="edit-form">
                 <div class="input-wrapper">
                     <label class="input-label" for="about-input">о себе</label>
                     <input type="text" name="about" id="about-input" placeholder="давайте познакомимся поближе">
                 </div>
                 <div class="input-wrapper">
-                    <label class="input-label" for="profession-input">специализация</label>
-                    <input type="text" name="about" id="profession-input">
+                    <label class="input-label" for="profession-input">класс</label>
+                    <input type="text" name="grade" id="grade-input">
                 </div>
                 <div class="contacts-wrapper">
                     <p class="input-label">контакты</p>
                     <div class="input-wrapper contact-link">
                         <img class="input-img" src="./img/telegram.svg">
-                        <input type="url" name="about" id="telegram-input">
+                        <input type="url" name="telegram" id="telegram-input">
                         <button class="close-input-btn"></button>
                     </div>
                     <div class="input-wrapper contact-link">
                         <img class="input-img" src="./img/vk.svg">
-                        <input type="url" name="about" id="vk-input">
+                        <input type="url" name="vk" id="vk-input">
                         <button class="close-input-btn"></button>
                     </div>
                     <div class="input-wrapper contact-link">
                         <img class="input-img" src="./img/phone.svg">
-                        <input type="url" name="about" id="phone-input">
+                        <!-- pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$" -->
+                        <input type="tel" name="phone_number" id="phone-input" >
                         <button class="close-input-btn"></button>
                     </div>
                 </div>
-                <button class="save-button">
-                    <p>сохранить</p>
-                    <img src="./img/save.svg">
-                </button>
+                <div class="save-button-wrapper">
+                    <button class="save-button" type="submit"> 
+                        <p>сохранить</p>
+                        <img src="./img/save.svg">
+                    </button>
+                </div>
+                
             </form>
         </section>
     </div>
