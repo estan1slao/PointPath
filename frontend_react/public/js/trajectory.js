@@ -13,19 +13,18 @@ function getDataCards (url) {
     )
     .then((response) => {
         if (response.ok) {
-            console.log(response.json());
             return response.json();
-        }
-        else {
-            console.log('Ошибка в GET запросе');
+        } else {
+            console.log('Ошибка');
         }
     })
     .then((result) => {
         result.forEach((item) => {
             const task = cardTempPreview.cloneNode(true);
-            task.querySelector('.task-title').textContent = `${item.theme}`;
-            task.id = `${item.id}`;
-            console.log(task);
+
+            task.querySelector('.task-title').textContent = `${item.task}`;
+            task.id = `${item.card_id}`;
+
             plannedList.appendChild(task);
         })
     })
@@ -72,7 +71,4 @@ function dragAndDrop () {
 dragAndDrop(); //Там где будет логика добаления карточки - снова вызывать
 
 getDataCards(URL_GETCARDS);
-
-export {getDataCards};
-
 
