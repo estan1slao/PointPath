@@ -3,7 +3,7 @@ const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
 const fio = document.querySelector('#fio');
 const fi = document.querySelector('#fi');
 const email = document.querySelector('#email');
-const grade = document.querySelector('#grade');
+const grade = document.querySelector('#specification');
 const tg = document.querySelector('#tg');
 const vk = document.querySelector('#vk');
 const phone = document.querySelector('#phone');
@@ -165,6 +165,24 @@ function getJSONForm (formValues) {
 }
 
 function fillData (data) {
+    const spec = document.querySelector('#specification-title');
+    const student = document.querySelector('.student');
+    const teacher = document.querySelector('.teacher');
+
+    if (data.role === "учитель") {
+        spec.textContent = "специализация";
+        student.classList.add('hidden');
+        teacher.classList.remove('hidden');
+        
+        if (data.info.discipline !== null && data.info.discipline !== "") {
+            grade.textContent = data.info.discipline;
+        }
+    } else {
+        if (data.info.grade !== null && data.info.grade !== "") {
+            grade.textContent = data.info.grade;
+        }
+    }
+
     fio.textContent = `${data.last_name} ${data.first_name} ${data.patronymic}`;
     email.textContent = data.email;
     fi.textContent = `${data.last_name} ${data.first_name}`;
@@ -172,6 +190,8 @@ function fillData (data) {
     if (data.info.grade !== null && data.info.grade !== "") {
         grade.textContent = data.info.grade;
     }
+
+
     if (data.about !== null && data.about !== "") {
         about.textContent = data.about;
     }   

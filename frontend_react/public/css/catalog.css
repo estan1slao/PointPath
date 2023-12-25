@@ -92,7 +92,10 @@ header {
 .select-button {
     display: flex;
     justify-content: flex-end;
-    margin-top: 65px;
+
+    position: absolute;
+    bottom: 29px;
+    right: 40px;
 }
 
 .card-description {

@@ -14,3 +14,5 @@ pointPath_django_main/__pycache__/settings.cpython-310.pyc
 pointPath_django_main/__pycache__/urls.cpython-310.pyc
 pointPath_django_main/__pycache__/wsgi.cpython-310.pyc
 
+backend_DRF/migrations/__pycache__/__init__.cpython-310.pyc
+backend_DRF/migrations/__pycache__/0001_initial.cpython-310.pyc
