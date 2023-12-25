@@ -42,6 +42,7 @@ urlpatterns = [
     path('profile/update-password/', views.updatePassword, name='update-password'),
 
     #Tasks
-    path('cards/', views.CardsView.as_view(), name='cards'),
-    path('getcards/', views.getCards, name='get-Cards')
+    path('cards/', views.CardsView.as_view(), name='save-cards'),
+    path('getcards/', views.getCards, name='get-Cards'),
+    path('card/<int:pk>', views.CardUpdateView.as_view(), name='update-card')
 ]

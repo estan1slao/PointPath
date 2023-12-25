@@ -150,4 +150,11 @@ class CardsSerializer(serializers.ModelSerializer):
         task.save()
         return task
 
-
+    def update(self, instance, validated_data):
+        instance.card_id = validated_data.get("card_id", instance.card_id)
+        instance.category = validated_data.get("category", instance.category)
+        instance.task = validated_data.get("task", instance.task)
+        instance.description = validated_data.get("description", instance.description)
+        instance.project = validated_data.get("project", instance.project)
+        instance.save()
+        return instance
