@@ -22,8 +22,15 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from backend_DRF import views
 from backend_DRF.views import *
 
+#Project URL
 router = routers.DefaultRouter()
-router.register(r'teacher-offers-project',TeacherOffersProjectViewSet)
+router.register(r'teacher-offers-project', TeacherOffersProjectViewSet)
+router.register(r'choose', StudentGetProjectViewSet)
+router.register(r'student-offers-project', StudentOffersProjectViewSet)
+router.register(r'viewing-proposed-projects', ViewingProposedProjectsViewSet)
+#router.register(r'student-chooses-project', StudentChoosesProjectUpdateView)
+
+
 # router.register(r'students', StudentViewSet)
 # router.register(r'teachers', TeacherViewSet)
 # router.register(r'projects', ProjectViewSet)
@@ -41,7 +48,8 @@ urlpatterns = [
     path('profile/', views.getProfile, name='profile'),
     path('profile/update/', views.updateProfile, name='update-profile'),
     path('profile/update-password/', views.updatePassword, name='update-password'),
-    path('project/', include(router.urls))
 
-
+    # Project
+    path('projects/', include(router.urls)),
+    path('projects/choose/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
 ]

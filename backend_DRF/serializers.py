@@ -2,6 +2,7 @@ from django.contrib.auth.handlers.modwsgi import check_password
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers, status
+from rest_framework.generics import UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.serializers import raise_errors_on_nested_writes
 from rest_framework.utils import model_meta
@@ -144,8 +145,8 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
                 topic=validated_data['topic'],
                 about=validated_data['about'],
                 field_of_activity=validated_data['field_of_activity'],
-                teacher_id=user.id,
-                student_id=None,
+                teacher=user.teacher,
+                student=None,
                 state=0
             )
             project.save()
@@ -154,48 +155,44 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
 
 
-class StudentChoosesProjectSerializer(serializers.ModelSerializer):
+class StudentGetProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = "__all__"
 
-    def get_value(self, dictionary):
-        if (dictionary.get("student_id") is None):
-            return super().get_value()
-
-    def update(self, instance, validated_data):
-        if "student_id" in validated_data:
-            # Обновление значения поля active на 1
-            instance.active = 1
-            instance.save()
-            return super().update(instance, validated_data["student_id"])
+class StudentChoosesProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['state', 'student']
 
 
 class StudentOffersProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ('topic', 'about', 'field_of_activity', 'student_id', 'teacher_id')
+        fields = ('topic', 'about', 'field_of_activity', 'teacher')
 
     def create(self, validated_data):
-        project = Project.objects.create(
-            topic=validated_data['topic'],
-            about=validated_data['about'],
-            field_of_activity=validated_data['field_of_activity'],
-            student_id=self.data.get("id"),
-            teacher_id=validated_data['teacher_id'],
-        )
-        project.save()
-        return project
+        user = self.context['request'].user
+        if user.role == 'ученик':
+            project = Project.objects.create(
+                topic=validated_data['topic'],
+                about=validated_data['about'],
+                field_of_activity=validated_data['field_of_activity'],
+                student=user.student,
+                teacher=validated_data['teacher'],
+                state=0
+            )
+            project.save()
+            return project
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли ученик!")
+
+class TeacherViewProjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student')
 
 class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = "__all__"
-
-    def get_value(self, dictionary):
-        if (dictionary.get("teacher_id") == self.data.get("id")):
-            return super().get_value()
-
-    def update(self, instance, validated_data):
-        if "state" in validated_data:
-            return super().update(instance, validated_data["state"])
+        fields = ('id', 'state')

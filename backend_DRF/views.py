@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins, status, generics
 from rest_framework.decorators import action, api_view, permission_classes
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT
@@ -111,70 +111,68 @@ class TeacherOffersProjectViewSet(mixins.CreateModelMixin,
     queryset = Project.objects.all()
     serializer_class = TeacherOffersProjectSerializer
 
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def teacherOffersProject(request):
-#     user = request.user
-#     serializer = TeacherOffersProjectSerializer(user, data=request.data, partial=True)
-#     if (user.role == 'учитель'):
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             return Response(serializer.data)
-#     else:
-#         return Response({"error": "Роль пользователя не учитель."}, status=status.HTTP_400_BAD_REQUEST)
+
+class StudentGetProjectViewSet(mixins.ListModelMixin,
+                                    GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = StudentGetProjectSerializer
+
+    def get_queryset(self):
+        return Project.objects.filter(student_id__isnull=True)
 
 
-#api/notes
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def getNotes(request):
-#     public_notes = Note.objects.filter(is_public=True).order_by('-updated')[:10]
-#     user_notes = request.user.notes.all().order_by('-updated')[:10]
-#     notes = public_notes | user_notes
-#     serializer = NoteSerializer(notes, many=True)
-#     return Response(serializer.data)
+class StudentChoosesProjectUpdateView(UpdateAPIView):
+    queryset = Project.objects.filter(student_id__isnull=True)
+    serializer_class = StudentChoosesProjectSerializer
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'ученик':
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data={'state': 1, 'student_id': user.id}, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли ученик!")
 
 
-# class AccountChangePasswordView(APIView):
-#     def post(self, request):
+class StudentOffersProjectViewSet(mixins.CreateModelMixin,
+                     GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = StudentOffersProjectSerializer
+
+class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
+                             GenericViewSet):
+    queryset = Project.objects.filter(state=0)
+    serializer_class = TeacherViewProjectsSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+
+# class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
+#                                  mixins.DestroyModelMixin,
+#                                  GenericAPIView):
+#     queryset = Project.objects.filter(state=0)
+#     serializer_class = TeacherAcceptsProjectsSerializer
+#
+#     def get_queryset(self):
+#         user = self.request.user
+#         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+#
+#     def destroy(self, request, *args, **kwargs):
 #         user = request.user
-#         serializer = ChangePasswordSerializer(
-#             instance=user, data=request.data
-#         )
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(status=HTTP_204_NO_CONTENT)
+#         if user.role == 'учитель':
+#             ...
+#         else:
+#             raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+#
+#     def update(self, request, *args, **kwargs):
+#         user = request.user
+#         if user.role == 'учитель':
+#             ...
+#         else:
+#             raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
 
 
-
-# class AccountViewSet(mixins.CreateModelMixin,
-#                      mixins.UpdateModelMixin,
-#                      mixins.DestroyModelMixin,
-#                      GenericViewSet):
-#     queryset = Account.objects.all()
-#     serializer_class = AccountSerializer
-    # def update(self, request, *args, **kwargs):
-    #     if IsOwner():
-    #         instance = self.get_object()
-    #         partial = kwargs.pop('partial', False)
-    #         serializer = self.get_serializer(instance, data=request.data, partial=partial)
-    #         serializer.is_valid(raise_exception=True)
-    #         self.perform_update(serializer)
-    #
-    #         if getattr(instance, '_prefetched_objects_cache', None):
-    #             # If 'prefetch_related' has been applied to a queryset, we need to
-    #             # forcibly invalidate the prefetch cache on the instance.
-    #             instance._prefetched_objects_cache = {}
-    #
-    #         return Response(serializer.data)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-    #
-    # def destroy(self, request, *args, **kwargs):
-    #     if IsOwner():
-    #         instance = self.get_object()
-    #         self.perform_destroy(instance)
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-    # permission_classes = (IsAdminUser, )
