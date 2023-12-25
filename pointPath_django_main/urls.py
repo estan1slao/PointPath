@@ -39,4 +39,5 @@ urlpatterns = [
     # Profile
     path('profile/', views.getProfile, name='profile'),
     path('profile/update/', views.updateProfile, name='update-profile'),
+    path('profile/update-password/', views.updatePassword, name='update-password')
 ]
