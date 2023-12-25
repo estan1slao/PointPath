@@ -1,0 +1,60 @@
+.body-center {
+    background-image: url(../img/bg-proj-choice.png);
+}
+
+header {
+    margin-bottom: 99px;
+}
+
+.title-block {
+    text-align: center;
+    margin-bottom: 61px;
+}
+
+.title {
+    font-size: 64px;
+    font-weight: 600;
+
+    margin: 0;
+    margin-bottom: 6px;
+}
+
+.description {
+    font-size: 36px;
+    color: rgba(27, 27, 37, 0.50);
+    margin: 0;
+}
+
+.title-2 {
+    font-size: 40px;
+    margin: 0;
+    margin-bottom: 44px;
+}
+
+.description-2 {
+    font-size: 40px;
+    margin: 0;
+}
+
+.cards {
+    display: flex;
+    gap: 37px;
+    padding: 0 158px;
+    margin-bottom: 234px;
+}
+
+.card-1 {
+    text-align: center;
+    width: 100%;
+    background-color: rgba(203, 246, 199, 1);
+    border-radius: 30px;
+    padding: 46px 42px 48px 42px;
+}
+
+.card-2 {
+    text-align: center;
+    width: 100%;
+    background-color: rgba(240, 188, 250, 1);
+    border-radius: 30px;
+    padding: 46px 42px 48px 42px;
+}
