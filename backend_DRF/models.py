@@ -84,8 +84,8 @@ class Tasks(models.Model):
 
 
 class Comments(models.Model):
-    card_id = models.ForeignKey('Tasks', on_delete=models.PROTECT)
-    user_id = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    card = models.ForeignKey('Tasks', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     content = models.TextField()
 
     def __str__(self):
@@ -93,8 +93,8 @@ class Comments(models.Model):
 
 
 class Files(models.Model):
-    card_id = models.ForeignKey('Tasks', on_delete=models.PROTECT)
-    user_id = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    card = models.ForeignKey('Tasks', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     file = models.FileField()
 
 

@@ -114,15 +114,15 @@ class CardsView(generics.CreateAPIView):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+#@permission_classes([IsAuthenticated])
 def getCards(request):
-    if request.method == 'GET':
-        user = request.user
-        project = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
-        cards = Tasks.objects.raw(
-            f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
-        serializer = CardsSerializer(cards)
-        return Response({'post': serializer.data})
+        #user = request.user
+        #project = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
+        #cards = Tasks.objects.raw(
+            #f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
+        cards = Tasks.objects.all()
+        serializer = CardsSerializer(cards, many=True)
+        return Response(serializer.data)
 
 
 class CardUpdateView(APIView):
