@@ -201,7 +201,7 @@ def getCards(request):
         #user = request.user
         #project = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
         #cards = Tasks.objects.raw(
-            #f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
+            #"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
         cards = Tasks.objects.all()
         serializer = CardsSerializer(cards, many=True)
         return Response(serializer.data)
@@ -244,6 +244,20 @@ class CardUpdateView(APIView):
         Tasks.objects.filter(card_id=pk).delete()
         return Response({"post": "delete card " + str(pk)})
 
-#class CardUpdateView(generics.UpdateAPIView):
-   #queryset = Tasks.objects.all()
-   #serializer_class = CardsSerializer
+
+class CommentsView(generics.CreateAPIView):
+    queryset = Comments.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = CommentsSerializer
+
+
+@api_view(['GET'])
+#@permission_classes([IsAuthenticated])
+def getComments(request, *args, **kwargs):
+        card = kwargs.get("card", None)
+        if not card:
+            return Response({"error": "Метод GET не определён"})
+        comments = Comments.objects.raw(
+            "SELECT id, content, card_id, user_id FROM backend_DRF_comments WHERE card_id=%s", [card])
+        serializer = CommentsSerializer(comments, many=True)
+        return Response(serializer.data)
