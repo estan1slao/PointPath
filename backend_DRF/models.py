@@ -15,11 +15,11 @@ class Student(models.Model):
     #surname = models.CharField(max_length=20)
     #patronymic = models.CharField(blank=True, max_length=20)
     #personal_email = models.EmailField(max_length=30)
-    grade = models.CharField(max_length=4, null=True) #blank=True
+    grade = models.CharField(max_length=4, null=True, blank=True) #
     user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
 
-    def __str__(self):
-        return f"{self.surname} {self.name}"
+    #def __str__(self):
+    #    return f"{self.surname} {self.name}"
 
 @receiver(post_save, sender=User)
 def create_student_profile(sender, instance, created, **kwargs):
@@ -39,13 +39,13 @@ class Teacher(models.Model):
     #name = models.CharField(max_length=20)
     #surname = models.CharField(max_length=20)
     #patronymic = models.CharField(blank=True, max_length=20)
-    phone_number = models.TextField(blank=True, max_length=12, null=True) #CharField
+    #phone_number = models.TextField(blank=True, max_length=12, null=True) #CharField
     #personal_email = models.EmailField(max_length=30)
-    discipline = models.TextField(null=True) #blank=True
+    discipline = models.TextField(null=True, blank=True) #blank=True
     user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
 
-    def __str__(self):
-        return f"{self.surname} {self.name}"
+    #def __str__(self):
+    #    return f"{self.surname} {self.name}"
 
 @receiver(post_save, sender=User)
 def create_teacher_profile(sender, instance, created, **kwargs):
@@ -61,12 +61,14 @@ def save_teacher_profile(sender, instance, **kwargs):
 
 
 class Project(models.Model):
-    project_id = models.IntegerField(primary_key=True, unique=True)
     topic = models.TextField()
-    student = models.ForeignKey('Student', on_delete=models.PROTECT)
-    teacher = models.ForeignKey('Teacher', on_delete=models.PROTECT)
-    material_link = models.URLField() #? blank=True
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
+    about = models.TextField()
+    field_of_activity = models.TextField()
+    student = models.ForeignKey('Student', on_delete=models.PROTECT, null=True)
+    teacher = models.ForeignKey('Teacher', on_delete=models.PROTECT, null=True)
+    state = models.IntegerField() # 0 - предложен проект кем-либо, 1 - принят, 2 - заверщен. Если проект отклонен - удалить строку
+    #material_link = models.URLField() #? blank=True
+    #user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return self.topic

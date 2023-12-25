@@ -22,16 +22,24 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from backend_DRF import views
 from backend_DRF.views import *
 
+#Project URL
 router = routers.DefaultRouter()
-router.register(r'students', StudentViewSet)
-router.register(r'teachers', TeacherViewSet)
-router.register(r'projects', ProjectViewSet)
+router.register(r'teacher-offers-project', TeacherOffersProjectViewSet)
+router.register(r'choose', StudentGetProjectViewSet)
+router.register(r'student-offers-project', StudentOffersProjectViewSet)
+router.register(r'viewing-proposed-projects', ViewingProposedProjectsViewSet)
+#router.register(r'student-chooses-project', StudentChoosesProjectUpdateView)
+
+
+# router.register(r'students', StudentViewSet)
+# router.register(r'teachers', TeacherViewSet)
+# router.register(r'projects', ProjectViewSet)
 #router.register(r'accounts', AccountViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/drf-auth/', include('rest_framework.urls')),
-    path('api/v1/', include(router.urls)),
+    # path('api/v1/drf-auth/', include('rest_framework.urls')),
+    # path('api/v1/', include(router.urls)),
     path('token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', views.RegisterView.as_view(), name='auth_register'),
@@ -39,5 +47,9 @@ urlpatterns = [
     # Profile
     path('profile/', views.getProfile, name='profile'),
     path('profile/update/', views.updateProfile, name='update-profile'),
-    path('profile/update-password/', views.updatePassword, name='update-password')
+    path('profile/update-password/', views.updatePassword, name='update-password'),
+
+    # Project
+    path('projects/', include(router.urls)),
+    path('projects/choose/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
 ]
