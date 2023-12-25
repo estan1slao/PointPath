@@ -118,7 +118,7 @@ class CardsView(generics.CreateAPIView):
 def getCards(request):
     if request.method == 'GET':
         user = request.user
-        project_id = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE user_id=%s", [user.id])
+        project_id = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
         cards = Tasks.objects.raw(
             f"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project_id])
         serializer = CardsSerializer(cards)

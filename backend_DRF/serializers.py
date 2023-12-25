@@ -138,16 +138,4 @@ class CardsSerializer(serializers.ModelSerializer):
         model = Tasks
         fields = "__all__"
 
-    def create(self, validated_data):
-        task = Tasks.objects.create(
-            card_id=validated_data['card_id'],
-            category=validated_data['category'],
-            task=validated_data['task'],
-            description=validated_data['description'],
-            project=validated_data['project'],
-        )
-
-        task.save()
-        return task
-
 
