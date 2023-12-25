@@ -199,7 +199,7 @@ class CardsView(generics.CreateAPIView):
 #@permission_classes([IsAuthenticated])
 def getCards(request):
         #user = request.user
-        #project = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
+        #project = Project.objects.raw("SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
         #cards = Tasks.objects.raw(
             #"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
         cards = Tasks.objects.all()
@@ -210,7 +210,7 @@ def getCards(request):
 class CardUpdateView(APIView):
     def check(self, user_id, pk):
         project = Project.objects.raw(
-            "SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
+            "SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
         if len(project) == 0:
             return Response({"message": "У вас нет доступа для удаления данных"})
         cards = Tasks.objects.raw(
