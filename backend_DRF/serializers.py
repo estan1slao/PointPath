@@ -240,10 +240,10 @@ class CardsSerializer(serializers.ModelSerializer):
 
 
 class CommentsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Comments
         fields = "__all__"
+
 
 class DescriptionTeacherIDAndStudentIDSerializer(serializers.ModelSerializer):
     class Meta:

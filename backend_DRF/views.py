@@ -245,13 +245,6 @@ class CardUpdateView(APIView):
         Tasks.objects.filter(card_id=pk).delete()
         return Response({"post": "delete card " + str(pk)})
 
-
-class CommentsView(generics.CreateAPIView):
-    queryset = Comments.objects.all()
-    permission_classes = (AllowAny,)
-    serializer_class = CommentsSerializer
-
-
 @api_view(['GET'])
 #@permission_classes([IsAuthenticated])
 def getComments(request, *args, **kwargs):
@@ -262,13 +255,6 @@ def getComments(request, *args, **kwargs):
             "SELECT id, content, card_id, user_id FROM backend_DRF_comments WHERE card_id=%s", [card])
         serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data)
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def postStudentID(request):
-    user = request.user
-    serializer = ProfileSerializer(user, many=False)
-    return Response(serializer.data)
 
 
 class DescriptionTeacherIDView(APIView):
@@ -301,3 +287,48 @@ class DescriptionStudentIDView(APIView):
 
         serializer = DescriptionTeacherIDAndStudentIDSerializer(account_description, many=True)
         return Response(serializer.data)
+
+class CreateCommentsView(APIView):
+    # {
+    #     "card_id": <int>,
+    #     "content": ""
+    # }
+    def post(self, request):
+        user = request.user
+        cards_ids = []
+        if (user.role == 'ученик'):
+            student_id = Student.objects.get(user_id=user.id).id
+            projects = Project.objects.filter(student_id=student_id)
+            if len(projects) == 0:
+                return Response({"error": "Проект не выбран!"}, status=status.HTTP_400_BAD_REQUEST)
+            for project in projects:
+                cards = Tasks.objects.filter(project_id=project.id)
+                cards_ids.extend([card.card_id for card in cards])
+        elif (user.role == 'учитель'):
+            teacher_id = Teacher.objects.get(user_id=user.id).id
+            projects = Project.objects.filter(teacher_id=teacher_id)
+            if len(projects) == 0:
+                return Response({"error": "Проекты не выбраны!"}, status=status.HTTP_400_BAD_REQUEST)
+            for project in projects:
+                cards = Tasks.objects.filter(project_id=project.id)
+                cards_ids.extend([card.card_id for card in cards])
+        else:
+            return Response({"error": "Ошибка в роли пользователя!"}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            tasks = Tasks.objects.filter(card_id__in=cards_ids)
+        except Tasks.DoesNotExist:
+            return Response({"error": "Объект не найден"}, status=status.HTTP_400_BAD_REQUEST)
+
+        for task in tasks:
+            if (request.data['card_id'] == task.card_id):
+                comment = Comments.objects.create(
+                    card=task,
+                    user=user,
+                    content=request.data['content'],
+                    first_name_proponent=user.first_name,
+                    last_name_proponent=user.last_name,
+                    patronymic_proponent=user.patronymic,
+                )
+                comment.save()
+                return Response({"message": "Комментарий успешно создан"}, status=status.HTTP_201_CREATED)
+        return Response({"error": "Задача не найдена или недоступна для редактирования"}, status=status.HTTP_400_BAD_REQUEST)
