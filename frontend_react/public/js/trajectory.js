@@ -78,7 +78,6 @@ function sendNewCategoryInfo(url, data) {
 }
 
 const dragAndDrop = () => {
-    debugger
     const lists = document.querySelectorAll('.list-of-tasks');
     const task = document.querySelectorAll('.task');
 
@@ -113,7 +112,7 @@ const dragAndDrop = () => {
             list.addEventListener('drop', function (evt) {
                 console.log(4);
                 this.append(draggedTask);
-                sendNewCategoryInfo(URL_OPENCARD + draggedTask.id, this.classList[1]);
+                sendNewCategoryInfo(URL_OPENCARD + draggedTask.id + '/', this.classList[1]);
             })
         }
     }
