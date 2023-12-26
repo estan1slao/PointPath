@@ -223,3 +223,10 @@ class CardsSerializer(serializers.ModelSerializer):
         instance.project = validated_data.get("project", instance.project)
         instance.save()
         return instance
+
+
+class CommentsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comments
+        fields = "__all__"
