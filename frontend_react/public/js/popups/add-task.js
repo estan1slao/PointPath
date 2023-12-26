@@ -21,10 +21,9 @@ function saveBtnHandler (evt) {
     };
 
     const data = JSON.stringify(object);
-    console.log(data);
     sendDataCard(URL_CARDS, data);
-
     taskPopup.classList.add('hidden');
+    location.reload();
 }
 
 function addTaskBtnHandler (evt) {
@@ -33,6 +32,7 @@ function addTaskBtnHandler (evt) {
 
     const closeBtn = taskPopup.querySelector('.close-btn');
     const saveBtn = taskPopup.querySelector('.save-button');
+    taskPopup.querySelector('.delete-button').classList.add('hidden');
 
     saveBtn.addEventListener('click', saveBtnHandler);
     closeBtn.addEventListener('click', closeBtnTaskHandler);

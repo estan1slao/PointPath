@@ -1,5 +1,8 @@
 const URL_SENDCOMMENTS = 'http://127.0.0.1:8000/comments/';
-const URL_OPENCARD = 'http://127.0.0.1:8000/card/';
+
+const taskPopupName = taskPopup.querySelector('.popup-text');
+const taskPopupAbout = taskPopup.querySelector('#about-task-input');
+const taskPopupCategory = taskPopup.querySelector('#category-input');
 
 let dataOfCards;
 getDataCardsInfo(URL_GETCARDS);
@@ -10,10 +13,6 @@ setTimeout(() => {
         task.addEventListener('click', taskClickHandler);
     }) 
 }, 1000); //чтобы успели прийти данные с сервера - если знаешь как лучше сделать - скажи
-
-const taskPopupName = taskPopup.querySelector('.popup-text');
-const taskPopupAbout = taskPopup.querySelector('#about-task-input');
-const taskPopupCategory = taskPopup.querySelector('#category-input');
 
 function sendNewTaskInfo(url, data) {
     fetch(url, {
@@ -74,6 +73,12 @@ function sendIDInfo(url, data) {
     })
 }
 
+function deleteTask(url) {
+    fetch(url, {
+        method: 'DELETE'
+    })
+}
+
 function saveBtnTaskHandler (evt) {
     evt.preventDefault();
 
@@ -88,6 +93,14 @@ function saveBtnTaskHandler (evt) {
     location.reload();
 }
 
+function deleteBtnTaskHandler (evt) {
+    evt.preventDefault();
+
+    deleteTask(URL_OPENCARD + evt.currentTarget.closest('.popup').id);
+
+    taskPopup.classList.add('hidden');
+    location.reload();
+}
 
 function taskClickHandler (evt) {
     evt.preventDefault();
@@ -96,6 +109,8 @@ function taskClickHandler (evt) {
     const taskID = evt.currentTarget.id;
     const closeBtn = taskPopup.querySelector('.close-btn');
     const saveBtn = taskPopup.querySelector('.save-button');
+    const deleteTask = taskPopup.querySelector('.delete-button');
+    deleteTask.classList.remove('hidden');
 
     dataOfCards.forEach((cardInfo) => {
         if (cardInfo.card_id == taskID) {
@@ -105,9 +120,10 @@ function taskClickHandler (evt) {
             taskPopup.id = taskID;
 
             saveBtn.addEventListener('click', saveBtnTaskHandler);
+            deleteTask.addEventListener('click', deleteBtnTaskHandler);
             // sendIDInfo(URL_SENDCOMMENTS, taskID);
         }
     })
-    
+
     closeBtn.addEventListener('click', closeBtnTaskHandler);
 }
