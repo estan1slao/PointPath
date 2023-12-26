@@ -160,6 +160,8 @@ class StudentGetProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = "__all__"
 
+
+
 class StudentChoosesProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
@@ -230,3 +232,23 @@ class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = "__all__"
+
+class DescriptionTeacherIDAndStudentIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'first_name', 'last_name', 'patronymic', 'role', 'about',
+                  'email', 'vk', 'telegram', 'phone_number')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation

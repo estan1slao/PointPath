@@ -54,6 +54,9 @@ urlpatterns = [
     path('getcards/', views.getCards, name='get-Cards'),
     path('card/<int:pk>/', views.CardUpdateView.as_view(), name='update-card'),
     path('comments/', views.CommentsView.as_view(), name='comments'),
-    path('comments/<int:card>/', views.getComments, name='get-comments')
+    path('comments/<int:card>/', views.getComments, name='get-comments'),
 
+    # Information on student_id and teacher_id
+    path('about-teacher/<int:teacher_id>/', DescriptionTeacherIDView.as_view(), name='description_teacher_id'),
+    path('about-student/<int:student_id>/', DescriptionStudentIDView.as_view(), name='description_student_id'),
 ]
