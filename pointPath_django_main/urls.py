@@ -25,16 +25,9 @@ from backend_DRF.views import *
 #Project URL
 router = routers.DefaultRouter()
 router.register(r'teacher-offers-project', TeacherOffersProjectViewSet)
-router.register(r'choose', StudentGetProjectViewSet)
+router.register(r'student-get-projects', StudentGetProjectViewSet)
 router.register(r'student-offers-project', StudentOffersProjectViewSet)
-router.register(r'viewing-proposed-projects', ViewingProposedProjectsViewSet)
-#router.register(r'student-chooses-project', StudentChoosesProjectUpdateView)
-
-
-# router.register(r'students', StudentViewSet)
-# router.register(r'teachers', TeacherViewSet)
-# router.register(r'projects', ProjectViewSet)
-#router.register(r'accounts', AccountViewSet)
+router.register(r'teacher-viewing-proposed-projects', ViewingProposedProjectsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,5 +44,13 @@ urlpatterns = [
 
     # Project
     path('projects/', include(router.urls)),
-    path('projects/choose/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
+    path('projects/student-choose-project/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
+    path('projects/teacher-denied-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='delete_project'),
+    path('projects/teacher-accept-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='update_project'),
+    #Tasks
+    path('cards/', views.CardsView.as_view(), name='save-cards'),
+    path('getcards/', views.getCards, name='get-Cards'),
+    path('card/<int:pk>', views.CardUpdateView.as_view(), name='update-card'),
+    path('comments/', views.CommentsView.as_view(), name='comments'),
+    path('comments/<int:card>', views.getComments, name='get-comments')
 ]

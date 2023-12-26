@@ -125,13 +125,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         if "email" in validated_data:
             raise serializers.ValidationError("Невозможно поменять email у пользователя.")
 
-
         validated_data.pop('role', None)
         validated_data.pop('username', None)
         validated_data.pop('email', None)
         validated_data.pop('password', None)
 
         return super(ProfileSerializer, self).update(instance, validated_data)
+
 
 class TeacherOffersProjectSerializer(serializers.ModelSerializer):
     class Meta:
@@ -160,6 +160,7 @@ class StudentGetProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = "__all__"
 
+        
 class StudentChoosesProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
@@ -187,12 +188,49 @@ class StudentOffersProjectSerializer(serializers.ModelSerializer):
         else:
             raise serializers.ValidationError("Пользователь должен принадлежать роли ученик!")
 
+
 class TeacherViewProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'topic', 'about', 'field_of_activity', 'student')
 
+
 class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'state')
+
+
+class CardsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tasks
+        fields = "__all__"
+
+    def create(self, validated_data):
+        task = Tasks.objects.create(
+            card_id=validated_data['card_id'],
+            category=validated_data['category'],
+            task=validated_data['task'],
+            description=validated_data['description'],
+            project=validated_data['project'],
+        )
+
+        task.save()
+        return task
+
+    def update(self, instance, validated_data):
+        instance.card_id = validated_data.get("card_id", instance.card_id)
+        instance.category = validated_data.get("category", instance.category)
+        instance.task = validated_data.get("task", instance.task)
+        instance.description = validated_data.get("description", instance.description)
+        instance.project = validated_data.get("project", instance.project)
+        instance.save()
+        return instance
+
+
+class CommentsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comments
+        fields = "__all__"

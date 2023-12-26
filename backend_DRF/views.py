@@ -106,6 +106,7 @@ def updatePassword(request):
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
 
+
 class TeacherOffersProjectViewSet(mixins.CreateModelMixin,
                      GenericViewSet):
     queryset = Project.objects.all()
@@ -151,28 +152,113 @@ class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
         user = self.request.user
         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
 
-# class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
-#                                  mixins.DestroyModelMixin,
-#                                  GenericAPIView):
-#     queryset = Project.objects.filter(state=0)
-#     serializer_class = TeacherAcceptsProjectsSerializer
-#
-#     def get_queryset(self):
-#         user = self.request.user
-#         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
-#
-#     def destroy(self, request, *args, **kwargs):
-#         user = request.user
-#         if user.role == 'учитель':
-#             ...
-#         else:
-#             raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
-#
-#     def update(self, request, *args, **kwargs):
-#         user = request.user
-#         if user.role == 'учитель':
-#             ...
-#         else:
-#             raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+      
+class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
+                                 mixins.DestroyModelMixin,
+                                 GenericAPIView):
+    queryset = Project.objects.filter(state=0)
+    serializer_class = TeacherAcceptsProjectsSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+
+    def destroy(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'учитель':
+            instance = self.get_object()
+            self.perform_destroy(instance)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == 'учитель':
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data={'state': 1, 'id': self.get_object().id}, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
 
 
+class CardsView(generics.CreateAPIView):
+    queryset = Tasks.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = CardsSerializer
+
+
+@api_view(['GET'])
+#@permission_classes([IsAuthenticated])
+def getCards(request):
+        #user = request.user
+        #project = Project.objects.raw("SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
+        #cards = Tasks.objects.raw(
+            #"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
+        cards = Tasks.objects.all()
+        serializer = CardsSerializer(cards, many=True)
+        return Response(serializer.data)
+
+
+class CardUpdateView(APIView):
+    def check(self, user_id, pk):
+        project = Project.objects.raw(
+            "SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
+        if len(project) == 0:
+            return Response({"message": "У вас нет доступа для удаления данных"})
+        cards = Tasks.objects.raw(
+            f"SELECT card_id FROM backend_DRF_tasks WHERE project_id=%s",
+            [project[0].project_id])
+        cards_id_list = [card.card_id for card in cards]
+        if not (pk in cards_id_list):
+            return Response({"message": "У вас нет доступа для удаления данных"})
+
+    def put(self, request, *args, **kwargs):
+        user_id = request.user.id
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Метод PUT не определён"})
+        try:
+            instance = Tasks.objects.get(card_id=pk)
+        except:
+            return Response({"error": "Объект не найден"})
+        self.check(user_id, pk)
+        serializer = CardsSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post": serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        user_id = request.user.id
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Метод delete не определён"})
+        self.check(user_id, pk)
+        Tasks.objects.filter(card_id=pk).delete()
+        return Response({"post": "delete card " + str(pk)})
+
+
+class CommentsView(generics.CreateAPIView):
+    queryset = Comments.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = CommentsSerializer
+
+
+@api_view(['GET'])
+#@permission_classes([IsAuthenticated])
+def getComments(request, *args, **kwargs):
+        card = kwargs.get("card", None)
+        if not card:
+            return Response({"error": "Метод GET не определён"})
+        comments = Comments.objects.raw(
+            "SELECT id, content, card_id, user_id FROM backend_DRF_comments WHERE card_id=%s", [card])
+        serializer = CommentsSerializer(comments, many=True)
+        return Response(serializer.data)
