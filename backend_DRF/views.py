@@ -106,7 +106,7 @@ def updatePassword(request):
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
 
-  
+
 class TeacherOffersProjectViewSet(mixins.CreateModelMixin,
                      GenericViewSet):
     queryset = Project.objects.all()
@@ -152,6 +152,7 @@ class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
         user = self.request.user
         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
 
+      
 class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
                                  mixins.DestroyModelMixin,
                                  GenericAPIView):

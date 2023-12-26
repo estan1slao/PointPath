@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/account.css">
+    <title>Личный кабинет студента</title>
+</head>
+
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <div class="nav-left">
+                        <a class="nav-item" href="#"><li>.главная</li></a>
+                        <a class="nav-item hidden" href="#"><li>.проект</li></a>
+                        <a class="nav-item hidden" href="#"><li>.траектория</li></a>
+                        <a class="nav-item" href="#"><li>.проекты на рассмотрение</li></a>
+                    </div>
+                    <div class="nav-right">
+                        <a class="nav-item hidden" href="#"><li>.войти</li></a>
+                        <a class="nav-item hidden" href="#"><li>.создать аккаунт</li></a>
+                        <div class="account">
+                            <a href="#">
+                                <span>Петров Петр Петрович</span>
+                                <img src="./img/exit.svg" width="27" height="27">
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <div class="edit">
+                <a href="#">
+                    <img class="" src="./img/edit.svg" width="24" height="24">
+                    <span class="">редактировать</span>
+                </a>
+            </div>
+            
+        </header>
+    
+        <main>
+            <div class="account-info-block">
+                <div class="info-1">
+                    <div class="circle">
+                        <img src="./img/logo-circle.png">
+                    </div>
+                    <div class="fio">
+                        <p class="title">ФИО</p>
+                        <p class="info-field">Петров Петр Петрович</p>
+    
+                        <p class="title">специализация</p>
+                        <p class="info-field">информатика</p>
+                    </div>
+                </div>
+                <div class="info-2">
+                    <p class="title">эл. почта</p>
+                    <p class='info-field'>ivanov.ii@mail.ru</p>
+
+                    <p class="title">контакты</p>
+                    <ul class="social-icons">
+                        <li>
+                            <a href="#"><img src="./img/telegram.svg" width="56" height="56"></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="./img/vk.svg" width="56" height="56"></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="./img/phone.svg" width="47" height="47"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="info-cards">
+                <div class='skills-block-wrapper'>
+                    <div class='skills-block'>
+                        <p class="title">что я умею?</p>
+                        <p class="skills-text">Я вот такой вот уже молодец, что придумал такой интересный текст, который безусловно
+                            очень важен для моей жизни. Впрочем, я такой недоавтор, недодизайнер, но я все еще тренируюсь.<br>
+                            А так я дизайнер и Frontend-разработчик...
+                        </p>
+                    </div>
+                </div>
+                <div class="projects-cards">
+                    <div class="active-projects-t">
+                        <p class="title">активные проекты учеников</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Иванов Иван Иванович</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Обухов Вениамин Давыдович</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                        </ul>
+                        <a class='more' href="#">
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                        </a>
+                    </div>
+                    
+                    <div class="archive-projects">
+                        <p class="title">архивные проекты учеников</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Новелла на RenPy</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p class="archive-project-text">Сайт-портфолио для студентов</p>
+                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+                                </a>
+                            </li>
+                        </ul>
+                        <a class='more' href="#">
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                            <div class="more-cycle"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    
+        <footer>
+            <div class='logo'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </footer>
+    </div>
+
+    <div class="popup hidden">
+        <section class="archive-student-projects wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text"><span class="attention-span">архивные</span>проекты учеников</p>
+            <div class="student-links">
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="popup hidden">
+        <section class="active-student-projects wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text"><span class="attention-span">активные</span>проекты учеников</p>
+            <div class="student-links">
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="popup hidden">
+        <section class="exit-approve wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text">Выйти из системы?</p>
+            <div class="move-links">
+                <a class="popup-link return-link">
+                    <img src="./img/arrow.svg">
+                    <span>вернуться назад</span>
+                </a>
+                <a href="./main-page.html" class="popup-link exit-link">выйти</a>
+            </div>
+        </section>
+    </div>
+
+    <div class="popup hidden">
+        <section class="edit-profile wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text">Редактирование профиля</p>
+            <form>
+                <div class="input-wrapper">
+                    <label class="input-label" for="about-input">о себе</label>
+                    <input type="text" name="about" id="about-input" placeholder="давайте познакомимся поближе">
+                </div>
+                <div class="input-wrapper">
+                    <label class="input-label" for="profession-input">специализация</label>
+                    <input type="text" name="about" id="profession-input">
+                </div>
+                <div class="contacts-wrapper">
+                    <p class="input-label">контакты</p>
+                    <div class="input-wrapper contact-link">
+                        <img class="input-img" src="./img/telegram.svg">
+                        <input type="url" name="about" id="telegram-input">
+                        <button class="close-input-btn"></button>
+                    </div>
+                    <div class="input-wrapper contact-link">
+                        <img class="input-img" src="./img/vk.svg">
+                        <input type="url" name="about" id="vk-input">
+                        <button class="close-input-btn"></button>
+                    </div>
+                    <div class="input-wrapper contact-link">
+                        <img class="input-img" src="./img/phone.svg">
+                        <input type="url" name="about" id="phone-input">
+                        <button class="close-input-btn"></button>
+                    </div>
+                </div>
+                <button class="save-button">
+                    <p>сохранить</p>
+                    <img src="./img/save.svg">
+                </button>
+            </form>
+        </section>
+    </div>
+
+    <script src="./js/popups/archive-projects-student.js"></script>
+    <script src="./js/popups/active-projects.js"></script>
+    <script src="./js/popups/exit-approve.js"></script>
+    <script src="./js/popups/edit-profile.js"></script>
+</body>
+</html>
