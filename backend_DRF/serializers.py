@@ -147,6 +147,9 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
                 field_of_activity=validated_data['field_of_activity'],
                 teacher=user.teacher,
                 student=None,
+                first_name_proponent=user.first_name,
+                last_name_proponent=user.last_name,
+                patronymic_proponent=user.patronymic,
                 state=0
             )
             project.save()
@@ -158,7 +161,8 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
 class StudentGetProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = "__all__"
+        fields = ("topic", 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
 
 
 
@@ -182,6 +186,9 @@ class StudentOffersProjectSerializer(serializers.ModelSerializer):
                 field_of_activity=validated_data['field_of_activity'],
                 student=user.student,
                 teacher=validated_data['teacher'],
+                first_name_proponent=user.first_name,
+                last_name_proponent=user.last_name,
+                patronymic_proponent=user.patronymic,
                 state=0
             )
             project.save()
@@ -192,7 +199,8 @@ class StudentOffersProjectSerializer(serializers.ModelSerializer):
 class TeacherViewProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ('id', 'topic', 'about', 'field_of_activity', 'student')
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student',
+                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
 
 class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
     class Meta:
