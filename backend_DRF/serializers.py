@@ -147,6 +147,9 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
                 field_of_activity=validated_data['field_of_activity'],
                 teacher=user.teacher,
                 student=None,
+                first_name_proponent=user.first_name,
+                last_name_proponent=user.last_name,
+                patronymic_proponent=user.patronymic,
                 state=0
             )
             project.save()
@@ -158,7 +161,10 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
 class StudentGetProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = "__all__"
+        fields = ("topic", 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
+
+
 
 
 class StudentChoosesProjectSerializer(serializers.ModelSerializer):
@@ -181,6 +187,9 @@ class StudentOffersProjectSerializer(serializers.ModelSerializer):
                 field_of_activity=validated_data['field_of_activity'],
                 student=user.student,
                 teacher=validated_data['teacher'],
+                first_name_proponent=user.first_name,
+                last_name_proponent=user.last_name,
+                patronymic_proponent=user.patronymic,
                 state=0
             )
             project.save()
@@ -192,7 +201,8 @@ class StudentOffersProjectSerializer(serializers.ModelSerializer):
 class TeacherViewProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ('id', 'topic', 'about', 'field_of_activity', 'student')
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student',
+                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
 
 
 class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
@@ -234,3 +244,23 @@ class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = "__all__"
+
+class DescriptionTeacherIDAndStudentIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'first_name', 'last_name', 'patronymic', 'role', 'about',
+                  'email', 'vk', 'telegram', 'phone_number')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation

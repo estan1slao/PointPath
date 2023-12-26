@@ -122,6 +122,7 @@ class StudentGetProjectViewSet(mixins.ListModelMixin,
         return Project.objects.filter(student_id__isnull=True)
 
 
+
 class StudentChoosesProjectUpdateView(UpdateAPIView):
     queryset = Project.objects.filter(student_id__isnull=True)
     serializer_class = StudentChoosesProjectSerializer
@@ -130,7 +131,7 @@ class StudentChoosesProjectUpdateView(UpdateAPIView):
         user = request.user
         if user.role == 'ученик':
             instance = self.get_object()
-            serializer = self.get_serializer(instance, data={'state': 1, 'student_id': user.id}, partial=True)
+            serializer = self.get_serializer(instance, data={'state': 1, 'student': user.student.id}, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
@@ -182,7 +183,7 @@ class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
         user = request.user
         if user.role == 'учитель':
             instance = self.get_object()
-            serializer = self.get_serializer(instance, data={'state': 1, 'id': self.get_object().id}, partial=True)
+            serializer = self.get_serializer(instance, data={'state': 1, 'id': user.teacher.id}, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
@@ -261,4 +262,43 @@ def getComments(request, *args, **kwargs):
         comments = Comments.objects.raw(
             "SELECT id, content, card_id, user_id FROM backend_DRF_comments WHERE card_id=%s", [card])
         serializer = CommentsSerializer(comments, many=True)
+        return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def postStudentID(request):
+    user = request.user
+    serializer = ProfileSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+class DescriptionTeacherIDView(APIView):
+    def get(self, request, teacher_id):
+        user_id_teacher = Teacher.objects.filter(id=teacher_id).values_list('user', flat=True)
+        if not user_id_teacher:
+            return Response({"error": "Не найден учитель по предложенному teacher_id"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        account_description = Account.objects.filter(id=user_id_teacher[0])
+        if not account_description:
+            return Response({"error": "Не найден аккаунт по предложенному teacher_id"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        serializer = DescriptionTeacherIDAndStudentIDSerializer(account_description, many=True)
+        return Response(serializer.data)
+
+
+class DescriptionStudentIDView(APIView):
+    def get(self, request, student_id):
+        user_id_student = Student.objects.filter(id=student_id).values_list('user', flat=True)
+        if not user_id_student:
+            return Response({"error": "Не найден ученик по предложенному student_id"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        account_description = Account.objects.filter(id=user_id_student[0])
+        if not account_description:
+            return Response({"error": "Не найден аккаунт по предложенному student_id"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        serializer = DescriptionTeacherIDAndStudentIDSerializer(account_description, many=True)
         return Response(serializer.data)

@@ -68,6 +68,9 @@ class Project(models.Model):
     teacher = models.ForeignKey('Teacher', on_delete=models.PROTECT, null=True)
     state = models.IntegerField() # 0 - предложен проект кем-либо, 1 - принят, 2 - заверщен. Если проект отклонен - удалить строку
     material_link = models.URLField(blank=True, null=True)
+    first_name_proponent = models.TextField(null=True)
+    last_name_proponent = models.TextField(null=True)
+    patronymic_proponent = models.TextField(null=True)
 
 
     def __str__(self):
