@@ -1,4 +1,37 @@
-// draggedTask = null;
+const URL_GETCARDS = 'http://127.0.0.1:8000/getcards/';
+const cardTempPreview = document.querySelector('#card-preview').content.querySelector('.task');
+const plannedList = document.querySelector('.list-of-tasks.planned');
+
+function getDataCards (url) {
+    fetch(url,
+    {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+        },
+    },
+    )
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log('Ошибка');
+        }
+    })
+    .then((result) => {
+        result.forEach((item) => {
+            const task = cardTempPreview.cloneNode(true);
+
+            task.querySelector('.task-title').textContent = `${item.task}`;
+            task.id = `${item.card_id}`;
+
+            plannedList.appendChild(task);
+        })
+    })
+    .catch(() => {
+        console.log('Ошибка в GET запросе, но не в URL')
+    })
+}
 
 function dragAndDrop () {
     const lists = document.querySelectorAll('.list-of-tasks');
@@ -35,5 +68,7 @@ function dragAndDrop () {
         }
     }
 }
-
 dragAndDrop(); //Там где будет логика добаления карточки - снова вызывать
+
+getDataCards(URL_GETCARDS);
+

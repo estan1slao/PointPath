@@ -160,7 +160,7 @@ class StudentGetProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = "__all__"
 
-        
+
 class StudentChoosesProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project

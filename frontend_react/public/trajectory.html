@@ -45,56 +45,23 @@
                         <h2 class="step-title">запланнированные</h2>
                         <button class="add-task"></button>
                     </div>
-                    <div class="list-of-tasks">
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
-                        <div draggable="true" class="task">
-                            <p class="task-title">Создать опрос для ребят</p>
-                            <img class="notification-icon" src="./img/notification-blue.svg">
-                        </div>
+                    <div class="list-of-tasks planned">
+                        
                     </div>
                 </section>
                 <section class="step work">
                     <div class="title-container">
                         <h2 class="step-title">в работе</h2>
                     </div>
-                    <div class="list-of-tasks">
-                        <div draggable="true" class="task">
-                            <p class="task-title">Провести аналитику</p>
-                        </div>
+                    <div class="list-of-tasks work">
+                        
                     </div>
                 </section>
                 <section class="step checked">
                     <div class="title-container">
                         <h2 class="step-title">на проверке</h2>
                     </div>
-                    <div class="list-of-tasks">
+                    <div class="list-of-tasks checked">
                         
                     </div>
                 </section>
@@ -102,7 +69,7 @@
                     <div class="title-container">
                         <h2 class="step-title">готово</h2>
                     </div>
-                    <div class="list-of-tasks">
+                    <div class="list-of-tasks done">
                         
                     </div>
                 </section>
@@ -115,22 +82,22 @@
         </footer>
     </div>
 
-    <div class="popup hidden">
+    <div class="popup hidden" id="">
         <section class="edit-task wrapper">
             <button class="close-btn"></button>
-            <input class="popup-text" value="Создать опрос для ребят">
+            <input class="popup-text" id="theme-task-input" value="">
             <form>
                 <div class="input-wrapper">
                     <label class="input-label" for="about-input">описание</label>
-                    <input type="text" name="about" id="about-task-input">
+                    <input type="text" name="about" id="about-task-input" value="">
                 </div>
                 <div class="input-wrapper">
                     <label class="input-label" for="profession-input">категория</label>
-                    <input type="text" name="about" id="category-input" value="запланнированные">
+                    <input disabled type="text" name="about" id="category-input" value="">
                 </div>
                 <div class="additions-wrapper">
                     <p class="input-label">вложения</p>
-                    <div class="additions-link">
+                    <div class="additions-link hidden">
                         <button class="close-input-btn"></button>
                         <label type="url" name="about">отчет.docx</label>
                     </div>
@@ -154,7 +121,7 @@
                     </div>
                 </div>
                 <div class="control-btns">
-                    <button class="save-button">
+                    <button class="delete-button">
                         <p>удалить задачу</p>
                         <img src="./img/close-input.svg">
                     </button>
@@ -166,7 +133,16 @@
             </form>
         </section>
     </div>
+
+    <template id="card-preview">
+        <div draggable="true" class="task" id="">
+            <p class="task-title">Создать опрос для ребят</p>
+            <img class="notification-icon" src="./img/notification-blue.svg">
+        </div>
+    </template>
+
     <script src="./js/trajectory.js"></script>
     <script src="./js/popups/add-task.js"></script>
+    <script src="./js/popups/open-task.js"></script>
 </body>
 </html>
