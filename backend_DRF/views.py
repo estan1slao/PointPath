@@ -106,7 +106,7 @@ def updatePassword(request):
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
 
-  
+
 class TeacherOffersProjectViewSet(mixins.CreateModelMixin,
                      GenericViewSet):
     queryset = Project.objects.all()
@@ -152,6 +152,7 @@ class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
     def get_queryset(self):
         user = self.request.user
         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+
 
 class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
                                  mixins.DestroyModelMixin,
@@ -200,7 +201,7 @@ class CardsView(generics.CreateAPIView):
 #@permission_classes([IsAuthenticated])
 def getCards(request):
         #user = request.user
-        #project = Project.objects.raw("SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
+        #project = Project.objects.raw("SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
         #cards = Tasks.objects.raw(
             #"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
         cards = Tasks.objects.all()
@@ -211,7 +212,7 @@ def getCards(request):
 class CardUpdateView(APIView):
     def check(self, user_id, pk):
         project = Project.objects.raw(
-            "SELECT project_id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
+            "SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
         if len(project) == 0:
             return Response({"message": "У вас нет доступа для удаления данных"})
         cards = Tasks.objects.raw(

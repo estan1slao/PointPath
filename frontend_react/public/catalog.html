@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/catalog.css">
+    <title>Каталог проектов</title>
+</head>
+
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <div class="nav-left">
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item hidden" href="#">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
+                    </div>
+                    <div class="nav-right">
+                        <a class="nav-item hidden" href="#">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item hidden" href="#">
+                            <li>.создать аккаунт</li>
+                        </a>
+                        <div class="account">
+                            <a href="./account-student.html">
+                                <span>Иванов Иван</span>
+                                <img src="./img/exit.svg" width="32" height="32">
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>  
+            <div class="edit hidden">
+                <a href="#">
+                    <img class="" src="./img/edit.svg" width="24" height="24">
+                    <span class="">редактировать</span>
+                </a>
+            </div>
+
+        </header>
+
+        <main>
+            <h1 class="title">.каталог проектов</h1>
+
+            <button class="back-button">
+                <img src="./img/arrow-left-gray.svg" width="66" height="21">
+                <span>назад</span>
+            </button>
+
+            <div class="catalog">
+
+                <a class="project-card" href="./project-page.html">
+                    <h2 class="title-card">создание веб-сервиса для школы</h2>
+
+                    <div class="card-info">
+                        <span class="card-label">учитель</span>
+                        <p class="card-text">Петров Пётр Петрович</p>
+    
+                        <span class="card-label">сфера</span>
+                        <p  class="card-text">информатика</p>
+    
+                        <span class="card-label">Описание</span>
+                        <p class="card-text card-description">Необходимо изучить насколько актуально сегодня создание специализированных сервисов для школ, таких как бла-бла-бла</p>
+                    </div>
+                    
+                    <div class="select-button"><img src="./img/arrow.svg"></div>
+                </a>
+
+                <a class="project-card" href="./project-page.html">
+                    <h2 class="title-card">создание веб-сервиса для школы</h2>
+
+                    <div class="card-info">
+                        <span class="card-label">учитель</span>
+                        <p class="card-text">Петров Пётр Петрович</p>
+    
+                        <span class="card-label">сфера</span>
+                        <p  class="card-text">информатика</p>
+    
+                        <span class="card-label">Описание</span>
+                        <p class="card-text card-description">Необходимо изучить насколько актуально сегодня создание специализированных сервисов для школ, таких как бла-бла-бла</p>
+                    </div>
+                    
+                    <div class="select-button"><img src="./img/arrow.svg"></div>
+                </a>
+
+            </div>
+
+        </main>
+
+        <footer>
+            <div class='logo'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </footer>
+
+        <div class="popup hidden">
+            <section class="exit-approve wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text">Выйти из системы?</p>
+                <div class="move-links">
+                    <a class="popup-link return-link">
+                        <img src="./img/arrow.svg">
+                        <span>вернуться назад</span>
+                    </a>
+                    <a href="./main-page.html" class="popup-link exit-link">выйти</a>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <template id="project-card-template">
+        <a class="project-card" href="./project-page.html">
+            <h2 class="title-card" id="">заглушка</h2>
+
+            <div class="card-info">
+                <span class="card-label">учитель</span>
+                <p class="card-text" id="teacher-name">заглушка</p>
+
+                <span class="card-label">сфера</span>
+                <p class="card-text" id="sphere">заглушка</p>
+
+                <span class="card-label">Описание</span>
+                <p class="card-text card-description">заглушка</p>
+            </div>
+            
+            <div class="select-button"><img src="./img/arrow.svg"></div>
+        </a>
+    </template>
+
+    <script src="./js/catalog.js"></script>
+    <script src="./js/popups/exit-approve.js"></script>
+</body>
+</html>

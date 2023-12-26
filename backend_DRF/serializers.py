@@ -166,6 +166,7 @@ class StudentGetProjectSerializer(serializers.ModelSerializer):
 
 
 
+
 class StudentChoosesProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
@@ -196,16 +197,19 @@ class StudentOffersProjectSerializer(serializers.ModelSerializer):
         else:
             raise serializers.ValidationError("Пользователь должен принадлежать роли ученик!")
 
+
 class TeacherViewProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'topic', 'about', 'field_of_activity', 'student',
                   'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
 
+
 class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'state')
+
 
 class CardsSerializer(serializers.ModelSerializer):
 

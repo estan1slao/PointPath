@@ -42,7 +42,6 @@ urlpatterns = [
     path('profile/update/', views.updateProfile, name='update-profile'),
     path('profile/update-password/', views.updatePassword, name='update-password'),
 
-
     # Project
     path('projects/', include(router.urls)),
     path('projects/student-choose-project/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),

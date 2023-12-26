@@ -1,0 +1,111 @@
+.body-center {
+    background-image: url(../img/catalog-bg.png);
+}
+
+header {
+    margin-bottom: 99px ;
+}
+
+.title {
+    font-size: 64px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.back-button {
+    cursor: pointer;
+    font-family: Zona Pro;
+    font-size: 28px;
+    color: #8A8A8F;
+
+    margin: 7px 0 40px 118px;
+}
+
+.catalog {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 0 118px;
+    box-sizing: border-box;
+}
+
+.project-card {
+    box-sizing: border-box;
+    width: 528px;
+    height: 649px;
+    
+    border-radius: 30px;
+    backdrop-filter: blur(2px);
+
+    padding: 29px 27px 29px 27px;
+    cursor: pointer;
+}
+
+.project-card:nth-child(9n+1),
+.project-card:nth-child(9n+5),
+.project-card:nth-child(9n+9) {
+    background-color: #CBF6C7;
+}
+
+.project-card:nth-child(9n+2),
+.project-card:nth-child(9n+6),
+.project-card:nth-child(9n+7) {
+    background-color: #F0BCFA;
+}
+
+.project-card:nth-child(9n+3),
+.project-card:nth-child(9n+4),
+.project-card:nth-child(9n+8) {
+    background-color: #ADB8F0;
+}
+
+
+.title-card {
+    font-size: 42px;
+    font-weight: 600;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    margin-bottom: 33px;
+}
+
+.card-info {
+    box-sizing: border-box;
+    padding: 0 13px 0 13px;
+}
+
+.card-label {
+    color: #5F5F66;
+    display: block;
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.card-text {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.select-button {
+    display: flex;
+    justify-content: flex-end;
+
+    position: absolute;
+    bottom: 29px;
+    right: 40px;
+}
+
+.card-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+footer {
+    margin-top: 95px;
+}

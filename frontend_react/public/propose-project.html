@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/propose-project.css">
+    <title>Выбор проекта</title>
+</head>
+
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <div class="nav-left">
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item hidden" href="#">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
+                    </div>
+                    <div class="nav-right">
+                        <a class="nav-item hidden" href="#">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item hidden" href="#">
+                            <li>.создать аккаунт</li>
+                        </a>
+                        <div class="account ">
+                            <a href="./account-student.html">
+                                <span>Иванов Иван</span>
+                                <img src="./img/exit.svg" width="32" height="32">
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <div class="edit hidden">
+                <a href="#">
+                    <img class="" src="./img/edit.svg" width="24" height="24">
+                    <span class="">редактировать</span>
+                </a>
+            </div>
+
+        </header>
+
+        <main>
+            <h1 class="title">.хочу предложить свой проект</h1>
+            <form class="block-form">
+                <div class="block-select">
+                    <div class="custom-select">
+                        <button class="dropdown__button">сфера проекта</button>
+                        <ul class="dropdown-list hidden">
+                            <li class="dropdown-list-item" data-value="cфера 1">информатика</li>
+                            <li class="dropdown-list-item" data-value="cфера 2">русский язык</li>
+                            <li class="dropdown-list-item" data-value="cфера 3">математика</li>
+                            <li class="dropdown-list-item" data-value="cфера 4">английский язык</li>
+                            <li class="dropdown-list-item" data-value="cфера 5">география</li>
+                            <li class="dropdown-list-item" data-value="cфера 6">биология</li>
+                            <li class="dropdown-list-item" data-value="cфера 7">химия</li>
+                        </ul>
+                        <input class="dropdown-input" name="selected-sphere" value="" hidden />
+                    </div>
+
+                    <div class="custom-select">
+                        <button class="dropdown__button">учитель</button>
+                        <ul class="dropdown-list hidden">
+                            <li class="dropdown-list-item" data-value="учитель 1">Петров Пётр Петрович</li>
+                            <li class="dropdown-list-item" data-value="учитель 2">Петров Пётр Петрович</li>
+                            <li class="dropdown-list-item" data-value="учитель 3">Петров Пётр Петрович</li>
+                            <li class="dropdown-list-item" data-value="учитель 4">Петров Пётр Петрович</li>
+                            <li class="dropdown-list-item" data-value="учитель 5">Петров Пётр Петрович</li>
+                        </ul>
+                        <input class="dropdown-input" name="selected-teacher" value="" hidden/>
+                    </div>
+
+                    <textarea class="description-area" name="description" id="description" rows="5" placeholder="описание идеи для проекта"></textarea>
+                </div>
+    
+                <div class="buttons">
+                    <div class="form-button" id="back">
+                        <img src="./img/arrow-left-gray.svg" width="66" height="21">
+                        <span>назад</span>
+                    </div>
+
+                    <div class="form-button" id="">
+                        <button>предложить проект</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <footer>
+            <div class='logo'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </footer>
+    </div>
+
+    <div class="popup hidden">
+        <section class="success-sendForm wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text ">Твой проект успешно отправлен на рассмотрение преподавателю! </p>
+            <a href="./catalog.html" class="popup-link">
+                <span>в каталог проектов</span>
+                <img src="./img/arrow.svg">
+            </a>
+        </section>
+    </div>
+
+    <div class="popup hidden">
+        <section class="exit-approve wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text">Выйти из системы?</p>
+            <div class="move-links">
+                <a class="popup-link return-link">
+                    <img src="./img/arrow.svg">
+                    <span>вернуться назад</span>
+                </a>
+                <a href="./main-page.html" class="popup-link exit-link">выйти</a>
+            </div>
+        </section>
+    </div>
+
+    <script src="./js/propose-project.js"></script>
+    <script src="./js/popups/exit-approve.js"></script>
+    <script src="./js/popups/success-send-form.js"></script>
+</body>
+</html>
