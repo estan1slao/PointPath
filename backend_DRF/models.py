@@ -69,6 +69,7 @@ class Project(models.Model):
     state = models.IntegerField() # 0 - предложен проект кем-либо, 1 - принят, 2 - заверщен. Если проект отклонен - удалить строку
     material_link = models.URLField(blank=True, null=True)
 
+
     def __str__(self):
         return self.topic
 

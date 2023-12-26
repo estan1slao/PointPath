@@ -316,9 +316,15 @@ input:focus {
     width: 45%;
 }
 
+.save-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
 .save-button {
     display: flex;
-    width: 100%;
+    
     justify-content: flex-end;
     gap: 13px;
     border: none;
