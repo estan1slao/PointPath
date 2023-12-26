@@ -1,4 +1,4 @@
-const URL_PROJECTS = 'http://127.0.0.1:8000/projects/choose/';
+const URL_PROJECTS = 'http://127.0.0.1:8000/projects/student-get-projects/';
 // http://127.0.0.1:8000/projects/student-get-projects/
 
 const cardTemplate = document.querySelector('#project-card-template')

@@ -88,7 +88,7 @@ function saveBtnTaskHandler (evt) {
         category: taskPopupCategory.value
     };
 
-    sendNewTaskInfo(URL_OPENCARD + evt.currentTarget.closest('.popup').id, obj);
+    sendNewTaskInfo(URL_OPENCARD + evt.currentTarget.closest('.popup').id + '/', obj);
     taskPopup.classList.add('hidden');
     location.reload();
 }
@@ -96,7 +96,7 @@ function saveBtnTaskHandler (evt) {
 function deleteBtnTaskHandler (evt) {
     evt.preventDefault();
 
-    deleteTask(URL_OPENCARD + evt.currentTarget.closest('.popup').id);
+    deleteTask(URL_OPENCARD + evt.currentTarget.closest('.popup').id + '/');
 
     taskPopup.classList.add('hidden');
     location.reload();

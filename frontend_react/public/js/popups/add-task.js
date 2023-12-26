@@ -23,7 +23,7 @@ function saveBtnHandler (evt) {
     const data = JSON.stringify(object);
     sendDataCard(URL_CARDS, data);
     taskPopup.classList.add('hidden');
-    location.reload();
+    document.location.reload();
 }
 
 function addTaskBtnHandler (evt) {

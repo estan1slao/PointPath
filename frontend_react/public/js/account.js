@@ -68,6 +68,7 @@ const phoneInput = form.querySelector('#phone-input');
 
 const DEFAULT_DESCRIPTION = 'Здесь пока ничего нет, но вы можете рассказать немного о себе :)';
 const DEFAULT_GRADE = 'не указан';
+const DEFAULT_SPEC = 'не указана';
 
 function openEditPopup () {
     editPopupWrapper.classList.remove('hidden');
@@ -78,7 +79,7 @@ function openEditPopup () {
         aboutInput.value = "";
     }
 
-    if (grade.textContent !== DEFAULT_GRADE) {
+    if (grade.textContent !== DEFAULT_GRADE && grade.textContent !== DEFAULT_SPEC) {
         gradeInput.value = grade.textContent;
     } else {
         gradeInput.value = "";
@@ -153,9 +154,17 @@ function getJSONForm (formValues) {
     const formData = new FormData(formValues);
     let object = {};
     formData.forEach((value, key) => {
-        if (key === 'grade') {
+        if (key === 'grade') { 
             object['info'] = {
                 grade: value
+            }
+        } else {
+            object[key] = value;
+        }
+
+        if (key === 'discipline') {
+            object['info'] = {
+                discipline: value
             }
         } else {
             object[key] = value;
@@ -169,14 +178,29 @@ function fillData (data) {
     const student = document.querySelector('.student');
     const teacher = document.querySelector('.teacher');
 
+    const projectTab = document.querySelector('#project');
+    const trajectoryTab = document.querySelector('#trajectory');
+    const projectsToApproveTab = document.querySelector('#projects-to-approve');
+
     if (data.role === "учитель") {
         spec.textContent = "специализация";
         student.classList.add('hidden');
         teacher.classList.remove('hidden');
+
+        form.querySelector('#grade-spec').textContent = "специализация";
+
+        gradeInput.name = "discipline";
         
         if (data.info.discipline !== null && data.info.discipline !== "") {
             grade.textContent = data.info.discipline;
+        } else {
+            grade.textContent = "не указана";
         }
+
+        projectTab.classList.add('hidden');
+        trajectoryTab.classList.add('hidden');
+        projectsToApproveTab.classList.remove('hidden');
+
     } else {
         if (data.info.grade !== null && data.info.grade !== "") {
             grade.textContent = data.info.grade;
@@ -186,11 +210,6 @@ function fillData (data) {
     fio.textContent = `${data.last_name} ${data.first_name} ${data.patronymic}`;
     email.textContent = data.email;
     fi.textContent = `${data.last_name} ${data.first_name}`;
-
-    if (data.info.grade !== null && data.info.grade !== "") {
-        grade.textContent = data.info.grade;
-    }
-
 
     if (data.about !== null && data.about !== "") {
         about.textContent = data.about;
