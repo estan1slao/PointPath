@@ -130,7 +130,7 @@ class StudentChoosesProjectUpdateView(UpdateAPIView):
         user = request.user
         if user.role == 'ученик':
             instance = self.get_object()
-            serializer = self.get_serializer(instance, data={'state': 1, 'student_id': user.id}, partial=True)
+            serializer = self.get_serializer(instance, data={'state': 1, 'student': user.student.id}, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
@@ -181,7 +181,7 @@ class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
         user = request.user
         if user.role == 'учитель':
             instance = self.get_object()
-            serializer = self.get_serializer(instance, data={'state': 1, 'id': self.get_object().id}, partial=True)
+            serializer = self.get_serializer(instance, data={'state': 1, 'id': user.teacher.id}, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
