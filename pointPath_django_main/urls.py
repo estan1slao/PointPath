@@ -48,10 +48,12 @@ urlpatterns = [
     path('projects/student-choose-project/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
     path('projects/teacher-denied-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='delete_project'),
     path('projects/teacher-accept-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='update_project'),
+
     #Tasks
     path('cards/', views.CardsView.as_view(), name='save-cards'),
     path('getcards/', views.getCards, name='get-Cards'),
-    path('card/<int:pk>', views.CardUpdateView.as_view(), name='update-card'),
+    path('card/<int:pk>/', views.CardUpdateView.as_view(), name='update-card'),
     path('comments/', views.CommentsView.as_view(), name='comments'),
-    path('comments/<int:card>', views.getComments, name='get-comments')
+    path('comments/<int:card>/', views.getComments, name='get-comments')
+
 ]
