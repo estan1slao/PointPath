@@ -150,7 +150,8 @@ input:focus {
     width: 34px;
 }
 
-.save-button {
+.save-button,
+.delete-button {
     display: flex;
     gap: 13px;
     border: none;
