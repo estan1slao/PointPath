@@ -161,7 +161,7 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
 class StudentGetProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ("topic", 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+        fields = ('id', "topic", 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
                   'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
 
 
