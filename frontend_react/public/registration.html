@@ -13,18 +13,33 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <div class="nav-left">
-                        <a class="nav-item" href="./main-page.html"><li>.главная</li></a>
-                        <a class="nav-item hidden" href="#"><li>.проект</li></a>
-                        <a class="nav-item hidden" href="#"><li>.траектория</li></a>
-                        <a class="nav-item hidden" href="#"><li>.проекты на рассмотрение</li></a>
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item hidden" id="project" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item hidden" id="trajectory" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item hidden" id="propose-project" href="./propose-project.html">
+                            <li>.форма проекта</li>
+                        </a>
+                        <a class="nav-item hidden" id="projects-to-approve" href="#">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
                     </div>
                     <div class="nav-right">
-                        <a class="nav-item" href="./enter.html"><li>.войти</li></a>
-                        <a class="nav-item" href="./registration.html"><li>.создать аккаунт</li></a>
+                        <a class="nav-item" id="enter" href="./enter.html">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item" id="create-account" href="./registration.html">
+                            <li>.создать аккаунт</li>
+                        </a>
                         <div class="account hidden">
-                            <a href="#">
-                                <span>Иванов Иван</span>
-                                <img src="./img/exit.svg" width="36" height="36">
+                            <a href="./account-student.html">
+                                <span id="fi">Иванов Иван</span>
+                                <img src="./img/exit.svg" width="32" height="32">
                             </a>
                         </div>
                     </div>
@@ -32,8 +47,8 @@
             </nav>
             <div class="edit hidden">
                 <a href="#">
-                    <img class="hidden" src="./img/edit.svg" width="24" height="24">
-                    <span class="hidden">редактировать</span>
+                    <img src="./img/edit.svg" width="24" height="24">
+                    <span>редактировать</span>
                 </a>
             </div>
         </header>

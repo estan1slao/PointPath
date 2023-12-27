@@ -15,10 +15,13 @@ const projId = data.get('id');
 
 const URL_TAKE_PROJ = `http://127.0.0.1:8000/projects/student-choose-project/${projId}/`;
 
-function postDataProj (url, token, onSuccess) {
+// Логика для вкладок header
+const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
+
+function getDataLogin (url, token, onSuccess) {
     fetch(url,
     {
-        method: 'PUT',
+        method: 'GET',
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
@@ -27,10 +30,13 @@ function postDataProj (url, token, onSuccess) {
     )
     .then((response) => {
         if (response.ok) {
-            onSuccess();
+            return response.json();
         } else {
             console.log('Ошибка 1');
         }
+    })
+    .then((result) => {
+        onSuccess(result);
     })
     .catch(() => {
         console.log('Ошибка 2');
@@ -52,6 +58,58 @@ function getTokens () {
 
 const tokens = {};
 getTokens();
+
+getDataLogin(URL_PROFILE, tokens.access, fillData);
+
+function fillData (data) {
+    const projectTab = document.querySelector('#project');
+    const trajectoryTab = document.querySelector('#trajectory');
+    const projectsToApproveTab = document.querySelector('#projects-to-approve');
+    const proposeProjectTab = document.querySelector('#propose-project');
+    const fi = document.querySelector('#fi');
+    const projOwner = document.querySelector('#proj-owner');
+    const projOwnerName = document.querySelector('#teacher');
+
+    if (data.role === "ученик") { 
+        proposeProjectTab.classList.add('hidden');
+        
+        fi.textContent = `${data.last_name} ${data.first_name}`;
+    }
+    else {
+        projectTab.classList.add('hidden');
+        trajectoryTab.classList.add('hidden');
+        projectsToApproveTab.classList.remove('hidden');
+        projOwner.textContent = 'ученик';
+        projOwnerName.textContent = `` //здесь имя ученика, который делает данный проект
+
+        fi.textContent = `${data.last_name} ${data.first_name} ${data.patronymic}`;
+
+    }
+    
+}
+
+
+function postDataProj (url, token, onSuccess) {
+    fetch(url,
+    {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+    },
+    )
+    .then((response) => {
+        if (response.ok) {
+            onSuccess();
+        } else {
+            console.log('Ошибка 1');
+        }
+    })
+    .catch(() => {
+        console.log('Ошибка 2');
+    });
+}
 
 const takeButton = document.querySelector('.student-choice');
 

@@ -18,26 +18,29 @@
                         <a class="nav-item" href="./main-page.html">
                             <li>.главная</li>
                         </a>
-                        <a class="nav-item" href="./project-choice.html">
+                        <a class="nav-item" id="project" href="./project-choice.html">
                             <li>.проект</li>
                         </a>
-                        <a class="nav-item" href="./trajectory.html">
+                        <a class="nav-item" id="trajectory" href="./trajectory.html">
                             <li>.траектория</li>
                         </a>
-                        <a class="nav-item hidden" href="#">
+                        <a class="nav-item" id="propose-project" href="./propose-project.html">
+                            <li>.форма проекта</li>
+                        </a>
+                        <a class="nav-item hidden" id="projects-to-approve" href="#">
                             <li>.проекты на рассмотрение</li>
                         </a>
                     </div>
                     <div class="nav-right">
-                        <a class="nav-item hidden" href="#">
+                        <a class="nav-item hidden" id="enter" href="./enter.html">
                             <li>.войти</li>
                         </a>
-                        <a class="nav-item hidden" href="#">
+                        <a class="nav-item hidden" id="create-account" href="./registration.html">
                             <li>.создать аккаунт</li>
                         </a>
                         <div class="account ">
                             <a href="./account-student.html">
-                                <span>Иванов Иван</span>
+                                <span id="fi">Иванов Иван</span>
                                 <img src="./img/exit.svg" width="32" height="32">
                             </a>
                         </div>
@@ -46,11 +49,10 @@
             </nav>
             <div class="edit hidden">
                 <a href="#">
-                    <img class="" src="./img/edit.svg" width="24" height="24">
-                    <span class="">редактировать</span>
+                    <img src="./img/edit.svg" width="24" height="24">
+                    <span>редактировать</span>
                 </a>
             </div>
-
         </header>
 
         <main>
@@ -98,6 +100,7 @@
         </section>
     </div>
 
+    <script src="./js/project-choice.js"></script>
     <script src="./js/popups/exit-approve.js"></script>
 </body>
 
