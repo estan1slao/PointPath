@@ -181,6 +181,7 @@ function fillData (data) {
     const projectTab = document.querySelector('#project');
     const trajectoryTab = document.querySelector('#trajectory');
     const projectsToApproveTab = document.querySelector('#projects-to-approve');
+    const proposeProjectTab = document.querySelector('#propose-project');
 
     if (data.role === "учитель") {
         spec.textContent = "специализация";
@@ -200,6 +201,7 @@ function fillData (data) {
         projectTab.classList.add('hidden');
         trajectoryTab.classList.add('hidden');
         projectsToApproveTab.classList.remove('hidden');
+        proposeProjectTab.classList.remove('hidden');
 
     } else {
         if (data.info.grade !== null && data.info.grade !== "") {

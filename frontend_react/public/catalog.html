@@ -63,39 +63,7 @@
 
             <div class="catalog">
 
-                <a class="project-card" href="./project-page.html">
-                    <h2 class="title-card">создание веб-сервиса для школы</h2>
-
-                    <div class="card-info">
-                        <span class="card-label">учитель</span>
-                        <p class="card-text">Петров Пётр Петрович</p>
-    
-                        <span class="card-label">сфера</span>
-                        <p  class="card-text">информатика</p>
-    
-                        <span class="card-label">Описание</span>
-                        <p class="card-text card-description">Необходимо изучить насколько актуально сегодня создание специализированных сервисов для школ, таких как бла-бла-бла</p>
-                    </div>
-                    
-                    <div class="select-button"><img src="./img/arrow.svg"></div>
-                </a>
-
-                <a class="project-card" href="./project-page.html">
-                    <h2 class="title-card">создание веб-сервиса для школы</h2>
-
-                    <div class="card-info">
-                        <span class="card-label">учитель</span>
-                        <p class="card-text">Петров Пётр Петрович</p>
-    
-                        <span class="card-label">сфера</span>
-                        <p  class="card-text">информатика</p>
-    
-                        <span class="card-label">Описание</span>
-                        <p class="card-text card-description">Необходимо изучить насколько актуально сегодня создание специализированных сервисов для школ, таких как бла-бла-бла</p>
-                    </div>
-                    
-                    <div class="select-button"><img src="./img/arrow.svg"></div>
-                </a>
+                <!-- тут будут проекты из базы -->
 
             </div>
 
@@ -124,8 +92,8 @@
     </div>
 
     <template id="project-card-template">
-        <a class="project-card" href="./project-page.html">
-            <h2 class="title-card" id="">заглушка</h2>
+        <div class="project-card">
+            <h2 class="title-card">заглушка</h2>
 
             <div class="card-info">
                 <span class="card-label">учитель</span>
@@ -136,10 +104,12 @@
 
                 <span class="card-label">Описание</span>
                 <p class="card-text card-description">заглушка</p>
+
+                <span class="proj-id hidden"></span>
             </div>
             
             <div class="select-button"><img src="./img/arrow.svg"></div>
-        </a>
+        </div>
     </template>
 
     <script src="./js/catalog.js"></script>

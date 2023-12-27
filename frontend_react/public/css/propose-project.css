@@ -32,45 +32,29 @@ header {
     margin-bottom: 23px;
 }
 
-.select-wrapper {
-    position: relative;
-    margin-right: 48%;
-}
+.input-proj-name {
+    box-sizing: border-box;
+    width: 100%;
 
-.select-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 22px;
-    transform: translateY(-40%);
-    display: block;
+    border-radius: 30px;
 
-    background-image: url(../img/select-arrow.svg);
-    width: 30px;
-    height: 18px;
-
-    pointer-events: none;
-}
-
-select {
-    appearance: none;
-    border: none;
-    background-color: transparent;
-    outline: none;
-
-    border-radius: 50px;
     border: 1px solid #1B1B25;
     background: #FBFBFB;
-    padding: 12px 52px 15px 22px;
-    cursor: pointer;
 
-    width: 100%;
+    padding: 12px 35px 15px 32px;
 
     font-family: 'Zona Pro', sans-serif;
     font-size: 28px;
     font-weight: 300;
     line-height: normal;
     color: #5F5F66;
+
+    cursor: pointer;
+}
+
+.selects {
+    display: flex;
+    gap: 51px;
 }
 
 .description-area {
@@ -101,18 +85,28 @@ select {
     cursor: pointer;
 }
 
-.form-button button {
+.submit-button {
     font-family: 'Zona Pro', sans-serif;
     font-size: 28px;
     color: #8A8A8F;
+
+    border-bottom: 1px solid transparent;
 }
 
+.submit-button:hover {
+    border-bottom: 1px solid #B9C5FF;
+}
+
+.submit-button:active {
+    color: #B9C5FF;
+    border-bottom: 1px solid #B9C5FF;
+}
 
 /* выпадающий список */
 
 .custom-select {
     position: relative;
-    margin-right: 48%;
+    width: 50%;
 }
 
 .dropdown__button {
@@ -190,6 +184,7 @@ select {
 .dropdown-list-item:hover {
     background-color: #B9C5FF;
 }
+
 
 .success-sendForm.wrapper {
     background-color: #E694F7;
