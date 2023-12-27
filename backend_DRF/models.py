@@ -92,6 +92,9 @@ class Comments(models.Model):
     card = models.ForeignKey('Tasks', on_delete=models.PROTECT)
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     content = models.TextField()
+    first_name_proponent = models.TextField(null=True)
+    last_name_proponent = models.TextField(null=True)
+    patronymic_proponent = models.TextField(null=True)
 
     def __str__(self):
         return self.content
