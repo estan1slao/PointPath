@@ -39,7 +39,7 @@ function onSuccessGetProjects (projects) {
 
         card.querySelector('.title-card').textContent = project.topic;
         card.querySelector('#teacher-name').textContent = 
-            `${project.first_name_proponent} ${project.last_name_proponent} ${project.patronymic_proponent}`;
+            `${project.last_name_proponent} ${project.first_name_proponent} ${project.patronymic_proponent}`;
         card.querySelector('#sphere').textContent = project.field_of_activity;
         card.querySelector('.card-description').textContent = project.about;
         card.querySelector('.proj-id').textContent = project.id;
