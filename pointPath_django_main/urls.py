@@ -52,8 +52,8 @@ urlpatterns = [
 
     #Tasks
     path('cards/', views.CardsView.as_view(), name='save-cards'),
-    path('getcards/', views.getCards, name='get-Cards'),
-    path('card/<int:pk>/', views.CardUpdateView.as_view(), name='update-card'),
+    path('getcards/<int:project_id>/', views.getCards, name='get-Cards'),
+    path('card/<int:project_id>/<int:pk>/', views.CardUpdateView.as_view(), name='update-card'),
 
     #Comments
     path('comments/<int:card>/', views.getComments, name='get-comments'),
