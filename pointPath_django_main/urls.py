@@ -43,6 +43,7 @@ urlpatterns = [
     path('profile/update-password/', views.updatePassword, name='update-password'),
 
     # Project
+    path('projects/get-active/', GetActiveProjectForStudentAndTeacherView.as_view(), name='get-active-projects'),
     path('projects/', include(router.urls)),
     path('projects/student-choose-project/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
     path('projects/teacher-denied-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='delete_project'),
@@ -52,10 +53,17 @@ urlpatterns = [
     path('cards/', views.CardsView.as_view(), name='save-cards'),
     path('getcards/', views.getCards, name='get-Cards'),
     path('card/<int:pk>/', views.CardUpdateView.as_view(), name='update-card'),
-    path('comments/', views.CommentsView.as_view(), name='comments'),
+
+    #Comments
     path('comments/<int:card>/', views.getComments, name='get-comments'),
+    path('comments/create/', CreateCommentsView.as_view(), name='create-comments'),
+    # {
+    #     "card_id": null,
+    #     "content": ""
+    # }
 
     # Information on student_id and teacher_id
     path('about-teacher/<int:teacher_id>/', DescriptionTeacherIDView.as_view(), name='description_teacher_id'),
     path('about-student/<int:student_id>/', DescriptionStudentIDView.as_view(), name='description_student_id'),
+    path('about-teacher/all/', GetAllTeachersView.as_view(), name='get_teachers')
 ]

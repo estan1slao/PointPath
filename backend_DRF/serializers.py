@@ -240,16 +240,73 @@ class CardsSerializer(serializers.ModelSerializer):
 
 
 class CommentsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Comments
         fields = "__all__"
+
 
 class DescriptionTeacherIDAndStudentIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('id', 'first_name', 'last_name', 'patronymic', 'role', 'about',
                   'email', 'vk', 'telegram', 'phone_number')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation
+
+class ActiveProjectStudentSerializer(serializers.ModelSerializer):
+    first_name_teacher = serializers.SerializerMethodField()
+    last_name_teacher = serializers.SerializerMethodField()
+    patronymic_teacher = serializers.SerializerMethodField()
+
+    def get_first_name_teacher(self, obj):
+        return obj.teacher.user.first_name
+
+    def get_last_name_teacher(self, obj):
+        return obj.teacher.user.last_name
+
+    def get_patronymic_teacher(self, obj):
+        return obj.teacher.user.patronymic
+    class Meta:
+        model = Project
+        fields = ('id','topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_teacher', 'last_name_teacher', 'patronymic_teacher')
+
+class ActiveProjectsTeacherSerializer(serializers.ModelSerializer):
+    first_name_student = serializers.SerializerMethodField()
+    last_name_student = serializers.SerializerMethodField()
+    patronymic_student = serializers.SerializerMethodField()
+
+    def get_first_name_student(self, obj):
+        return obj.student.user.first_name
+
+    def get_last_name_student(self, obj):
+        return obj.student.user.last_name
+
+    def get_patronymic_student(self, obj):
+        return obj.student.user.patronymic
+    class Meta:
+        model = Project
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_student', 'last_name_student', 'patronymic_student')
+
+
+class GetAllTeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'first_name', 'last_name', 'patronymic', 'role', 'email', 'about',
+                  'vk', 'telegram', 'phone_number')
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
