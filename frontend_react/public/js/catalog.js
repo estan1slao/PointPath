@@ -71,8 +71,10 @@ document.addEventListener('click', (evt) => {
             about: cardElem.querySelector('.card-description').textContent
         }
         console.log(projInfo);
+
+        const savedData = new URLSearchParams(projInfo).toString();
+        window.location.href = `./project-page.html?${savedData}`;
     }
 
-    const savedData = new URLSearchParams(projInfo).toString();
-    window.location.href = `./project-page.html?${savedData}`;
+    
 })
