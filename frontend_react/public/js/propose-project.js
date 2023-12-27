@@ -177,7 +177,3 @@ form.addEventListener('submit', (evt) => {
         postDataProj(URL_PROPOSE_PROJ, tokens.access, getJSONForm(form), console.log);
     }
 })
-
-function onSuccesPostProj () {
-
-}

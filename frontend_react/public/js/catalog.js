@@ -74,10 +74,6 @@ document.addEventListener('click', (evt) => {
         const savedData = new URLSearchParams(projInfo).toString();
         window.location.href = `./project-page.html?${savedData}`;
     }
-
-
-    const savedData = new URLSearchParams(projInfo).toString();
-    window.location.href = `./project-page.html?${savedData}`;
 })
 
 // Логика для вкладок header
