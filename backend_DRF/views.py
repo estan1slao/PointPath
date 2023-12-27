@@ -264,17 +264,3 @@ def getComments(request, *args, **kwargs):
         serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data)
 
-def uploadFile(request):
-    all_files = Files.ojects.all()
-    context = {
-        'all_files': all_files
-    }
-
-    if request.POST:
-        file = Files.objects.create(
-            card=request.POST.get('card'),
-            file=request.FILES.get('file')
-        )
-        file.save()
-        return render(request)
-
