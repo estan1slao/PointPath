@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 from backend_DRF import views
 from backend_DRF.views import *
@@ -48,10 +50,12 @@ urlpatterns = [
     path('projects/student-choose-project/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
     path('projects/teacher-denied-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='delete_project'),
     path('projects/teacher-accept-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='update_project'),
+
     #Tasks
     path('cards/', views.CardsView.as_view(), name='save-cards'),
     path('getcards/', views.getCards, name='get-Cards'),
     path('card/<int:pk>', views.CardUpdateView.as_view(), name='update-card'),
     path('comments/', views.CommentsView.as_view(), name='comments'),
-    path('comments/<int:card>', views.getComments, name='get-comments')
-]
+    path('comments/<int:card>', views.getComments, name='get-comments'),
+    path('files', views.uploadFile, name='upload-file')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

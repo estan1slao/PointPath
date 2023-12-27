@@ -95,8 +95,7 @@ class Comments(models.Model):
 
 class Files(models.Model):
     card = models.ForeignKey('Tasks', on_delete=models.PROTECT)
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
-    file = models.FileField()
+    file = models.FileField(upload_to='upldfile/')
 
 
 class Account(AbstractUser):

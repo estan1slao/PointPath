@@ -234,3 +234,10 @@ class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = "__all__"
+
+
+class FileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tasks
+        fields = "__all__"
