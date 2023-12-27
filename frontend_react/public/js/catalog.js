@@ -1,5 +1,4 @@
 const URL_PROJECTS = 'http://127.0.0.1:8000/projects/student-get-projects/';
-// http://127.0.0.1:8000/projects/student-get-projects/
 
 const cardTemplate = document.querySelector('#project-card-template')
     .content
@@ -7,7 +6,7 @@ const cardTemplate = document.querySelector('#project-card-template')
 
 const catalog = document.querySelector('.catalog');
 
-function getDataLogin (url, onSuccess) {
+function getDataProjects (url, onSuccess) {
     fetch(url,
     {
         method: 'GET',
@@ -31,7 +30,7 @@ function getDataLogin (url, onSuccess) {
     });
 }
 
-getDataLogin(URL_PROJECTS, onSuccessGetProjects);
+getDataProjects(URL_PROJECTS, onSuccessGetProjects);
 
 function onSuccessGetProjects (projects) {
     projects.forEach(project => {
@@ -76,5 +75,64 @@ document.addEventListener('click', (evt) => {
         window.location.href = `./project-page.html?${savedData}`;
     }
 
-    
+
+    const savedData = new URLSearchParams(projInfo).toString();
+    window.location.href = `./project-page.html?${savedData}`;
 })
+
+// Логика для вкладок header
+const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
+
+function getDataLogin (url, token, onSuccess) {
+    fetch(url,
+    {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+    },
+    )
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log('Ошибка 1');
+        }
+    })
+    .then((result) => {
+        onSuccess(result);
+    })
+    .catch(() => {
+        console.log('Ошибка 2');
+    });
+}
+
+function getTokens () {
+    const cookies = document.cookie.split('; ');
+
+    cookies.forEach((token) => {
+        const [name, value] = token.split('=');
+        if (name === 'access') {
+            tokens.access = value;
+        } else if (name === 'refresh') {
+            tokens.refresh = value;
+        }
+    })
+}
+
+const tokens = {};
+getTokens();
+
+getDataLogin(URL_PROFILE, tokens.access, fillData);
+
+function fillData (data) {
+    const proposeProjectTab = document.querySelector('#propose-project');
+    const fi = document.querySelector('#fi');
+
+    if (data.role === "ученик") { //впринципе проверять не нужно, потому что учитель никогда в католог попасть не сможет
+        proposeProjectTab.classList.add('hidden');
+    }
+    
+    fi.textContent = `${data.last_name} ${data.first_name}`;
+}
