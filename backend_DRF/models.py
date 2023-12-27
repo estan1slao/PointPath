@@ -112,7 +112,7 @@ class Account(AbstractUser):
     telegram = models.TextField(blank=True, null=True)
     vk = models.TextField(blank=True, null=True)
     about = models.TextField(blank=True, null=True, max_length=950)
-    #login = models.TextField(unique=True)
+    #login = models.TextField(unique=Trum)
     #password = models.CharField(max_length=15) #delete max_lenght=15
 
     def __str__(self):

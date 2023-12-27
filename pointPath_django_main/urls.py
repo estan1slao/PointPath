@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 from backend_DRF import views
 from backend_DRF.views import *
@@ -66,5 +68,8 @@ urlpatterns = [
     # Information on student_id and teacher_id
     path('about-teacher/<int:teacher_id>/', DescriptionTeacherIDView.as_view(), name='description_teacher_id'),
     path('about-student/<int:student_id>/', DescriptionStudentIDView.as_view(), name='description_student_id'),
-    path('about-teacher/all/', GetAllTeachersView.as_view(), name='get_teachers')
-]
+    path('about-teacher/all/', GetAllTeachersView.as_view(), name='get_teachers'),
+    #Files
+    path('files/', views.uploadFile, name='upload-file')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
