@@ -333,7 +333,8 @@ class CreateCommentsView(APIView):
                 return Response({"message": "Комментарий успешно создан"}, status=status.HTTP_201_CREATED)
         return Response({"error": "Задача не найдена или недоступна для редактирования"}, status=status.HTTP_400_BAD_REQUEST)
 
-class GetActiveProjectForStudentAndTeacher(APIView):
+
+class GetActiveProjectForStudentAndTeacherView(APIView):
     def get(self, request):
         user = request.user
         if (user.role == 'ученик'):
@@ -363,4 +364,10 @@ class GetActiveProjectForStudentAndTeacher(APIView):
             return Response({"error": "Не найдена роль аккаунта"},
                             status=status.HTTP_400_BAD_REQUEST)
 
+        return Response(serializer.data)
+
+class GetAllTeachersView(APIView):
+    def get(self, request):
+        teachers = Account.objects.filter(role='учитель')
+        serializer = GetAllTeacherSerializer(teachers, many=True)
         return Response(serializer.data)

@@ -301,3 +301,23 @@ class ActiveProjectsTeacherSerializer(serializers.ModelSerializer):
         fields = ('id', 'topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
                   'first_name_student', 'last_name_student', 'patronymic_student')
 
+
+class GetAllTeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'first_name', 'last_name', 'patronymic', 'role', 'email', 'about',
+                  'vk', 'telegram', 'phone_number')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation
