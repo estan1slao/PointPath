@@ -263,4 +263,3 @@ def getComments(request, *args, **kwargs):
             "SELECT id, content, card_id, user_id FROM backend_DRF_comments WHERE card_id=%s", [card])
         serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data)
-
