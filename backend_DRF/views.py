@@ -332,3 +332,35 @@ class CreateCommentsView(APIView):
                 comment.save()
                 return Response({"message": "Комментарий успешно создан"}, status=status.HTTP_201_CREATED)
         return Response({"error": "Задача не найдена или недоступна для редактирования"}, status=status.HTTP_400_BAD_REQUEST)
+
+class GetActiveProjectForStudentAndTeacher(APIView):
+    def get(self, request):
+        user = request.user
+        if (user.role == 'ученик'):
+            user_id_student = Student.objects.filter(user_id=user.id)
+            if not user_id_student:
+                return Response({"error": "Не найден ученик в таблице student"},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            project_description = Project.objects.filter(student_id=user_id_student[0], state=1)
+            if not project_description:
+                return Response({"error": "Не найден активный проект у ученика"},
+                                status=status.HTTP_400_BAD_REQUEST)
+            serializer = ActiveProjectStudentSerializer(project_description, many=True)
+        elif (user.role == 'учитель'):
+            user_id_teacher = Teacher.objects.filter(user_id=user.id)
+            if not user_id_teacher:
+                return Response({"error": "Не найден учитель в таблице teacher"},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            project_description = Project.objects.filter(teacher_id=user_id_teacher[0], state=1)
+            if not project_description:
+                return Response({"error": "Не найдены активные проекты у учеников"},
+                                status=status.HTTP_400_BAD_REQUEST)
+            serializer = ActiveProjectsTeacherSerializer(project_description, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Не найдена роль аккаунта"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.data)

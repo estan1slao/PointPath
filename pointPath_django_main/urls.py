@@ -44,6 +44,7 @@ urlpatterns = [
 
 
     # Project
+    path('projects/get-active/', GetActiveProjectForStudentAndTeacher.as_view(), name='get-active-projects'),
     path('projects/', include(router.urls)),
     path('projects/student-choose-project/<int:pk>/', StudentChoosesProjectUpdateView.as_view(), name='choose-project'),
     path('projects/teacher-denied-project/<int:pk>/', DeletingOrAcceptingProject.as_view(), name='delete_project'),

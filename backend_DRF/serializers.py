@@ -161,7 +161,7 @@ class TeacherOffersProjectSerializer(serializers.ModelSerializer):
 class StudentGetProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ("topic", 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+        fields = ('id', "topic", 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
                   'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
 
 
@@ -264,3 +264,40 @@ class DescriptionTeacherIDAndStudentIDSerializer(serializers.ModelSerializer):
             representation['info'] = teachers_data
 
         return representation
+
+class ActiveProjectStudentSerializer(serializers.ModelSerializer):
+    first_name_teacher = serializers.SerializerMethodField()
+    last_name_teacher = serializers.SerializerMethodField()
+    patronymic_teacher = serializers.SerializerMethodField()
+
+    def get_first_name_teacher(self, obj):
+        return obj.teacher.user.first_name
+
+    def get_last_name_teacher(self, obj):
+        return obj.teacher.user.last_name
+
+    def get_patronymic_teacher(self, obj):
+        return obj.teacher.user.patronymic
+    class Meta:
+        model = Project
+        fields = ('id','topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_teacher', 'last_name_teacher', 'patronymic_teacher')
+
+class ActiveProjectsTeacherSerializer(serializers.ModelSerializer):
+    first_name_student = serializers.SerializerMethodField()
+    last_name_student = serializers.SerializerMethodField()
+    patronymic_student = serializers.SerializerMethodField()
+
+    def get_first_name_student(self, obj):
+        return obj.student.user.first_name
+
+    def get_last_name_student(self, obj):
+        return obj.student.user.last_name
+
+    def get_patronymic_student(self, obj):
+        return obj.student.user.patronymic
+    class Meta:
+        model = Project
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_student', 'last_name_student', 'patronymic_student')
+
