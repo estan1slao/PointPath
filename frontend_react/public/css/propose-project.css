@@ -1,0 +1,199 @@
+.body-center {
+    background-image: url(../img/bg-proj-propose.png);
+}
+
+header {
+    margin-bottom: 99px;
+}
+
+.title {
+    font-size: 64px;
+    font-weight: 600;
+
+    margin: 0;
+    margin-bottom: 56px;
+
+    text-align: center;
+}
+
+.block-form {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 469px 0 433px;
+    margin-bottom: 166px;
+}
+
+.block-select {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    margin-bottom: 23px;
+}
+
+.input-proj-name {
+    box-sizing: border-box;
+    width: 100%;
+
+    border-radius: 30px;
+
+    border: 1px solid #1B1B25;
+    background: #FBFBFB;
+
+    padding: 12px 35px 15px 32px;
+
+    font-family: 'Zona Pro', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: normal;
+    color: #5F5F66;
+
+    cursor: pointer;
+}
+
+.selects {
+    display: flex;
+    gap: 51px;
+}
+
+.description-area {
+    padding: 23px 25px 22px 24px;
+
+    border-radius: 35px;
+    border: 1px solid #1B1B25;
+    background: #FBFBFB;
+
+    font-family: 'Zona Pro', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: normal;
+    color: #5F5F66;
+}
+
+.description-area::-webkit-scrollbar {
+    width: 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-button {
+    color: #8A8A8F;
+    cursor: pointer;
+}
+
+.submit-button {
+    font-family: 'Zona Pro', sans-serif;
+    font-size: 28px;
+    color: #8A8A8F;
+
+    border-bottom: 1px solid transparent;
+}
+
+.submit-button:hover {
+    border-bottom: 1px solid #B9C5FF;
+}
+
+.submit-button:active {
+    color: #B9C5FF;
+    border-bottom: 1px solid #B9C5FF;
+}
+
+/* выпадающий список */
+
+.custom-select {
+    position: relative;
+    width: 50%;
+}
+
+.dropdown__button {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: left;
+
+    border-radius: 30px;
+
+    border: 1px solid #1B1B25;
+    background: #FBFBFB;
+
+    padding: 12px 52px 15px 22px;
+
+    font-family: 'Zona Pro', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: normal;
+    color: #5F5F66;
+
+    cursor: pointer;
+}
+
+.dropdown-list__opened {
+    border-radius: 30px 30px 0 0;
+    border-bottom: none;
+}
+
+.dropdown__button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    transform: translateY(-40%);
+    display: block;
+
+    background-image: url(../img/select-arrow.svg);
+
+    width: 30px;
+    height: 18px;
+
+    pointer-events: none;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    height: 170px;
+    overflow-y: scroll;
+    z-index: 1;
+    box-sizing: border-box;
+
+    border: 1px solid #1B1B25;
+    border-top: none;
+
+    border-radius: 0 0 30px 30px;
+
+    background-color: #FBFBFB;
+}
+
+.dropdown-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.dropdown-list-item {
+    display: block;
+    font-size: 32px;
+    color: #5F5F66;
+    padding: 5px 22px 5px 39px;
+    cursor: pointer;
+}
+
+.dropdown-list-item:hover {
+    background-color: #B9C5FF;
+}
+
+
+.success-sendForm.wrapper {
+    background-color: #E694F7;
+}
+
+.success-sendForm > p {
+    font-size: 48px;
+    font-weight: 600;
+    width: 87%;
+    margin-top: 10px;
+    margin-bottom: 74px;
+}
