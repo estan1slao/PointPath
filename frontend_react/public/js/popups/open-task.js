@@ -1,10 +1,11 @@
-const URL_SENDCOMMENTS = 'http://127.0.0.1:8000/comments/';
-
 const taskPopupName = taskPopup.querySelector('.popup-text');
 const taskPopupAbout = taskPopup.querySelector('#about-task-input');
 const taskPopupCategory = taskPopup.querySelector('#category-input');
 
 let dataOfCards;
+
+// console.log(tokens);
+
 getDataCardsInfo(URL_GETCARDS);
 
 setTimeout(() => {
@@ -14,11 +15,19 @@ setTimeout(() => {
     }) 
 }, 1000); //чтобы успели прийти данные с сервера - если знаешь как лучше сделать - скажи
 
-function sendNewTaskInfo(url, data) {
+// function fillCardInfo () {
+//     const tasks = document.querySelectorAll('.task');
+//     tasks.forEach((task) => {
+//         task.addEventListener('click', taskClickHandler);
+//     }) 
+// }
+
+function sendNewTaskInfo(url, token, data) {
     fetch(url, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(data),
     })
@@ -63,19 +72,13 @@ function closeBtnTaskHandler (evt) {
     this.removeEventListener('click', closeBtnTaskHandler);
 }
 
-function sendIDInfo(url, data) {
-    fetch (url, {
-        method: 'POST',
+function deleteTask(url, token) {
+    fetch(url, {
+        method: 'DELETE',
         headers: {
             "Content-Type": "application/json",
-        },
-        body: data
-    })
-}
-
-function deleteTask(url) {
-    fetch(url, {
-        method: 'DELETE'
+            "Authorization": `Bearer ${token}`
+        }
     })
 }
 
@@ -88,18 +91,22 @@ function saveBtnTaskHandler (evt) {
         category: taskPopupCategory.value
     };
 
-    sendNewTaskInfo(URL_OPENCARD + evt.currentTarget.closest('.popup').id + '/', obj);
+    const FULL_URL_OPENCARD = `${URL_OPENCARD}${projId}/${evt.currentTarget.closest('.popup').id}/`;
+
+    sendNewTaskInfo(FULL_URL_OPENCARD, tokens.access, obj);
     taskPopup.classList.add('hidden');
-    location.reload();
+    window.location.reload();
 }
 
 function deleteBtnTaskHandler (evt) {
     evt.preventDefault();
 
-    deleteTask(URL_OPENCARD + evt.currentTarget.closest('.popup').id + '/');
+    const FULL_URL_OPENCARD = `${URL_OPENCARD}${projId}/${evt.currentTarget.closest('.popup').id}/`;
+
+    deleteTask(FULL_URL_OPENCARD, tokens.access);
 
     taskPopup.classList.add('hidden');
-    location.reload();
+    window.location.reload();
 }
 
 function taskClickHandler (evt) {
