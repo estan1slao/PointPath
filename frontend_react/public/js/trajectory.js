@@ -136,6 +136,8 @@ const getDataCards = (url) => {
     })
 }
 
+getDataCards(URL_GETCARDS);
+
 function sendNewCategoryInfo(url,token, data) {
     fetch(url, {
         method: 'PUT',
@@ -203,5 +205,3 @@ const dragAndDrop = () => {
         }
     }
 }
-
-getDataCards(URL_GETCARDS);
