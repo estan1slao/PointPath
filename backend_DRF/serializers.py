@@ -321,3 +321,10 @@ class GetAllTeacherSerializer(serializers.ModelSerializer):
             representation['info'] = teachers_data
 
         return representation
+
+
+class FileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tasks
+        fields = "all"
