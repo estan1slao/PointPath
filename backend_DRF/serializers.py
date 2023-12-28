@@ -202,7 +202,7 @@ class TeacherViewProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'topic', 'about', 'field_of_activity', 'student',
-                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
+                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent', 'state')
 
 
 class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
