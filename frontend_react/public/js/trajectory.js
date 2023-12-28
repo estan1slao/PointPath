@@ -72,9 +72,12 @@ function fillData (data) {
         trajectoryTab.classList.add('hidden');
         projectsToApproveTab.classList.remove('hidden');
 
-        title.textContent = ``; // здесь должно быть имя ученика, который делает данный проект
+        const savedData = window.location.search;
+        const studentData = new URLSearchParams(savedData);
+
+        title.textContent = studentData.get('user'); // здесь должно быть имя ученика, который делает данный проект
         projectName.classList.remove('hidden');
-        projectName.textContent = ``; //здесь должно быть имя проекта ученика, который делает данный проект
+        projectName.textContent = studentData.get('topic'); //здесь должно быть имя проекта ученика, который делает данный проект
 
         fi.textContent = `${data.last_name} ${data.first_name} ${data.patronymic}`;
 

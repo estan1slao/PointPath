@@ -65,7 +65,7 @@ document.addEventListener('click', (evt) => {
         projInfo = {
             id: cardElem.querySelector('.proj-id').textContent,
             topic: cardElem.querySelector('.title-card').textContent,
-            teacher: cardElem.querySelector('#teacher-name').textContent,
+            user: cardElem.querySelector('#teacher-name').textContent,
             sphere: cardElem.querySelector('#sphere').textContent,
             about: cardElem.querySelector('.card-description').textContent
         }
