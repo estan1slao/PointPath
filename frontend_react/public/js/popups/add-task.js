@@ -12,12 +12,17 @@ function saveBtnHandler (evt) {
     evt.preventDefault();
     const date = new Date();
 
+    const savedData = window.location.search;
+    const userData = new URLSearchParams(savedData);
+
+    const projId = userData.get('id');
+
     let object = {
         card_id: Date.parse(date),
         category: 'planned',
         task: document.querySelector('#theme-task-input').value,
         description: document.querySelector('#about-task-input').value,
-        project: 1
+        project: projId // передать актуальный id
     };
 
     const data = JSON.stringify(object);

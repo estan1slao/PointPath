@@ -27,7 +27,7 @@
                         <a class="nav-item hidden" id="propose-project" href="./propose-project.html">
                             <li>.предложить проект</li>
                         </a>
-                        <a class="nav-item hidden" id="projects-to-approve" href="#">
+                        <a class="nav-item hidden" id="projects-to-approve" href="./consideration-projects.html">
                             <li>.проекты на рассмотрение</li>
                         </a>
                     </div>
@@ -100,32 +100,35 @@
                 <div class="projects-cards student">
                     <div class='active-projects-s'>
                         <p class="title">активный проект</p>
-                        <p class="active-projects-text">Веб-сервис для отслеживания прогресса в разработке проектов</p>
-                        <div class="progress-bar-wrapper">
-                            <div class="progress-bar-white">
-                                <div class="progress-bar-green"></div>
+                        <div class="proj-info">
+                            <p class="active-projects-text proj-title">Веб-сервис для отслеживания прогресса в разработке проектов</p>
+                            <p id="proj-index" hidden></p>
+                            <p id="proj-sphere" hidden></p>
+                            <p id="proj-about" hidden></p>
+                            <p id="proj-state" hidden></p>
+                            <div class="progress-bar-wrapper">
+                                <div class="progress-bar-white">
+                                    <div class="progress-bar-green"></div>
+                                </div>
                             </div>
+                            <p class="title">учитель</p>
+                            <p class="active-projects-text proj-teacher">Петров Пётр Петрович</p>
                         </div>
-                        <p class="title">учитель</p>
-                        <p class="active-projects-text ">Петров Пётр Петрович</p>
+                        <p class="proj-status hidden">нет активных проектов</p>
                     </div>
 
                     <div class="archive-projects">
                         <p class="title">архивные проекты</p>
-                        <ul>
+                        <!-- <ul>
                             <li>
-                                <a href="#">
-                                    <p class="archive-project-text">Новелла на RenPy</p>
-                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                                </a>
+                                <p class="archive-project-text">Новелла на RenPy</p>
+                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                             </li>
                             <li>
-                                <a href="#">
-                                    <p class="archive-project-text">Сайт-портфолио для студентов</p>
-                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                                </a>
+                                <p class="archive-project-text">Сайт-портфолио для студентов</p>
+                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                             </li>
-                        </ul>
+                        </ul> -->
                         <div class='more' href="#">
                             <div class="more-cycle"></div>
                             <div class="more-cycle"></div>
@@ -137,43 +140,31 @@
                 <div class="projects-cards teacher hidden">
                     <div class="active-projects-t">
                         <p class="title">активные проекты учеников</p>
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <p class="archive-project-text">Иванов Иван Иванович</p>
-                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <p class="archive-project-text">Обухов Вениамин Давыдович</p>
-                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                                </a>
-                            </li>
-                        </ul>
-                        <a class='more' href="#">
-                            <div class="more-cycle"></div>
-                            <div class="more-cycle"></div>
-                            <div class="more-cycle"></div>
-                        </a>
+                        <div class="proj-info">
+                            <ul class="projects-list">
+                                <!-- здесь будут проекты учеников -->
+                            </ul>
+                            <a class='more' href="#">
+                                <div class="more-cycle"></div>
+                                <div class="more-cycle"></div>
+                                <div class="more-cycle"></div>
+                            </a>
+                        </div>
+                        <p class="proj-status hidden">нет активных проектов</p>
                     </div>
                     
                     <div class="archive-projects">
                         <p class="title">архивные проекты учеников</p>
-                        <ul>
+                        <!-- <ul>
                             <li>
-                                <a href="#">
-                                    <p class="archive-project-text">Новелла на RenPy</p>
-                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                                </a>
+                                <p class="archive-project-text">Новелла на RenPy</p>
+                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                             </li>
                             <li>
-                                <a href="#">
-                                    <p class="archive-project-text">Сайт-портфолио для студентов</p>
-                                    <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                                </a>
+                                <p class="archive-project-text">Сайт-портфолио для студентов</p>
+                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
                             </li>
-                        </ul>
+                        </ul> -->
                         <a class='more' href="#">
                             <div class="more-cycle"></div>
                             <div class="more-cycle"></div>
@@ -280,6 +271,18 @@
             </div>
         </section>
     </div>
+
+    <template id="active-student-project-template">
+        <li class="active-student-proj">
+            <p class="archive-project-text student-name" id="stud-name">Иванов Иван Иванович</p>
+            <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+            <p id="proj-topic-t" hidden></p>
+            <p id="proj-index-t" hidden></p>
+            <p id="proj-sphere-t" hidden></p>
+            <p id="proj-about-t" hidden></p>
+            <p id="proj-state-t" hidden></p>
+        </li>
+    </template>
 
     <script src="./js/popups/exit-approve.js"></script>
     <script src="./js/popups/archive-projects-student.js"></script>

@@ -1,53 +1,59 @@
-const dropdownList = document.querySelectorAll('.custom-select');
+const URL_TEACHERS = 'http://127.0.0.1:8000/about-teacher/all/';
 
-dropdownList.forEach((dropdown) => {
-    const dropdownButton = dropdown.querySelector('.dropdown__button');
-    const dropdownList = dropdown.querySelector('.dropdown-list');
-    const dropdownItems = dropdownList.querySelectorAll('.dropdown-list-item');
-    const input = dropdown.querySelector('.dropdown-input');
+function customSelectWork () {
+    const dropdownList = document.querySelectorAll('.custom-select');
 
-    function clickButton (evt) {
-        evt.preventDefault();
-        dropdownList.classList.toggle('hidden');
-        dropdownButton.classList.toggle('dropdown-list__opened');
-        document.addEventListener('click', clickOutsideDropdown);
-        document.addEventListener('keydown', keyDown);
-    }
-
-    dropdownButton.addEventListener('click', clickButton);
-
-    function clickItem () {
-        dropdownButton.innerText = this.innerText;
-        // input.value = this.dataset.value;
-        input.value = this.innerText;
-        closeDropdown();
-    }
-
-    dropdownItems.forEach(function (item) {
-        item.addEventListener('click', clickItem)
-    });
-
-    function closeDropdown () {
-        dropdownList.classList.add('hidden');
-        dropdownButton.classList.remove('dropdown-list__opened');
-        document.removeEventListener('click', clickOutsideDropdown);
-        document.removeEventListener('keydown', keyDown);
-    }
-
-    function clickOutsideDropdown (evt) {
-        const click = evt.composedPath();
+    dropdownList.forEach((dropdown) => {
+        const dropdownButton = dropdown.querySelector('.dropdown__button');
+        const dropdownList = dropdown.querySelector('.dropdown-list');
+        const dropdownItems = dropdownList.querySelectorAll('.dropdown-list-item');
+        const input = dropdown.querySelector('.dropdown-input');
     
-        if (!click.includes(dropdownButton) && !dropdownList.classList.contains('hidden')) {
+        function clickButton (evt) {
+            evt.preventDefault();
+            dropdownList.classList.toggle('hidden');
+            dropdownButton.classList.toggle('dropdown-list__opened');
+            document.addEventListener('click', clickOutsideDropdown);
+            document.addEventListener('keydown', keyDown);
+        }
+    
+        dropdownButton.addEventListener('click', clickButton);
+    
+        function clickItem () {
+            dropdownButton.innerText = this.innerText;
+            input.value = this.dataset.value;
+            // input.value = this.innerText;
             closeDropdown();
         }
-    }
+    
+        dropdownItems.forEach(function (item) {
+            item.addEventListener('click', clickItem)
+        });
+    
+        function closeDropdown () {
+            dropdownList.classList.add('hidden');
+            dropdownButton.classList.remove('dropdown-list__opened');
+            document.removeEventListener('click', clickOutsideDropdown);
+            document.removeEventListener('keydown', keyDown);
+        }
+    
+        function clickOutsideDropdown (evt) {
+            const click = evt.composedPath();
+        
+            if (!click.includes(dropdownButton) && !dropdownList.classList.contains('hidden')) {
+                closeDropdown();
+            }
+        }
+    
+        function keyDown (evt) {
+            if (evt.key === 'Tab' || evt.key === 'Escape') {
+                closeDropdown();
+            }
+        }
+    });
+}
 
-    function keyDown (evt) {
-        if (evt.key === 'Tab' || evt.key === 'Escape') {
-            closeDropdown();
-        }
-    }
-});
+
 
 
 // внешний вид, в зависимости от роли
@@ -117,13 +123,69 @@ function fillData (data) {
         title.textContent = ".добавить проект в каталог";
         teacherSelect.classList.add('hidden');
         submitButton.textContent = "добавить проект";
+
+        customSelectWork();
+    } else if (data.role === "ученик") {
+        getDataTeachers(URL_TEACHERS, onSuccessGetTeachers);
     }
 
     fi.textContent = `${data.last_name} ${data.first_name}`;
+
+    addEventListenersToButton(data);
 }
 
+// получить список учителей
+
+function getDataTeachers (url, onSuccess) {
+    fetch(url,
+    {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+          },
+    },
+    )
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log('Ошибка 1');
+        }
+    })
+    .then((result) => {
+        onSuccess(result);
+    })
+    .catch(() => {
+        console.log('Ошибка 5');
+    });
+}
+
+function onSuccessGetTeachers (teachers) {
+    console.log(teachers);
+
+    const teacherTemplate = document.querySelector('#dropdown-list-item-template')
+        .content
+        .querySelector('.dropdown-list-item');
+
+    const teachersList = document.querySelector('.teachers');
+
+    teachers.forEach((teacherInfo) => {
+        const newTeacher = teacherTemplate.cloneNode(true);
+
+        newTeacher.textContent = `${teacherInfo.last_name} ${teacherInfo.first_name} ${teacherInfo.patronymic}`;
+        newTeacher.dataset.value = teacherInfo.info.id;
+
+        teachersList.append(newTeacher);
+    });
+
+    customSelectWork();
+}
+
+
 // отправить проект
-const URL_PROPOSE_PROJ = "http://127.0.0.1:8000/projects/teacher-offers-project/";
+const URL_PROPOSE_PROJ_TEACHER = "http://127.0.0.1:8000/projects/teacher-offers-project/";
+const URL_PROPOSE_PROJ_STUDENT = "http://127.0.0.1:8000/projects/student-offers-project/";
+
 const form = document.querySelector('.block-form');
 
 function postDataProj (url, token, data, onSuccess) {
@@ -149,11 +211,22 @@ function postDataProj (url, token, data, onSuccess) {
     });
 }
 
-function checkEmptyInputs (inputs) {
+function checkEmptyInputsForTeacher (inputs) {
     let flag = true;
 
     inputs.forEach((input) => {
         if (input.value === "" && input.name !== "teacher") {
+            flag = false;
+        }
+    })
+    return flag;
+}
+
+function checkEmptyInputsForStudent (inputs) {
+    let flag = true;
+
+    inputs.forEach((input) => {
+        if (input.value === "") {
             flag = false;
         }
     })
@@ -169,15 +242,34 @@ function getJSONForm (formValues) {
     return JSON.stringify(object);
 }
 
-form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+function addEventListenersToButton (role) {
+    form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+    
+        const inputs = form.querySelectorAll('input');
 
-    const inputs = form.querySelectorAll('input');
-    if (checkEmptyInputs(inputs)) {
-        postDataProj(URL_PROPOSE_PROJ, tokens.access, getJSONForm(form), console.log);
-    }
-})
+        if (role.role === "учитель") {
+            if (checkEmptyInputsForTeacher(inputs)) {
+                postDataProj(URL_PROPOSE_PROJ_TEACHER, tokens.access, getJSONForm(form), onSuccessPostProject);
+            } 
+        } else if (role.role === "ученик") {
+            if (checkEmptyInputsForStudent(inputs)) {
+                postDataProj(URL_PROPOSE_PROJ_STUDENT, tokens.access, getJSONForm(form), onSuccessPostProject);
+            } 
+        }
+    })
+}
 
-function onSuccesPostProj () {
+function onSuccessPostProject () {
+    form.reset();
 
+    const dropdownButtons = document.querySelectorAll('.dropdown__button');
+    const dropdownInputs = document.querySelectorAll('.dropdown-input');
+
+    dropdownButtons[0].textContent = "сфера проекта";
+    dropdownButtons[1].textContent = "учитель";
+
+    dropdownInputs.forEach((input) => {
+        input.value = "";
+    })
 }

@@ -118,6 +118,10 @@ main {
     cursor: pointer;
 }
 
+.proj-status {
+    margin: 20px 33px 29px 33px;
+}
+
 .progress-bar-wrapper {
     box-sizing: border-box;
     width: 100%;
@@ -168,12 +172,13 @@ main {
     margin-bottom: 18px;
 }
 
-.archive-projects li a,
-.active-projects-t li a
+.archive-projects li,
+.active-projects-t li
 {
     display: flex;
     align-items: center;
     margin-bottom: 14px;
+    cursor: pointer;
 }
 
 .archive-project-text,
