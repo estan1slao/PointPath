@@ -144,6 +144,7 @@ class StudentOffersProjectViewSet(mixins.CreateModelMixin,
     queryset = Project.objects.all()
     serializer_class = StudentOffersProjectSerializer
 
+
 class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
                              GenericViewSet):
     queryset = Project.objects.filter(state=0)
@@ -152,6 +153,7 @@ class ViewingProposedProjectsViewSet(mixins.ListModelMixin,
     def get_queryset(self):
         user = self.request.user
         return Project.objects.filter(teacher_id=user.teacher, state=0, student_id__isnull=False)
+
 
 class DeletingOrAcceptingProject(mixins.UpdateModelMixin,
                                  mixins.DestroyModelMixin,
@@ -386,3 +388,18 @@ class GetAllTeachersView(APIView):
         teachers = Account.objects.filter(role='учитель')
         serializer = GetAllTeacherSerializer(teachers, many=True)
         return Response(serializer.data)
+
+
+def uploadFile(request):
+    all_files = Files.ojects.all()
+    context = {
+        'all_files': all_files
+    }
+
+    if request.POST:
+        file = Files.objects.create(
+            card=request.POST.get('card'),
+            file=request.FILES.get('file')
+        )
+        file.save()
+        return render(request)
