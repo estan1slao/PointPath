@@ -1,5 +1,11 @@
+from django.contrib.auth.handlers.modwsgi import check_password
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
-from rest_framework import serializers
+from rest_framework import serializers, status
+from rest_framework.generics import UpdateAPIView
+from rest_framework.response import Response
+from rest_framework.serializers import raise_errors_on_nested_writes
+from rest_framework.utils import model_meta
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -11,7 +17,6 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = "__all__"
-
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -28,13 +33,12 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = "__all__"
-
-
 # class AccountSerializer(serializers.ModelSerializer):
 #     #password = serializers.CharField(write_only=True, max_length=15)
 #     class Meta:
 #         model = Account
 #         fields = "__all__"
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -47,6 +51,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # ...
 
         return token
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -86,9 +91,240 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-class ProfileSerializer(serializers.ModelSerializer):
-    #notes = NoteSerializer(many=True, read_only=True)
 
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = '__all__'
+        fields = ('id', 'password', 'username', 'first_name', 'last_name', 'email', 'role', 'patronymic', 'about',
+                  'vk', 'telegram', 'phone_number')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation
+
+    def update(self, instance, validated_data):
+        if "password" in validated_data:
+            raise serializers.ValidationError("Чтобы поменять пароль обратитесь по адресу: /update-password/")
+
+        if "role" in validated_data:
+            raise serializers.ValidationError("Невозможно поменять роль у пользователя.")
+
+        if "username" in validated_data:
+            raise serializers.ValidationError("Невозможно поменять username у пользователя.")
+
+        if "email" in validated_data:
+            raise serializers.ValidationError("Невозможно поменять email у пользователя.")
+
+        validated_data.pop('role', None)
+        validated_data.pop('username', None)
+        validated_data.pop('email', None)
+        validated_data.pop('password', None)
+
+        return super(ProfileSerializer, self).update(instance, validated_data)
+
+
+class TeacherOffersProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('topic', 'about', 'field_of_activity')
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        if user.role == 'учитель':
+            project = Project.objects.create(
+                topic=validated_data['topic'],
+                about=validated_data['about'],
+                field_of_activity=validated_data['field_of_activity'],
+                teacher=user.teacher,
+                student=None,
+                first_name_proponent=user.first_name,
+                last_name_proponent=user.last_name,
+                patronymic_proponent=user.patronymic,
+                state=0
+            )
+            project.save()
+            return project
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+
+
+class StudentGetProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('id', "topic", 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent')
+
+
+
+
+class StudentChoosesProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['state', 'student']
+
+
+class StudentOffersProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('topic', 'about', 'field_of_activity', 'teacher')
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        if user.role == 'ученик':
+            project = Project.objects.create(
+                topic=validated_data['topic'],
+                about=validated_data['about'],
+                field_of_activity=validated_data['field_of_activity'],
+                student=user.student,
+                teacher=validated_data['teacher'],
+                first_name_proponent=user.first_name,
+                last_name_proponent=user.last_name,
+                patronymic_proponent=user.patronymic,
+                state=0
+            )
+            project.save()
+            return project
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли ученик!")
+
+
+class TeacherViewProjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student',
+                  'first_name_proponent', 'last_name_proponent', 'patronymic_proponent', 'state')
+
+
+class TeacherAcceptsProjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('id', 'state')
+
+
+class CardsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tasks
+        fields = "__all__"
+
+    def create(self, validated_data):
+        task = Tasks.objects.create(
+            card_id=validated_data['card_id'],
+            category=validated_data['category'],
+            task=validated_data['task'],
+            description=validated_data['description'],
+            project=validated_data['project'],
+        )
+
+        task.save()
+        return task
+
+    def update(self, instance, validated_data):
+        instance.card_id = validated_data.get("card_id", instance.card_id)
+        instance.category = validated_data.get("category", instance.category)
+        instance.task = validated_data.get("task", instance.task)
+        instance.description = validated_data.get("description", instance.description)
+        instance.project = validated_data.get("project", instance.project)
+        instance.save()
+        return instance
+
+
+class CommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = "__all__"
+
+
+class DescriptionTeacherIDAndStudentIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'first_name', 'last_name', 'patronymic', 'role', 'about',
+                  'email', 'vk', 'telegram', 'phone_number')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation
+
+class ActiveProjectStudentSerializer(serializers.ModelSerializer):
+    first_name_teacher = serializers.SerializerMethodField()
+    last_name_teacher = serializers.SerializerMethodField()
+    patronymic_teacher = serializers.SerializerMethodField()
+
+    def get_first_name_teacher(self, obj):
+        return obj.teacher.user.first_name
+
+    def get_last_name_teacher(self, obj):
+        return obj.teacher.user.last_name
+
+    def get_patronymic_teacher(self, obj):
+        return obj.teacher.user.patronymic
+    class Meta:
+        model = Project
+        fields = ('id','topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_teacher', 'last_name_teacher', 'patronymic_teacher')
+
+class ActiveProjectsTeacherSerializer(serializers.ModelSerializer):
+    first_name_student = serializers.SerializerMethodField()
+    last_name_student = serializers.SerializerMethodField()
+    patronymic_student = serializers.SerializerMethodField()
+
+    def get_first_name_student(self, obj):
+        return obj.student.user.first_name
+
+    def get_last_name_student(self, obj):
+        return obj.student.user.last_name
+
+    def get_patronymic_student(self, obj):
+        return obj.student.user.patronymic
+    class Meta:
+        model = Project
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link',
+                  'first_name_student', 'last_name_student', 'patronymic_student')
+
+
+class GetAllTeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'first_name', 'last_name', 'patronymic', 'role', 'email', 'about',
+                  'vk', 'telegram', 'phone_number')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        role = instance.role
+        if role == "ученик":
+            student = instance.student
+            student_data = StudentSerializer(student).data
+            representation['info'] = student_data
+        else:
+            teachers = instance.teacher
+            teachers_data = TeacherSerializer(teachers).data
+            representation['info'] = teachers_data
+
+        return representation
+
+
+class FileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tasks
+        fields = "all"
