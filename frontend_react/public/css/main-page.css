@@ -1,0 +1,123 @@
+header {
+    margin-bottom: 99px;
+}
+
+main {
+    margin: 0 79px 0 149px;
+}
+
+.block-hero {
+    display: flex;
+    justify-content: space-between;
+}
+
+.welcome-text {
+    font-size: 40px;
+    margin-top: 34px;
+}
+
+.motivation-text {
+    display: inline-block;
+    background-image: url(../img/green-main-label-bg.png);
+    background-repeat: no-repeat;
+    padding: 17px 19px 12px 17px;
+    margin-bottom: 45px;
+}
+
+.title {
+    font-size: 64px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 24px;
+}
+
+.tutorial .title {
+    margin-bottom: 58px;
+}
+
+.faq .title {
+    margin-bottom: 48px;
+}
+
+.proj-description {
+    max-width: 850px;
+}
+
+.slider-block {
+
+}
+
+.slider {
+    width: 672px;
+    height: 624px;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+}
+
+.slider-text {
+    display: flex;
+    justify-content: center;
+    padding-top: 250px;
+}
+
+.more {
+    margin-top: 44px;
+    display: flex;
+    gap: 11px;
+    justify-content: center;
+}
+
+.more-cycle {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+    cursor: pointer;
+    background: #ADB8F0;
+}
+
+.more-cycle__active {
+    background: #F0BCFA;
+}
+
+.tutorial {
+    margin-top: 75px;
+    margin-bottom: 75px;
+}
+
+.tutorial video {
+    border-radius: 50px;
+}
+
+.questions-list {
+    font-size: 40px;
+}
+
+.question-item {
+    width: 1125px;
+
+    border-bottom: 1px solid black;
+    padding-bottom: 26px;
+    margin-top: 19px;
+}
+
+.question-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.question {
+    width: 951px;
+}
+
+.answer {
+    padding: 32px 67px 0 37px;
+    color: rgba(27, 27, 37, 0.75);
+    font-size: 32px;
+}
+
+footer {
+    margin-top: 83px;
+}

@@ -1,0 +1,245 @@
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 70px;
+    box-sizing: border-box;
+    padding-right: 118px;
+    justify-content: space-between;
+    margin-bottom: 70px;
+}
+
+.title {
+    margin-left: 17px;
+    margin-top: 99px;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.add-task {
+    background: none;
+    border: none;
+    background-image: url(../img/add_task.svg);
+    width: 28px;
+    height: 28px;
+}
+
+.step {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 22px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(2px);
+}
+
+.planned {
+    background: #99A6E8;
+}
+
+.work {
+    background: #96EC8E;
+}
+
+.checked {
+    background: #E694F7;
+}
+
+.done {
+    background: #BDBDBF;
+}
+
+.steps-container {
+    display: flex;
+    width: 100%;
+    gap: 38px;
+    min-height: 457px; /*557*/
+    margin-top: 51px;
+}
+
+.step-title {
+    padding: 0;
+    margin: 0;
+    color: #1B1B25;
+    font-size: 28px;
+    font-weight: 300;
+}
+
+.list-of-tasks {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 18px 16px;
+    color: #1B1B25;
+    font-size: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(2px);
+}
+
+.logo {
+    margin-top: 70px;
+}
+
+/*здесь в теории можно переделать немного размеры, но я этим позже займусь - в январе...*/
+
+form {
+    width: 100%;
+}
+
+.edit-task {
+    background-color: #99A6E8;
+    width: 1080px;
+    height: fit-content;
+}
+
+input,
+input:active,
+input:focus {
+    color: #1B1B25;
+    font-family: Zona Pro;
+    font-size: 24px;
+    font-weight: 300;
+    border: none;
+    outline:none;
+    background: transparent;
+    border-bottom: 8px #B9C5FF solid;
+    padding-left: 17px;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 41px;
+}
+
+.popup-text {
+    border: none;
+    width: 90%;
+    margin-bottom: 24px;
+    font-size: 50px;
+}
+
+.popup-text:active,
+.popup-text:focus {
+    border: none;
+    color: #1B1B25;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.input-label {
+    color: #404040;
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 3px;
+}
+
+.input-img {
+    width: 34px;
+}
+
+.save-button,
+.delete-button {
+    display: flex;
+    gap: 13px;
+    border: none;
+    background-color: transparent;
+    color: #404040;
+    font-family: Zona Pro;
+    font-size: 24px;
+    margin-top: 19px;
+}
+
+.close-input-btn {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    background-image: url('../img/close-input.svg');
+    margin-bottom: 6px;
+    margin-right: 13px;
+}
+
+.additions-add-btn button{
+    transform: rotate(45deg);
+    margin-right: 13px;
+}
+
+#category-input {
+    border: none;
+}
+
+#category-input,
+#about-task-input {
+    width: 80%;
+}
+
+.control-btns {
+    display: flex;
+    gap: 55px;
+    justify-content: flex-end;
+}
+
+.comments {
+    margin-top: 33px;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.comment-input {
+    width: 80%;
+    margin-bottom: 18px;
+}
+
+.comments-field {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 26px;
+    height: 222px;
+    overflow-y: scroll;
+    border: none;
+}
+
+.comments-field::-webkit-scrollbar {
+    width: 0;
+}
+
+.comment {
+    border-radius: 15px;
+    background: #B9C5FF;
+    backdrop-filter: blur(2px);
+    width: fit-content;
+    max-width: 90%;
+    padding: 9px 9px 18px 15px;
+}
+
+.author {
+    color: #5F5F66;
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.comment-value {
+    color: #1B1B25;
+    font-size: 28px;
+}
+
+.project-name {
+    color: #1B1B25;
+    font-size: 36px;
+    margin-left: 17px;
+}

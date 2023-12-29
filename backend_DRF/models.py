@@ -72,6 +72,7 @@ class Project(models.Model):
     last_name_proponent = models.TextField(null=True)
     patronymic_proponent = models.TextField(null=True)
 
+
     def __str__(self):
         return self.topic
 
