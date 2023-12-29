@@ -1,4 +1,5 @@
 const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
+const URL_CUR_PROJ = "http://127.0.0.1:8000/projects/get-active/";
 
 const fio = document.querySelector('#fio');
 const fi = document.querySelector('#fi');
@@ -203,7 +204,7 @@ function fillData (data) {
         projectsToApproveTab.classList.remove('hidden');
         proposeProjectTab.classList.remove('hidden');
 
-    } else {
+    } else if (data.role === "ученик") {
         if (data.info.grade !== null && data.info.grade !== "") {
             grade.textContent = data.info.grade;
         }
@@ -232,4 +233,118 @@ function fillData (data) {
         phone.closest('li').classList.remove('hidden');
         noContactsLabel.classList.add('hidden');
     }
+
+    getDataCurrentProj(URL_CUR_PROJ, tokens.access, onSuccessGetProj, onErrorGetProj, data);
+}
+
+// получить инфу о текущем проекте
+
+function getDataCurrentProj (url, token, onSuccess, onError, roleData) {
+    fetch(url,
+    {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+    },
+    )   
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else if (response.status === 400) {
+            onError(roleData);
+        } else {
+            console.log('Ошибка 1');
+        }
+    })
+    .then((result) => {
+        onSuccess(result, roleData);
+    })
+    .catch(() => {
+        console.log('Ошибка 2');
+    });
+}
+
+const activeStudentProj = document.querySelector('.active-projects-s');
+const activeTeacherProj = document.querySelector('.active-projects-t');
+
+function onErrorGetProj (role) {
+    if (role.role === "ученик") {
+        activeStudentProj.querySelector('.proj-info').classList.add('hidden');
+        activeStudentProj.querySelector('.proj-status').classList.remove('hidden');
+    } else if (role.role === "учитель") {
+        activeTeacherProj.querySelector('.proj-info').classList.add('hidden');
+        activeTeacherProj.querySelector('.proj-status').classList.remove('hidden');
+    }
+}
+
+function onSuccessGetProj (res, role) {
+    if (role.role === "ученик") {
+        activeStudentProj.querySelector('.proj-title').textContent = res[0].topic;
+        activeStudentProj.querySelector('.proj-teacher').textContent = 
+            `${res[0].last_name_teacher} ${res[0].first_name_teacher} ${res[0].patronymic_teacher}`;
+        activeStudentProj.querySelector('#proj-index').textContent = res[0].id;
+        activeStudentProj.querySelector('#proj-sphere').textContent = res[0].field_of_activity;
+        activeStudentProj.querySelector('#proj-about').textContent = res[0].about;
+        activeStudentProj.querySelector('#proj-state').textContent = res[0].state;
+    } else if (role.role === "учитель") {
+        const projTemplate = document.querySelector('#active-student-project-template')
+            .content
+            .querySelector('.active-student-proj');
+        const projList = document.querySelector('.projects-list');
+
+        res.forEach((activeProject) => {
+            const newProj = projTemplate.cloneNode(true);
+
+            newProj.querySelector('.student-name').textContent = 
+                `${activeProject.last_name_student} ${activeProject.first_name_student} ${activeProject.patronymic_student}`;
+            newProj.querySelector('#proj-index-t').textContent = activeProject.id;
+            newProj.querySelector('#proj-sphere-t').textContent = activeProject.field_of_activity;
+            newProj.querySelector('#proj-about-t').textContent = activeProject.about;
+            newProj.querySelector('#proj-state-t').textContent = activeProject.state;
+            newProj.querySelector('#proj-topic-t').textContent = activeProject.topic;
+            projList.append(newProj);
+        });
+        addEventListeners();
+    }
+}
+
+// переход на страницу проекта
+let projInfo;
+activeStudentProj.addEventListener('click', () => {
+    projInfo = {
+        id: activeStudentProj.querySelector('#proj-index').textContent,
+        topic: activeStudentProj.querySelector('.proj-title').textContent,
+        user: activeStudentProj.querySelector('.proj-teacher').textContent,
+        sphere: activeStudentProj.querySelector('#proj-sphere').textContent,
+        about: activeStudentProj.querySelector('#proj-about').textContent,
+        state: activeStudentProj.querySelector('#proj-state').textContent
+    }
+    console.log(projInfo);
+
+    const savedData = new URLSearchParams(projInfo).toString();
+    window.location.href = `./project-page.html?${savedData}`;
+});
+
+
+function addEventListeners () {
+    const activeTeacherProjects = activeTeacherProj.querySelectorAll('.active-student-proj');
+
+    activeTeacherProjects.forEach((project) => {
+        project.addEventListener('click', () => {
+            projInfo = {
+                id: project.querySelector('#proj-index-t').textContent,
+                topic: project.querySelector('#proj-topic-t').textContent,
+                user: project.querySelector('#stud-name').textContent,
+                sphere: project.querySelector('#proj-sphere-t').textContent,
+                about: project.querySelector('#proj-about-t').textContent,
+                state: project.querySelector('#proj-state-t').textContent
+            }
+            console.log(projInfo);
+        
+            const savedData = new URLSearchParams(projInfo).toString();
+            window.location.href = `./project-page.html?${savedData}`;
+        });
+    });
 }

@@ -18,16 +18,16 @@
                         <a class="nav-item" href="./main-page.html">
                             <li>.главная</li>
                         </a>
-                        <a class="nav-item" id="project" href="./project-choice.html">
+                        <a class="nav-item hidden" id="project" href="./project-choice.html">
                             <li>.проект</li>
                         </a>
-                        <a class="nav-item" id="trajectory" href="./trajectory.html">
+                        <a class="nav-item hidden" id="trajectory" href="./trajectory.html">
                             <li>.траектория</li>
                         </a>
                         <a class="nav-item" id="propose-project" href="./propose-project.html">
                             <li>.форма проекта</li>
                         </a>
-                        <a class="nav-item hidden" id="projects-to-approve" href="#">
+                        <a class="nav-item " id="projects-to-approve" href="./consideration-projects.html">
                             <li>.проекты на рассмотрение</li>
                         </a>
                     </div>
@@ -56,7 +56,7 @@
         </header>
 
         <main>
-            <h1 class="title">.каталог проектов</h1>
+            <h1 class="title">.заявки на проекты от учеников</h1>
 
             <button class="back-button">
                 <img src="./img/arrow-left-gray.svg" width="66" height="21">
@@ -65,7 +65,7 @@
 
             <div class="catalog">
 
-                <!-- тут будут проекты из базы -->
+                <!-- тут будут проекты от учеников -->
 
             </div>
 
@@ -98,7 +98,7 @@
             <h2 class="title-card">заглушка</h2>
 
             <div class="card-info">
-                <span class="card-label">учитель</span>
+                <span class="card-label">ученик</span>
                 <p class="card-text" id="teacher-name">заглушка</p>
 
                 <span class="card-label">сфера</span>
@@ -108,13 +108,16 @@
                 <p class="card-text card-description">заглушка</p>
 
                 <span class="proj-id hidden"></span>
+
+                <p id="student-id" hidden></p>
+                <p id="state" hidden></p>
             </div>
             
             <div class="select-button"><img src="./img/arrow.svg"></div>
         </div>
     </template>
 
-    <script src="./js/catalog.js"></script>
+    <script src="./js/consideration-projects.js"></script>
     <script src="./js/popups/exit-approve.js"></script>
 </body>
 </html>

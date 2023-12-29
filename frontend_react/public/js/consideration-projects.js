@@ -1,4 +1,4 @@
-const URL_PROJECTS = 'http://127.0.0.1:8000/projects/student-get-projects/';
+const URL_STUDENT_PROJECTS = "http://127.0.0.1:8000/projects/teacher-viewing-proposed-projects/";
 
 const cardTemplate = document.querySelector('#project-card-template')
     .content
@@ -6,12 +6,13 @@ const cardTemplate = document.querySelector('#project-card-template')
 
 const catalog = document.querySelector('.catalog');
 
-function getDataProjects (url, onSuccess) {
+function getDataProjects (url, token, onSuccess) {
     fetch(url,
     {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
           },
     },
     )
@@ -30,7 +31,10 @@ function getDataProjects (url, onSuccess) {
     });
 }
 
-getDataProjects(URL_PROJECTS, onSuccessGetProjects);
+const tokens = {};
+getTokens();
+
+getDataProjects(URL_STUDENT_PROJECTS, tokens.access, onSuccessGetProjects);
 
 function onSuccessGetProjects (projects) {
     projects.forEach(project => {
@@ -42,6 +46,8 @@ function onSuccessGetProjects (projects) {
         card.querySelector('#sphere').textContent = project.field_of_activity;
         card.querySelector('.card-description').textContent = project.about;
         card.querySelector('.proj-id').textContent = project.id;
+        card.querySelector('#student-id').textContent = project.student;
+        card.querySelector('#state').textContent = project.state;
 
         catalog.append(card);
     });
@@ -67,7 +73,9 @@ document.addEventListener('click', (evt) => {
             topic: cardElem.querySelector('.title-card').textContent,
             user: cardElem.querySelector('#teacher-name').textContent,
             sphere: cardElem.querySelector('#sphere').textContent,
-            about: cardElem.querySelector('.card-description').textContent
+            about: cardElem.querySelector('.card-description').textContent,
+            studentId: cardElem.querySelector('#student-id').textContent,
+            state: cardElem.querySelector('#state').textContent
         }
         console.log(projInfo);
 
@@ -117,18 +125,10 @@ function getTokens () {
     })
 }
 
-const tokens = {};
-getTokens();
-
 getDataLogin(URL_PROFILE, tokens.access, fillData);
 
 function fillData (data) {
-    const proposeProjectTab = document.querySelector('#propose-project');
     const fi = document.querySelector('#fi');
 
-    if (data.role === "ученик") { //впринципе проверять не нужно, потому что учитель никогда в католог попасть не сможет
-        proposeProjectTab.classList.add('hidden');
-    }
-    
     fi.textContent = `${data.last_name} ${data.first_name}`;
 }

@@ -24,10 +24,10 @@
                         <a class="nav-item" id="trajectory" href="./trajectory.html">
                             <li>.траектория</li>
                         </a>
-                        <a class="nav-item" id="propose-project" href="./propose-project.html">
+                        <a class="nav-item hidden" id="propose-project" href="./propose-project.html">
                             <li>.предложить проект</li>
                         </a>
-                        <a class="nav-item hidden" id="projects-to-approve" href="#">
+                        <a class="nav-item hidden" id="projects-to-approve" href="./consideration-projects.html">
                             <li>.проекты на рассмотрение</li>
                         </a>
                     </div>
@@ -66,25 +66,21 @@
                         <div class="custom-select">
                             <button class="dropdown__button">сфера проекта</button>
                             <ul class="dropdown-list hidden">
-                                <li class="dropdown-list-item" data-value="cфера 1">информатика</li>
-                                <li class="dropdown-list-item" data-value="cфера 2">русский язык</li>
-                                <li class="dropdown-list-item" data-value="cфера 3">математика</li>
-                                <li class="dropdown-list-item" data-value="cфера 4">английский язык</li>
-                                <li class="dropdown-list-item" data-value="cфера 5">география</li>
-                                <li class="dropdown-list-item" data-value="cфера 6">биология</li>
-                                <li class="dropdown-list-item" data-value="cфера 7">химия</li>
+                                <li class="dropdown-list-item" data-value="информатика">информатика</li>
+                                <li class="dropdown-list-item" data-value="русский язык">русский язык</li>
+                                <li class="dropdown-list-item" data-value="математика">математика</li>
+                                <li class="dropdown-list-item" data-value="английский язык">английский язык</li>
+                                <li class="dropdown-list-item" data-value="география">география</li>
+                                <li class="dropdown-list-item" data-value="биология">биология</li>
+                                <li class="dropdown-list-item" data-value="химия">химия</li>
                             </ul>
                             <input class="dropdown-input" name="field_of_activity" value="" hidden />
                         </div>
     
                         <div class="custom-select teacher-select">
                             <button class="dropdown__button">учитель</button>
-                            <ul class="dropdown-list hidden">
-                                <li class="dropdown-list-item" data-value="учитель 1">Петров Пётр Петрович</li>
-                                <li class="dropdown-list-item" data-value="учитель 2">Петров Пётр Петрович</li>
-                                <li class="dropdown-list-item" data-value="учитель 3">Петров Пётр Петрович</li>
-                                <li class="dropdown-list-item" data-value="учитель 4">Петров Пётр Петрович</li>
-                                <li class="dropdown-list-item" data-value="учитель 5">Петров Пётр Петрович</li>
+                            <ul class="dropdown-list teachers hidden">
+                                <!-- здесь будет список учителей -->
                             </ul>
                             <input class="dropdown-input" name="teacher" value="" hidden/>
                         </div>
@@ -138,6 +134,10 @@
             </div>
         </section>
     </div>
+
+    <template id="dropdown-list-item-template">
+        <li class="dropdown-list-item" data-value="id учителя"></li>
+    </template>
 
     <script src="./js/propose-project.js"></script>
     <script src="./js/popups/exit-approve.js"></script>

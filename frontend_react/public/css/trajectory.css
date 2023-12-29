@@ -12,7 +12,6 @@ main {
 .title {
     margin-left: 17px;
     margin-top: 99px;
-    margin-bottom: 51px;
 }
 
 .title-container {
@@ -59,6 +58,7 @@ main {
     width: 100%;
     gap: 38px;
     min-height: 457px; /*557*/
+    margin-top: 51px;
 }
 
 .step-title {
@@ -201,8 +201,21 @@ input:focus {
 
 .comment-input {
     width: 80%;
-    border-bottom: 8px #B9C5FF solid;
     margin-bottom: 18px;
+}
+
+.comments-field {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 26px;
+    height: 222px;
+    overflow-y: scroll;
+    border: none;
+}
+
+.comments-field::-webkit-scrollbar {
+    width: 0;
 }
 
 .comment {
@@ -223,4 +236,10 @@ input:focus {
 .comment-value {
     color: #1B1B25;
     font-size: 28px;
+}
+
+.project-name {
+    color: #1B1B25;
+    font-size: 36px;
+    margin-left: 17px;
 }

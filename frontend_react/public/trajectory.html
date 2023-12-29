@@ -13,18 +13,33 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <div class="nav-left">
-                        <a class="nav-item" href="./main-page.html"><li>.главная</li></a>
-                        <a class="nav-item" href="./project-choice.html"><li>.проект</li></a>
-                        <a class="nav-item" href="./trajectory.html"><li>.траектория</li></a>
-                        <a class="nav-item hidden" href="#"><li>.проекты на рассмотрение</li></a>
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item" id="project" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item" id="trajectory" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item" id="propose-project" href="./propose-project.html">
+                            <li>.форма проекта</li>
+                        </a>
+                        <a class="nav-item hidden" id="projects-to-approve" href="./consideration-projects.html">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
                     </div>
                     <div class="nav-right">
-                        <a class="nav-item hidden" href="#"><li>.войти</li></a>
-                        <a class="nav-item hidden" href="#"><li>.создать аккаунт</li></a>
-                        <div class="account">
+                        <a class="nav-item hidden" id="enter" href="./enter.html">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item hidden" id="create-account" href="./registration.html">
+                            <li>.создать аккаунт</li>
+                        </a>
+                        <div class="account ">
                             <a href="./account-student.html">
-                                <span>Иванов Иван</span>
-                                <img src="./img/exit.svg" width="36" height="36">
+                                <span id="fi">Иванов Иван</span>
+                                <img src="./img/exit.svg" width="32" height="32">
                             </a>
                         </div>
                     </div>
@@ -32,13 +47,14 @@
             </nav>
             <div class="edit hidden">
                 <a href="#">
-                    <img class="hidden" src="./img/edit.svg" width="24" height="24">
-                    <span class="hidden">редактировать</span>
+                    <img src="./img/edit.svg" width="24" height="24">
+                    <span>редактировать</span>
                 </a>
             </div>
         </header>
         <main>
             <h1 class="title">.траектория моего проекта</h1>
+            <p class="project-name hidden">Создание веб-сервиса для школы</p>
             <div class="steps-container">
                 <section class="step planned">
                     <div class="title-container">
@@ -93,7 +109,7 @@
                 </div>
                 <div class="input-wrapper">
                     <label class="input-label" for="profession-input">категория</label>
-                    <input disabled type="text" name="about" id="category-input" value="">
+                    <input disabled type="text" name="about" id="category-input" value="planned">
                 </div>
                 <div class="additions-wrapper">
                     <p class="input-label">вложения</p>
@@ -110,15 +126,10 @@
                 <div class="comments">
                     <p class="input-label">комментарии</p>
                     <div class="input-wrapper comment-input">
-                        <input type="text" name="about" id="category-input" value="">
-                    </div>
-                    <div class="comment">
-                        <p class="author">Иванов Иван Иванович</p>
-                        <p class="comment-value">Приложил отчет о проделанной работе с разным оформлением</p>
-                    </div>
-                    <div class="comment">
-                        <p class="author">Петров Петр Петрович</p>
-                        <p class="comment-value">Увидел, молодец!</p>
+                        <input type="text" name="about" id="comment-input" value="">
+                        <div class="comments-field">
+                            <!-- здесь будут комментарии -->
+                        </div>
                     </div>
                 </div>
                 <div class="control-btns">
@@ -139,6 +150,13 @@
         <div draggable="true" class="task" id="">
             <p class="task-title">Создать опрос для ребят</p>
             <img class="notification-icon" src="./img/notification-blue.svg">
+        </div>
+    </template>
+
+    <template id="comment-template">
+        <div class="comment">
+            <p class="author">Иванов Иван Иванович</p>
+            <p class="comment-value">Приложил отчет о проделанной работе с разным оформлением</p>
         </div>
     </template>
 
