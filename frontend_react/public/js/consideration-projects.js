@@ -1,10 +1,19 @@
 const URL_STUDENT_PROJECTS = "http://127.0.0.1:8000/projects/teacher-viewing-proposed-projects/";
 
+const nxtBtn = document.querySelector('.nxt-btn');
+const preBtn = document.querySelector('.pre-btn');
+const more = document.querySelector('.more');
+const cardsContainer = document.querySelector('.catalog-container');
+
 const cardTemplate = document.querySelector('#project-card-template')
     .content
     .querySelector('.project-card');
 
-const catalog = document.querySelector('.catalog');
+const moreTemplate = document.querySelector('#more-template')
+    .content
+    .querySelector('.more-cycle');
+
+const catalog = document.querySelector('.catalog-container');
 
 function getDataProjects (url, token, onSuccess) {
     fetch(url,
@@ -51,6 +60,59 @@ function onSuccessGetProjects (projects) {
 
         catalog.append(card);
     });
+
+    // карусель
+    const pagesCount = Math.ceil(projects.length / 3);
+
+    if (pagesCount !== 0) {
+        more.classList.remove('hidden');
+        if (pagesCount > 1) {
+            nxtBtn.classList.remove('hidden');
+        }
+    }
+
+    for (let i = 0; i < pagesCount; i++) {
+        const newCircle = moreTemplate.cloneNode(true);
+
+        if (i === 0) {
+            newCircle.classList.add('more-cycle__active');
+        }
+
+        more.append(newCircle);
+    }
+
+    const moreCircles = more.querySelectorAll('.more-cycle')
+    let currentPage = 0;
+
+    nxtBtn.addEventListener('click', () => {
+        cardsContainer.scrollLeft += 1707;
+        if (currentPage < pagesCount-1) {
+            currentPage++;
+            moreCircles[currentPage].classList.add('more-cycle__active');
+            moreCircles[currentPage-1].classList.remove('more-cycle__active');
+        }
+        if (currentPage > 0) {
+            preBtn.classList.remove('hidden');
+        }
+        if (currentPage === pagesCount-1) {
+            nxtBtn.classList.add('hidden');
+        }
+    })
+
+    preBtn.addEventListener('click', () => {
+        cardsContainer.scrollLeft -= 1707;
+        if (currentPage > 0) {
+            currentPage--;
+            moreCircles[currentPage].classList.add('more-cycle__active');
+            moreCircles[currentPage+1].classList.remove('more-cycle__active');
+        }
+        if (currentPage < pagesCount-1) {
+            nxtBtn.classList.remove('hidden');
+        }
+        if (currentPage === 0) {
+            preBtn.classList.add('hidden');
+        }
+    })
 }
 
 // Сохранение данных, чтобы забрать их на другую страницу
