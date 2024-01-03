@@ -150,7 +150,8 @@ main {
     padding: 18px 35px 25px 33px; 
 }
 
-.archive-projects {
+.archive-projects-s,
+.archive-projects-t {
     box-sizing: border-box;
     background-color: #EEE;
     width: 100%;
@@ -166,13 +167,13 @@ main {
     height: 100%;
 }
 
-.archive-projects .title,
+.archive-projects-s .title,
 .active-projects-t .title
 {
     margin-bottom: 18px;
 }
 
-.archive-projects li,
+.archive-projects-s li,
 .active-projects-t li
 {
     display: flex;
@@ -212,7 +213,8 @@ main {
     background: rgba(95, 95, 102, 1);
 }
 
-.archive-student-projects.wrapper {
+.archive-student-projects.wrapper,
+.archive-students-projects.wrapper {
     background-color: #BDBDBF;
     height: fit-content;
 }

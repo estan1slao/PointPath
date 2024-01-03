@@ -138,6 +138,7 @@ const getDataCards = (url) => {
 
 getDataCards(URL_GETCARDS);
 
+// логика изменения категории
 function sendNewCategoryInfo(url,token, data) {
     fetch(url, {
         method: 'PUT',

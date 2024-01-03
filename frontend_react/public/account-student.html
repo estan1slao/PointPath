@@ -117,7 +117,7 @@
                         <p class="proj-status hidden">нет активных проектов</p>
                     </div>
 
-                    <div class="archive-projects">
+                    <div class="archive-projects-s">
                         <p class="title">архивные проекты</p>
                         <!-- <ul>
                             <li>
@@ -153,7 +153,7 @@
                         <p class="proj-status hidden">нет активных проектов</p>
                     </div>
                     
-                    <div class="archive-projects">
+                    <div class="archive-projects-t">
                         <p class="title">архивные проекты учеников</p>
                         <!-- <ul>
                             <li>
@@ -272,6 +272,72 @@
         </section>
     </div>
 
+    <div class="popup hidden">
+        <section class="active-student-projects wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text"><span class="attention-span">активные</span>проекты учеников</p>
+            <div class="student-links">
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="popup hidden">
+        <section class="archive-students-projects wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text"><span class="attention-span">архивные</span>проекты учеников</p>
+            <div class="student-links">
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Попова Юлия Владимировна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+                <a class="student-link">
+                    <p class="student-name">Коновалова Мария Сергеевна</p>
+                    <img src="./img/arrow.svg">
+                </a>
+            </div>
+        </section>
+    </div>
+
     <template id="active-student-project-template">
         <li class="active-student-proj">
             <p class="archive-project-text student-name" id="stud-name">Иванов Иван Иванович</p>
@@ -286,6 +352,8 @@
 
     <script src="./js/popups/exit-approve.js"></script>
     <script src="./js/popups/archive-projects-student.js"></script>
+    <script src="./js/popups/archive-projects-teacher.js"></script>
+    <script src="./js/popups/active-projects.js"></script>
     <script src="./js/popups/edit-profile.js"></script>
     <script src="./js/account.js"></script>
 </body>

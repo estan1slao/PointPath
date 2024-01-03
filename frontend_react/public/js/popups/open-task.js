@@ -8,8 +8,6 @@ const URL_GETCOMMENTS = 'http://127.0.0.1:8000/comments/';
 const URL_CREATECOMMENT = 'http://127.0.0.1:8000/comments/create/';
 let dataOfCards;
 
-// console.log(tokens);
-
 getDataCardsInfo(URL_GETCARDS);
 
 setTimeout(() => {
@@ -18,13 +16,6 @@ setTimeout(() => {
         task.addEventListener('click', taskClickHandler);
     }) 
 }, 1000); //чтобы успели прийти данные с сервера - если знаешь как лучше сделать - скажи
-
-// function fillCardInfo () {
-//     const tasks = document.querySelectorAll('.task');
-//     tasks.forEach((task) => {
-//         task.addEventListener('click', taskClickHandler);
-//     }) 
-// }
 
 function sendNewTaskInfo(url, token, data) {
     fetch(url, {
@@ -72,7 +63,7 @@ function getDataCardsInfo (url) {
 function closeBtnTaskHandler (evt) {
     evt.preventDefault();
     taskPopup.classList.add('hidden');
-
+    window.location.reload();
     this.removeEventListener('click', closeBtnTaskHandler);
 }
 
@@ -84,6 +75,7 @@ function deleteTask(url, token) {
             "Authorization": `Bearer ${token}`
         }
     })
+    window.location.reload();
 }
 
 function saveBtnTaskHandler (evt) {
@@ -105,7 +97,7 @@ function saveBtnTaskHandler (evt) {
     }
 
     taskPopup.classList.add('hidden');
-    // window.location.reload();
+    window.location.reload();
 }
 
 function deleteBtnTaskHandler (evt) {
@@ -193,14 +185,3 @@ function createComment (url, comment, taskID, token) {
         }) 
     })
 }
-
-// comments/<int:card>/   получить все комменты у карточки [GET] + token(вроде)
-// comments/create/   создать коммент [POST] + token
-
-// #Comments
-//     path('comments/<int:card>/', views.getComments, name='get-comments'),
-//     path('comments/create/', CreateCommentsView.as_view(), name='create-comments'),
-//     # {
-//     #     "card_id": null,
-//     #     "content": ""
-//     # }
