@@ -186,7 +186,12 @@ header {
     background-color: #E694F7;
 }
 
-.success-sendForm > p {
+.success-sendForm-t.wrapper {
+    background-color: #96EC8E;
+}
+
+.success-sendForm > p,
+.success-sendForm-t > p {
     font-size: 48px;
     font-weight: 600;
     width: 87%;
