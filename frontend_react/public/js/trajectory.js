@@ -1,4 +1,10 @@
-const cardTempPreview = document.querySelector('#card-preview').content.querySelector('.task');
+import { getTokens } from "./modules/utility.js";
+import { URL_OPEN_CARD, URL_PROFILE, URL_GET_CARDS } from "./modules/urls.js";
+import { getData, getListOfData, editData } from "./modules/requests.js";
+
+const cardTempPreview = document.querySelector('#card-preview')
+    .content
+    .querySelector('.task');
 const plannedList = document.querySelector('.list-of-tasks.planned');
 const workList = document.querySelector('.list-of-tasks.work');
 const checkedList = document.querySelector('.list-of-tasks.checked');
@@ -6,57 +12,12 @@ const doneList = document.querySelector('.list-of-tasks.done');
 
 const savedData = window.location.search;
 const userData = new URLSearchParams(savedData);
-
 const projId = userData.get('id');
-
-const URL_GETCARDS = `http://127.0.0.1:8000/getcards/${projId}/`;
-const URL_OPENCARD = 'http://127.0.0.1:8000/card/';
+let draggedTask;
+const tokens = getTokens();
 
 // Логика для вкладок header
-const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
-
-function getDataLogin (url, token, onSuccess) {
-    fetch(url,
-    {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-    },
-    )
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('Ошибка 1');
-        }
-    })
-    .then((result) => {
-        onSuccess(result);
-    })
-    .catch(() => {
-        console.log('Ошибка 2');
-    });
-}
-
-function getTokens () {
-    const cookies = document.cookie.split('; ');
-
-    cookies.forEach((token) => {
-        const [name, value] = token.split('=');
-        if (name === 'access') {
-            tokens.access = value;
-        } else if (name === 'refresh') {
-            tokens.refresh = value;
-        }
-    })
-}
-
-const tokens = {};
-getTokens();
-
-getDataLogin(URL_PROFILE, tokens.access, fillData);
+getData(URL_PROFILE, tokens.access, fillData);
 
 function fillData (data) {
     const projectTab = document.querySelector('#project');
@@ -88,80 +49,34 @@ function fillData (data) {
 }
 
 // добавление карточек
-const getDataCards = (url) => {
-    fetch(url,
-    {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-        },
-    },
-    )
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('Ошибка');
+function drawCards(arr) {
+    arr.forEach((item) => {
+        const task = cardTempPreview.cloneNode(true);
+
+        task.querySelector('.task-title').textContent = `${item.task}`;
+        task.id = `${item.card_id}`;
+
+        switch (item.category) {
+            case 'planned':
+                plannedList.appendChild(task);
+                break;
+            case 'work':
+                workList.appendChild(task);
+                break;
+            case 'checked':
+                checkedList.appendChild(task);
+                break;
+            case 'done':
+                doneList.appendChild(task);
+                break;
+            default:
+                break;
         }
     })
-    .then((result) => {
-        result.forEach((item) => {
-            const task = cardTempPreview.cloneNode(true);
-
-            task.querySelector('.task-title').textContent = `${item.task}`;
-            task.id = `${item.card_id}`;
-
-            switch (item.category) {
-                case 'planned':
-                    plannedList.appendChild(task);
-                    break;
-                case 'work':
-                    workList.appendChild(task);
-                    break;
-                case 'checked':
-                    checkedList.appendChild(task);
-                    break;
-                case 'done':
-                    doneList.appendChild(task);
-                    break;
-                default:
-                    break;
-            }
-        })
-        dragAndDrop();
-        
-    })
-    .catch(() => {
-        console.log('Ошибка в GET запросе, но не в URL')
-    })
+    dragAndDrop();
 }
 
-getDataCards(URL_GETCARDS);
-
-// логика изменения категории
-function sendNewCategoryInfo(url,token, data) {
-    fetch(url, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            category: data
-        })
-    })
-    .then((response) => {
-        if (response.ok) {
-            console.log(response);
-        }
-        else {
-            console.log('Ошибка в POST запросе на отправку новой информации');
-        }
-    })
-    .catch(() => {
-        console.log('Ошибка в POST запросе на отправку новой информации, но не в URL');
-    })
-}
+getListOfData(URL_GET_CARDS + `${projId}/`, drawCards);
 
 const dragAndDrop = () => {
     const lists = document.querySelectorAll('.list-of-tasks');
@@ -171,7 +86,6 @@ const dragAndDrop = () => {
         const item = task[i];
 
         item.addEventListener('dragstart', () => {
-            console.log(1);
             draggedTask = item;
             setTimeout(() => {
                 item.classList.add('hidden');
@@ -180,7 +94,6 @@ const dragAndDrop = () => {
 
         item.addEventListener('dragend', () => {
             draggedTask = item;
-            console.log(2);
             setTimeout(() => {
                 item.classList.remove('hidden');
                 draggedTask = null;
@@ -191,17 +104,13 @@ const dragAndDrop = () => {
             const list = lists[j];
     
             list.addEventListener('dragover', (evt) => {
-                console.log(3);
                 evt.preventDefault();
             })
     
             list.addEventListener('drop', function (evt) {
-                console.log(4);
                 this.append(draggedTask);
-
-                const FULL_URL_OPENCARD = `${URL_OPENCARD}${projId}/${draggedTask.id}/`;
-
-                sendNewCategoryInfo(FULL_URL_OPENCARD, tokens.access, this.classList[1]);
+                const FULL_URL_OPENCARD = `${URL_OPEN_CARD}${projId}/${draggedTask.id}/`;
+                editData(FULL_URL_OPENCARD, tokens.access, JSON.stringify({category: this.classList[1]}), console.log);
             })
         }
     }
