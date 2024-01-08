@@ -200,50 +200,65 @@ class CardsView(generics.CreateAPIView):
 
 @api_view(['GET'])
 #@permission_classes([IsAuthenticated])
-def getCards(request):
-        #user = request.user
-        #project = Project.objects.raw("SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user.id, user.id])
-        #cards = Tasks.objects.raw(
-            #"SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project[0].project_id])
-        cards = Tasks.objects.all()
+def getCards(request, *args, **kwargs):
+        project_id = kwargs.get("project_id", None)
+        if not project_id:
+            return Response({"error": "Метод get не определён"})
+        cards = Tasks.objects.raw(
+            "SELECT card_id, category, task, description, project_id FROM backend_DRF_tasks WHERE project_id=%s", [project_id])
+        if not cards:
+            return Response({"error": "Нельзя просмотреть чужие карточки / Такого проекта несуществует"})
+        #cards = Tasks.objects.all()
         serializer = CardsSerializer(cards, many=True)
         return Response(serializer.data)
 
 
 class CardUpdateView(APIView):
-    def check(self, user_id, pk):
-        project = Project.objects.raw(
-            "SELECT id FROM backend_DRF_project WHERE (student_id=%s OR teacher_id=%s)", [user_id, user_id])
-        if len(project) == 0:
-            return Response({"message": "У вас нет доступа для удаления данных"})
-        cards = Tasks.objects.raw(
-            f"SELECT card_id FROM backend_DRF_tasks WHERE project_id=%s",
-            [project[0].project_id])
-        cards_id_list = [card.card_id for card in cards]
-        if not (pk in cards_id_list):
-            return Response({"message": "У вас нет доступа для удаления данных"})
+    def check(self, user, project_id, pk):
+        if user.role == 'ученик':
+            students = Student.objects.filter(user_id=user.id)
+            projects = Project.objects.filter(student_id=students[0].id)
+        elif user.role == 'учитель':
+            teachers = Teacher.objects.filter(user_id=user.id)
+            projects = Project.objects.filter(teacher_id=teachers[0].id)
+        else:
+            return False
+        if projects.filter(id=project_id).exists():
+            cards = Tasks.objects.raw(
+                f"SELECT card_id FROM backend_DRF_tasks WHERE project_id=%s",
+                [project_id])
+            cards_id_list = [card.card_id for card in cards]
+            return pk in cards_id_list
+        return False
 
     def put(self, request, *args, **kwargs):
-        user_id = request.user.id
+        user = request.user
+        project_id = kwargs.get("project_id", None)
         pk = kwargs.get("pk", None)
         if not pk:
+            return Response({"error": "Метод PUT не определён"})
+        if not project_id:
             return Response({"error": "Метод PUT не определён"})
         try:
             instance = Tasks.objects.get(card_id=pk)
         except:
             return Response({"error": "Объект не найден"})
-        self.check(user_id, pk)
+        if not (self.check(user, project_id, pk)):
+            return Response({"error": "Проект не найден!"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = CardsSerializer(data=request.data, instance=instance)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"post": serializer.data})
 
     def delete(self, request, *args, **kwargs):
-        user_id = request.user.id
+        user = request.user
         pk = kwargs.get("pk", None)
+        project_id = kwargs.get("project_id", None)
         if not pk:
             return Response({"error": "Метод delete не определён"})
-        self.check(user_id, pk)
+        if not (self.check(user, project_id, pk)):
+            return Response({"error": "Проект не найден!"}, status=status.HTTP_400_BAD_REQUEST)
+        Comments.objects.filter(card_id=pk).delete()
         Tasks.objects.filter(card_id=pk).delete()
         return Response({"post": "delete card " + str(pk)})
 
