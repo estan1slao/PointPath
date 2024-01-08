@@ -121,6 +121,18 @@
         </section>
     </div>
 
+    <!-- попап для учителя на отправку формы -->
+    <div class="popup hidden">
+        <section class="success-sendForm-t wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text ">Ваш проект был успешно добавлен в каталог!</p>
+            <a href="./catalog.html" class="popup-link">
+                <span>в каталог проектов</span>
+                <img src="./img/arrow.svg">
+            </a>
+        </section>
+    </div>
+
     <div class="popup hidden">
         <section class="exit-approve wrapper">
             <button class="close-btn"></button>
@@ -139,8 +151,9 @@
         <li class="dropdown-list-item" data-value="id учителя"></li>
     </template>
 
-    <script src="./js/propose-project.js"></script>
+    <script src="./js/propose-project.js" type="module"></script>
     <script src="./js/popups/exit-approve.js"></script>
-    <script src="./js/popups/success-send-form.js"></script>
+    <!-- <script src="./js/popups/success-send-form.js"></script> -->
+    <script src="./js/popups/success-send-form-t.js"></script>
 </body>
 </html>

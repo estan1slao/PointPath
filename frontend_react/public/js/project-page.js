@@ -1,4 +1,6 @@
-// получение данных о проекте
+import { URL_ACCEPT_PROJ, URL_DENY_PROJ, URL_TAKE_PROJ, URL_PROFILE } from "./modules/urls.js";
+import { getTokens } from "./modules/utility.js";
+import { changeProjStatus, getData, deleteProject } from "./modules/requests.js";
 
 const savedData = window.location.search;
 const data = new URLSearchParams(savedData);
@@ -15,8 +17,8 @@ about.textContent = data.get('about');
 
 const projId = data.get('id');
 
-const URL_DENY = `http://127.0.0.1:8000/projects/teacher-denied-project/${projId}/`;
-const URL_ACCEPT = `http://127.0.0.1:8000/projects/teacher-accept-project/${projId}/`;
+const URL_DENY = URL_ACCEPT_PROJ + `${projId}/`;
+const URL_ACCEPT = URL_DENY_PROJ + `${projId}/`;
 
 const projState = data.get('state');
 const studentId = data.get('studentId');
@@ -26,21 +28,7 @@ const trajectoryButton = document.querySelector('.trajectory');
 const approveButton = document.querySelector('.approve');
 const rejectButton = document.querySelector('.reject');
 
-function getTokens () {
-    const cookies = document.cookie.split('; ');
-
-    cookies.forEach((token) => {
-        const [name, value] = token.split('=');
-        if (name === 'access') {
-            tokens.access = value;
-        } else if (name === 'refresh') {
-            tokens.refresh = value;
-        }
-    })
-}
-
-const tokens = {};
-getTokens();
+const tokens = getTokens();
 
 if (projState === '1') {
     takeButton.classList.add('hidden');
@@ -54,73 +42,23 @@ if (projState === '1') {
     rejectButton.classList.remove('hidden');
 
     approveButton.addEventListener('click', () => {
-        acceptProject(URL_ACCEPT, tokens.access, onSuccessAccept)
+        changeProjStatus(URL_ACCEPT, tokens.access, onSuccessApprove)
     });
     
     rejectButton.addEventListener('click', () => {
-        console.log(tokens);
-        denyProject(URL_DENY, tokens.access, onSuccessDeny);
+        deleteProject(URL_DENY, tokens.access, onSuccessDeny);
     });
 }
 
-const URL_TAKE_PROJ = `http://127.0.0.1:8000/projects/student-choose-project/${projId}/`;
-
-function postDataProj (url, token, onSuccess) {
-    fetch(url,
-    {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-    },
-    )
-    .then((response) => {
-        if (response.ok) {
-            onSuccess();
-        } else {
-            console.log('Ошибка 1');
-        }
-    })
-    .catch(() => {
-        console.log('Ошибка 2');
-    });
-}
+const URL_TAKE = URL_TAKE_PROJ + `${projId}/`;
 
 takeButton.addEventListener('click', () => {
-    postDataProj(URL_TAKE_PROJ, tokens.access, console.log);
+    changeProjStatus(URL_TAKE, tokens.access, console.log);
 });
 
 
 // Логика для вкладок header
-const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
-
-function getDataLogin (url, token, onSuccess) {
-    fetch(url,
-    {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-    },
-    )
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('Ошибка 1');
-        }
-    })
-    .then((result) => {
-        onSuccess(result);
-    })
-    .catch(() => {
-        console.log('Ошибка 2');
-    });
-}
-
-getDataLogin(URL_PROFILE, tokens.access, fillData);
+getData(URL_PROFILE, tokens.access, fillData);
 
 function fillData (data) {
     const projectTab = document.querySelector('#project');
@@ -153,32 +91,7 @@ const deniedPopup = document.querySelector('.denied-form').closest('.popup');;
 const closeApproveButton = approvePopup.querySelector('.close-btn');
 const closeDeniedButton = deniedPopup.querySelector('.close-btn');
 
-function acceptProject (url, token, onSuccess) {
-    fetch(url,
-    {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-    },
-    )
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('Ошибка 1');
-        }
-    })
-    .then((result) => {
-        onSuccess(result);
-    })
-    .catch(() => {
-        console.log('Ошибка 2');
-    });
-}
-
-function onSuccessAccept (res) {
+function onSuccessApprove (res) {
     console.log(res);
 
     closeApproveButton.addEventListener('click', () => {
@@ -186,37 +99,8 @@ function onSuccessAccept (res) {
     });
 }
 
-function denyProject (url, token, onSuccess) {
-    fetch(url,
-    {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-    },
-    )
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('Ошибка 1');
-        }
-    })
-    .then((result) => {
-        onSuccess(result);
-    })
-    .catch(() => {
-        console.log('Ошибка 2');
-    });
-}
-
-function onSuccessDeny (res) {
-    console.log(res);
-
+function onSuccessDeny () {
     closeDeniedButton.addEventListener('click', () => {
         window.location.href = "./consideration-projects.html";
     });
-
-    
 }

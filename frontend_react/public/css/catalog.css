@@ -19,17 +19,9 @@ header {
     margin: 7px 0 40px 118px;
 }
 
-.catalog {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin: 0 118px;
-    box-sizing: border-box;
-}
-
 .project-card {
     box-sizing: border-box;
-    width: 528px;
+    min-width: 529px;
     height: 649px;
     
     border-radius: 30px;
@@ -39,24 +31,17 @@ header {
     cursor: pointer;
 }
 
-.project-card:nth-child(9n+1),
-.project-card:nth-child(9n+5),
-.project-card:nth-child(9n+9) {
+.project-card:nth-child(3n+1) {
     background-color: #CBF6C7;
 }
 
-.project-card:nth-child(9n+2),
-.project-card:nth-child(9n+6),
-.project-card:nth-child(9n+7) {
+.project-card:nth-child(3n+2) {
     background-color: #F0BCFA;
 }
 
-.project-card:nth-child(9n+3),
-.project-card:nth-child(9n+4),
-.project-card:nth-child(9n+8) {
+.project-card:nth-child(3n+3) {
     background-color: #ADB8F0;
 }
-
 
 .title-card {
     font-size: 42px;
@@ -65,11 +50,12 @@ header {
     margin: 0;
     padding: 0;
 
+    word-wrap: break-word;
+
     margin-bottom: 33px;
 }
 
 .card-info {
-    box-sizing: border-box;
     padding: 0 13px 0 13px;
 }
 
@@ -104,4 +90,60 @@ header {
 
 footer {
     margin-top: 95px;
+}
+
+
+/* карусель */
+
+.catalog {
+    position: relative;
+}
+
+.catalog-container {
+    display: flex;
+    gap: 40px;
+    margin: 0 118px;
+    box-sizing: border-box;
+
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.catalog-container::-webkit-scrollbar {
+    display: none;
+}
+
+.nxt-btn,
+.pre-btn {
+    position: absolute;
+    top: 298px;
+    z-index: 2;
+}
+
+.pre-btn {
+    left: 50px;
+}
+
+.nxt-btn {
+    right: 50px;
+    transform: rotate(180deg);
+}
+
+
+.more {
+    margin-top: 44px;
+    display: flex;
+    gap: 11px;
+    justify-content: center;
+}
+
+.more-cycle {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+    background: #ADB8F0;
+}
+
+.more-cycle__active {
+    background: #F0BCFA;
 }
