@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="global-style.css">
-    <link rel="stylesheet" href="enter.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/enter.css">
+    <title>Вход</title>
 </head>
 <body>
     <div class="body-center">
@@ -13,27 +13,42 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <div class="nav-left">
-                        <a class="nav-item" href="#"><li>.главная</li></a>
-                        <a class="nav-item hidden" href="#"><li>.проект</li></a>
-                        <a class="nav-item hidden" href="#"><li>.траектория</li></a>
-                        <a class="nav-item hidden" href="#"><li>.проекты на рассмотрение</li></a>
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item hidden" id="project" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item hidden" id="trajectory" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item hidden" id="propose-project" href="./propose-project.html">
+                            <li>.форма проекта</li>
+                        </a>
+                        <a class="nav-item hidden" id="projects-to-approve" href="#">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
                     </div>
                     <div class="nav-right">
-                        <a class="nav-item" href="#"><li>.войти</li></a>
-                        <a class="nav-item" href="#"><li>.создать аккаунт</li></a>
+                        <a class="nav-item" id="enter" href="./enter.html">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item" id="create-account" href="./registration.html">
+                            <li>.создать аккаунт</li>
+                        </a>
                         <div class="account hidden">
-                            <a href="#">
-                                <span>Иванов Иван</span>
-                                <img src="./img/account_icon.svg" width="36" height="36">
+                            <a href="./account-student.html">
+                                <span id="fi">Иванов Иван</span>
+                                <img src="./img/exit.svg" width="32" height="32">
                             </a>
                         </div>
                     </div>
                 </ul>
             </nav>
             <div class="edit hidden">
-                <a href="#"> <!--Здесь добавил div, тк ссылка растягивалась-->
-                    <img class="hidden" src="./img/edit.svg" width="24" height="24">
-                    <span class="hidden">редактировать</span>
+                <a href="#">
+                    <img src="./img/edit.svg" width="24" height="24">
+                    <span>редактировать</span>
                 </a>
             </div>
         </header>
@@ -47,19 +62,20 @@
                 </div>
             </div>
             <div class="form-container">
-                <h1 class="title">.вход</h1>
-                <form>
-                    <input class='enter-input' name='login' placeholder="логин" type="text">
-                    <input class='enter-input' name='password' placeholder="пароль" type="password">
+                <h1 class="title enter-title">.вход</h1>
+                <form class="login-form" method="post" action="http://127.0.0.1:8000/token/">
+                    <input class='input enter-input' id="username" name='username' placeholder="логин" type="text">
+                    <input class='input enter-input' id="password" name='password' placeholder="пароль" type="password">
                     <button class="arrow-button" type="submit"></button>
                 </form>
             </div>
         </main>
         <footer>
-            <div class='logo-s'>
+            <div class='logo'>
                 <img src="./img/logo.svg" width="321" height="94">
             </div>
         </footer>
     </div>
+    <script src="./js/enter.js" type="module"></script>
 </body>
 </html>

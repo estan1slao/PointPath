@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/project-page.css">
+    <title>Описание проекта</title>
+</head>
+
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <div class="nav-left">
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item" id="project" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item" id="trajectory" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item" id="propose-project" href="./propose-project.html">
+                            <li>.форма проекта</li>
+                        </a>
+                        <a class="nav-item hidden" id="projects-to-approve" href="./consideration-projects.html">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
+                    </div>
+                    <div class="nav-right">
+                        <a class="nav-item hidden" id="enter" href="./enter.html">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item hidden" id="create-account" href="./registration.html">
+                            <li>.создать аккаунт</li>
+                        </a>
+                        <div class="account ">
+                            <a href="./account-student.html">
+                                <span id="fi">Иванов Иван</span>
+                                <img src="./img/exit.svg" width="32" height="32">
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <div class="edit hidden">
+                <a href="#">
+                    <img src="./img/edit.svg" width="24" height="24">
+                    <span>редактировать</span>
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <button class="back-button">
+                <img src="./img/arrow-left-gray.svg" width="66" height="21">
+                <span>назад</span>
+            </button>
+
+            <div class="title-block">
+                <div class="title-wrapper">
+                    <h1 class="title">создание веб-сервиса для школы</h1>
+                    <div class="green-line"></div>
+
+                    <span class="proj-label" id="proj-owner">учитель</span>
+                    <p class="proj-text" id="teacher">Петров Пётр Петрович</p>
+
+                    <span class="proj-label">сфера</span>
+                    <p  class="proj-text" id="sphere">информатика</p>
+                </div>
+                
+                <div class="buttons-block">
+                    <button class="take-button student-choice ">хочу взять проект</button>
+                    <button class="take-button trajectory hidden">перейти к траектории</button>
+                    <button class="take-button approve hidden">одобрить заявку</button>
+                    <button class="take-button reject hidden">отклонить заявку</button>
+                </div>
+            </div>
+
+            <div class="proj-info">
+                <span class="proj-label">описание</span>
+                <p class="proj-text" id="about">Необходимо изучить насколько актуально сегодня создание специализированных сервисов для школ</p>
+            </div>
+        </main>
+
+        <footer>
+            <div class='logo'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </footer>
+
+        <div class="popup hidden">
+            <section class="exit-approve wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text">Выйти из системы?</p>
+                <div class="move-links">
+                    <a class="popup-link return-link">
+                        <img src="./img/arrow.svg">
+                        <span>вернуться назад</span>
+                    </a>
+                    <a href="./main-page.html" class="popup-link exit-link">выйти</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="popup hidden">
+            <section class="success-choice wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text ">Выбор прошел успешно. Самое время приступить к реализации! </p>
+                <a href="./account-student.html" class="popup-link">
+                    <span>в личный кабинет</span>
+                    <img src="./img/arrow.svg">
+                </a>
+            </section>
+        </div>
+
+        <div class="popup hidden">
+            <section class="approve-form wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text">Вы утвердили проект. Ученик вскоре узнает об этом! </p>
+                <a href="./consideration-projects.html" class="popup-link">
+                    <span>вернуться назад</span>
+                    <img src="./img/arrow.svg">
+                </a>
+            </section>
+        </div>
+    
+        <div class="popup hidden">
+            <section class="denied-form wrapper">
+                <button class="close-btn"></button>
+                <p class="popup-text ">Проект был успешно отклонен. Ученику отправлено оповещение. </p>
+                <a href="./consideration-projects.html" class="popup-link">
+                    <span>вернуться назад</span>
+                    <img src="./img/arrow.svg">
+                </a>
+            </section>
+        </div>
+
+    </div>
+
+    <script src="./js/project-page.js" type="module"></script>
+    <script src="./js/popups/exit-approve.js"></script>
+    <script src="./js/popups/success-choice.js"></script>
+    <script src="./js/popups/form-approve-teacher.js"></script>
+</body>
+</html>
