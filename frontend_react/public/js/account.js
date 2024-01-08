@@ -27,6 +27,7 @@ const gradeInput = form.querySelector('#grade-input');
 const telegramInput = form.querySelector('#telegram-input');
 const vkInput = form.querySelector('#vk-input');
 const phoneInput = form.querySelector('#phone-input');
+const closeInputBtn = form.querySelectorAll('.close-input-btn');
 
 const DEFAULT_DESCRIPTION = 'Здесь пока ничего нет, но вы можете рассказать немного о себе :)';
 const DEFAULT_GRADE = 'не указан';
@@ -34,7 +35,6 @@ const DEFAULT_SPEC = 'не указана';
 
 function openEditPopup () {
     editPopupWrapper.classList.remove('hidden');
-
     if (about.textContent !== DEFAULT_DESCRIPTION) {
         aboutInput.value = about.textContent;
     } else {
@@ -51,6 +51,9 @@ function openEditPopup () {
     vkInput.value = vk.href;
     phoneInput.value = phone.href.slice(4);
 
+    closeInputBtn.forEach((item) => {
+        item.addEventListener('click', closeInputHandler);
+    })
     closeEditButton.addEventListener('click', closeEditForm);
 }
 
@@ -58,9 +61,16 @@ editButton.addEventListener('click', () => {
     openEditPopup();
 });
 
+function closeInputHandler (evt) {
+    evt.currentTarget.closest('.input-wrapper').querySelector('input').value = '';
+} 
+
 function closeEditForm () {
     editPopupWrapper.classList.add('hidden');
     closeEditButton.removeEventListener('click', closeEditForm);
+    closeInputBtn.forEach((item) => {
+        item.removeEventListener('click', closeInputHandler);
+    })
 }
 
 function reloadPage () {

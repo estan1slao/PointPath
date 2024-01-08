@@ -1,81 +1,36 @@
+import {URL_CREATE_COMMENT, URL_GET_CARDS, URL_GET_COMMENTS, URL_OPEN_CARD} from "../modules/urls.js"
+import { getTokens } from "../modules/utility.js";
+import { editData, deleteTask, getData, getListOfData, createComment } from "../modules/requests.js";
+
 const taskPopupName = taskPopup.querySelector('.popup-text');
 const taskPopupAbout = taskPopup.querySelector('#about-task-input');
 const taskPopupCategory = taskPopup.querySelector('#category-input');
 const commentTemplate = document.querySelector('#comment-template').content.querySelector('.comment');
 const commentsField = document.querySelector('.comments-field');
 
-const URL_GETCOMMENTS = 'http://127.0.0.1:8000/comments/';
-const URL_CREATECOMMENT = 'http://127.0.0.1:8000/comments/create/';
+const savedData = window.location.search;
+const userData = new URLSearchParams(savedData);
+const projId = userData.get('id');
+
+const tokens = getTokens();
 let dataOfCards;
 
-getDataCardsInfo(URL_GETCARDS);
+getListOfData(URL_GET_CARDS + `${projId}/`, (result) => {
+    dataOfCards = result;
+})
 
 setTimeout(() => {
     const tasks = document.querySelectorAll('.task');
     tasks.forEach((task) => {
         task.addEventListener('click', taskClickHandler);
     }) 
-}, 1000); //чтобы успели прийти данные с сервера - если знаешь как лучше сделать - скажи
-
-function sendNewTaskInfo(url, token, data) {
-    fetch(url, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(data),
-    })
-    .then((response) => {
-        if (response.ok) {
-            console.log(response);
-        }
-        else {
-            console.log('Ошибка в POST запросе на отправку новой информации');
-        }
-    })
-    .catch(() => {
-        console.log('Ошибка в POST запросе на отправку новой информации, но не в URL');
-    })
-}
-
-function getDataCardsInfo (url) {
-    fetch(url,
-    {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-        },
-    },
-    )
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('Ошибка');
-        }
-    })
-    .then((result) => {
-        dataOfCards = result;
-    })
-}
+}, 1000);
 
 function closeBtnTaskHandler (evt) {
     evt.preventDefault();
     taskPopup.classList.add('hidden');
     window.location.reload();
     this.removeEventListener('click', closeBtnTaskHandler);
-}
-
-function deleteTask(url, token) {
-    fetch(url, {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    })
-    window.location.reload();
 }
 
 function saveBtnTaskHandler (evt) {
@@ -87,13 +42,11 @@ function saveBtnTaskHandler (evt) {
         description: taskPopupAbout.value,
         category: taskPopupCategory.value
     };
-
-    const FULL_URL_OPENCARD = `${URL_OPENCARD}${projId}/${taskID}/`;
-
-    sendNewTaskInfo(FULL_URL_OPENCARD, tokens.access, obj);
+    const FULL_URL_OPENCARD = `${URL_OPEN_CARD}${projId}/${taskID}/`;
+    editData(FULL_URL_OPENCARD, tokens.access, JSON.stringify(obj), console.log);
 
     if (commentInput.value !== '') {
-        createComment(URL_CREATECOMMENT, commentInput.value, taskID, tokens.access);
+        createComment(URL_CREATE_COMMENT, commentInput.value, taskID, tokens.access);
     }
 
     taskPopup.classList.add('hidden');
@@ -102,11 +55,8 @@ function saveBtnTaskHandler (evt) {
 
 function deleteBtnTaskHandler (evt) {
     evt.preventDefault();
-
-    const FULL_URL_OPENCARD = `${URL_OPENCARD}${projId}/${evt.currentTarget.closest('.popup').id}/`;
-
+    const FULL_URL_OPENCARD = `${URL_OPEN_CARD}${projId}/${evt.currentTarget.closest('.popup').id}/`;
     deleteTask(FULL_URL_OPENCARD, tokens.access);
-
     taskPopup.classList.add('hidden');
     window.location.reload();
 }
@@ -114,10 +64,8 @@ function deleteBtnTaskHandler (evt) {
 function drawComments (data) {
     data.forEach((item) => {
         const comment = commentTemplate.cloneNode(true);
-        console.log(comment);
         comment.querySelector('.author').textContent = `${item.last_name_proponent} ${item.first_name_proponent} ${item.patronymic_proponent}`;
         comment.querySelector('.comment-value').textContent = `${item.content}`;
-        console.log(comment);
         commentsField.appendChild(comment);
     })
 }
@@ -141,47 +89,9 @@ function taskClickHandler (evt) {
 
             saveBtn.addEventListener('click', saveBtnTaskHandler);
             deleteTask.addEventListener('click', deleteBtnTaskHandler);
-            getComments(URL_GETCOMMENTS + taskID + '/', drawComments, tokens.access);
+            getData(URL_GET_COMMENTS + taskID + '/', tokens.access, drawComments);
         }
     })
 
     closeBtn.addEventListener('click', closeBtnTaskHandler);
-}
-
-function getComments (url, onSuccess, token) {
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    })
-    .then((response) => {
-        if(response.ok) {
-            return response.json();
-        }
-        else {
-            console.log('Ошибка в URL');
-        }
-    })
-    .then((data) => {
-        onSuccess(data);
-    }) 
-    .catch(() => {
-        console.log('Ошибка где-то, но не в URL');
-    })
-}
-
-function createComment (url, comment, taskID, token) {
-    fetch(url, {
-        method: 'POST', 
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }, 
-        body: JSON.stringify({
-            card_id: +taskID,
-            content: comment
-        }) 
-    })
 }

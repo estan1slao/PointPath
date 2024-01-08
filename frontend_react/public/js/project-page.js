@@ -17,8 +17,8 @@ about.textContent = data.get('about');
 
 const projId = data.get('id');
 
-const URL_DENY = URL_ACCEPT_PROJ + `${projId}/`;
-const URL_ACCEPT = URL_DENY_PROJ + `${projId}/`;
+const URL_DENY = URL_DENY_PROJ + `${projId}/`;
+const URL_ACCEPT = URL_ACCEPT_PROJ + `${projId}/`;
 
 const projState = data.get('state');
 const studentId = data.get('studentId');

@@ -195,4 +195,29 @@ function deleteProject (url, token, onSuccess) {
     });
 }
 
-export { postData, getData, editData, getCurrentProjData, getListOfData, changeProjStatus, deleteProject, postProjData };
+function deleteTask(url, token) {
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    window.location.reload();
+}
+
+function createComment (url, comment, taskID, token) {
+    fetch(url, {
+        method: 'POST', 
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }, 
+        body: JSON.stringify({
+            card_id: +taskID,
+            content: comment
+        }) 
+    })
+}
+
+export { postData, getData, editData, getCurrentProjData, getListOfData, changeProjStatus, deleteProject, deleteTask, postProjData, createComment };
