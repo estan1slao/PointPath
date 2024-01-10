@@ -106,7 +106,7 @@ def updatePassword(request):
 
     return Response({"message": "Пароль успешно обновлен."}, status=status.HTTP_200_OK)
 
-  
+
 class TeacherOffersProjectViewSet(mixins.CreateModelMixin,
                      GenericViewSet):
     queryset = Project.objects.all()
@@ -304,6 +304,7 @@ class DescriptionStudentIDView(APIView):
 
         serializer = DescriptionTeacherIDAndStudentIDSerializer(account_description, many=True)
         return Response(serializer.data)
+
 
 class CreateCommentsView(APIView):
     # {

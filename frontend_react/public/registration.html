@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/registration.css">
+    <title>Registration</title>
+</head>
+<body>
+    <div class="body-center">
+        <header>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <div class="nav-left">
+                        <a class="nav-item" href="./main-page.html">
+                            <li>.главная</li>
+                        </a>
+                        <a class="nav-item hidden" id="project" href="./project-choice.html">
+                            <li>.проект</li>
+                        </a>
+                        <a class="nav-item hidden" id="trajectory" href="./trajectory.html">
+                            <li>.траектория</li>
+                        </a>
+                        <a class="nav-item hidden" id="propose-project" href="./propose-project.html">
+                            <li>.форма проекта</li>
+                        </a>
+                        <a class="nav-item hidden" id="projects-to-approve" href="#">
+                            <li>.проекты на рассмотрение</li>
+                        </a>
+                    </div>
+                    <div class="nav-right">
+                        <a class="nav-item" id="enter" href="./enter.html">
+                            <li>.войти</li>
+                        </a>
+                        <a class="nav-item" id="create-account" href="./registration.html">
+                            <li>.создать аккаунт</li>
+                        </a>
+                        <div class="account hidden">
+                            <a href="./account-student.html">
+                                <span id="fi">Иванов Иван</span>
+                                <img src="./img/exit.svg" width="32" height="32">
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <div class="edit hidden">
+                <a href="#">
+                    <img src="./img/edit.svg" width="24" height="24">
+                    <span>редактировать</span>
+                </a>
+            </div>
+        </header>
+        <main>
+            <h1 class="title registration-title">.новый аккаунт</h1>
+            <form class="second-part" method="post" action="http://127.0.0.1:8000/register/" >
+                <!-- добавил div, чтобы удобнее было вешать hidden'ы -->
+                <div class="reg-first-part"> 
+                    <input class='input registration-input first-part-reg' id="surname" name='surname' placeholder="фамилия" type="text">
+                    <input class='input registration-input first-part-reg' id="name" name='name' placeholder="имя" type="text">
+                    <input class='input registration-input first-part-reg' id="patronymic" name='patronymic' placeholder="отчество" type="text">
+                    <input class='input registration-input first-part-reg' id="email" name='email' placeholder="эл. почта" type="email">
+                    <div class="choose_role-container ">
+                        <h2 class="choose_role-title">выберете роль</h2>
+                        <div class="choose_role">
+                            <button class="role-button" type="button" id="student" data-value="ученик">ученик</button>
+                            <button class="role-button" type="button" id="teacher" data-value="учитель">учитель</button>
+                        </div>
+                    </div>
+                    <input class="role-input first-part-reg" id="role" name="role" hidden/>
+                    <button class="arrow-button " type="button"></button>
+                </div>
+                
+                <!-- добавил div, чтобы удобнее было вешать hidden'ы -->
+                <div class="reg-second-part hidden">
+                    <input class='input registration-input second-part-reg' id="username" name='username' placeholder="логин" type="text">
+                    <input class='input registration-input second-part-reg' id="password" name='password' placeholder="пароль" type="password">
+                    <input class='input registration-input second-part-reg' id="password2" name="password2" placeholder="повторите пароль" type="password">
+                    <div class="form-end">
+                        <button class="arrow-button arrow-button-left" type="button"></button>
+                        <button class="account-submit" type="submit">cоздать аккаунт</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+        <footer>
+            <div class='logo'>
+                <img src="./img/logo.svg" width="321" height="94">
+            </div>
+        </footer>
+    </div>
+
+    <div class="popup hidden">
+        <section class="success-registration wrapper">
+            <button class="close-btn"></button>
+            <p class="popup-text">Регистрация <span class="success-wrapper">успешно</span> завершена</p>
+            <a class="popup-link" href="./account-student.html">
+                <span>в личный кабинет</span>
+                <img src="./img/arrow.svg">
+            </a>
+        </section>
+    </div>
+    
+    <script src="./js/registration.js"></script>
+</body>
+</html>
