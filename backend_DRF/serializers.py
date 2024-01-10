@@ -328,3 +328,14 @@ class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tasks
         fields = "all"
+
+class CompletionOfProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('id', 'state')
+
+
+class CompletedProjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('id', 'topic', 'about', 'field_of_activity', 'student', 'teacher', 'state', 'material_link')
