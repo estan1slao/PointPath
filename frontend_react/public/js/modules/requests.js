@@ -220,4 +220,24 @@ function createComment (url, comment, taskID, token) {
     })
 }
 
-export { postData, getData, editData, getCurrentProjData, getListOfData, changeProjStatus, deleteProject, deleteTask, postProjData, createComment };
+function completeProject (url, token, onSuccess) {
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+    })
+    .then((response) => {
+        if (response.ok) {
+            onSuccess();
+        } else {
+            console.log('[PUT] Ошибка при ответе с сервера');
+        }
+    })
+    .catch(() => {
+        console.log('[PUT] Ошибка при выполнении функции');
+    });
+}
+
+export { postData, getData, editData, getCurrentProjData, getListOfData, changeProjStatus, deleteProject, deleteTask, postProjData, createComment, completeProject };
