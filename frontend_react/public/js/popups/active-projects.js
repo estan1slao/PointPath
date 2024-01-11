@@ -1,5 +1,5 @@
 const activeProjectsPopup = document.querySelector('.active-student-projects').closest('.popup');
-const activeProjectsArea = document.querySelector('.active-projects-t');
+const activeProjectsArea = document.querySelector('.active-projects-t').querySelector('.more');
 
 function closeBtnHandlerActivePr () {
     activeProjectsPopup.classList.add('hidden');
