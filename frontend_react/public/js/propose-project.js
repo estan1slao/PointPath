@@ -1,6 +1,7 @@
 import { URL_TEACHERS, URL_PROFILE, URL_PROPOSE_PROJ_STUDENT, URL_PROPOSE_PROJ_TEACHER } from "./modules/urls.js";
 import { getData, getListOfData, postProjData } from "./modules/requests.js";
 import { getTokens, getJSONForm, checkEmptyInputs } from "./modules/utility.js";
+import { addEventOnPopup } from "./popups/success-send-form.js";
 
 function customSelectWork () {
     const dropdownList = document.querySelectorAll('.custom-select');
@@ -71,6 +72,8 @@ function fillData (data) {
     const title = document.querySelector('.title');
     const teacherSelect = document.querySelector('.teacher-select');
     const submitButton = document.querySelector('.submit-button');
+
+    addEventOnPopup(data.role);
 
     if (data.role === "учитель") {
         projectTab.classList.add('hidden');
