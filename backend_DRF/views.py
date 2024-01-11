@@ -404,3 +404,63 @@ def uploadFile(request):
         )
         file.save()
         return render(request)
+
+class CompletionOfProjectByTeacherView(APIView):
+    def check(self, user, project_id):
+        if user.role == 'учитель':
+            teachers = Teacher.objects.filter(user_id=user.id)
+            projects = Project.objects.filter(teacher_id=teachers[0].id)
+        else:
+            return False
+        return projects.filter(id=project_id).exists()
+
+    def put(self, request, *args, **kwargs):
+        user = request.user
+        project_id = kwargs.get("project_id", None)
+        if not project_id:
+            return Response({"error": "Метод UPDATE не определён"})
+        if user.role == 'учитель':
+            try:
+                instance = Project.objects.get(id=project_id)
+            except:
+                return Response({"error": "Объект не найден"})
+            if not (self.check(user, project_id)):
+                return Response({"error": "Невозможно завершить чужой проект!"})
+            serializer = CompletionOfProjectSerializer(instance, data={'state': 2}, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            raise serializers.ValidationError("Пользователь должен принадлежать роли учитель!")
+
+class GetCompletedProjectsView(APIView):
+    def get(self, request):
+        user = request.user
+        if (user.role == 'ученик'):
+            user_id_student = Student.objects.filter(user_id=user.id)
+            if not user_id_student:
+                return Response({"error": "Не найден ученик в таблице student"},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            project_description = Project.objects.filter(student_id=user_id_student[0], state=2)
+            if not project_description:
+                return Response({"error": "Не найдены завершенные проекты у ученика"},
+                                status=status.HTTP_400_BAD_REQUEST)
+            serializer = CompletedProjectsSerializer(project_description, many=True)
+        elif (user.role == 'учитель'):
+            user_id_teacher = Teacher.objects.filter(user_id=user.id)
+            if not user_id_teacher:
+                return Response({"error": "Не найден учитель в таблице teacher"},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            project_description = Project.objects.filter(teacher_id=user_id_teacher[0], state=2)
+            if not project_description:
+                return Response({"error": "Не найдены завершенные проекты у учеников"},
+                                status=status.HTTP_400_BAD_REQUEST)
+            serializer = CompletedProjectsSerializer(project_description, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Не найдена роль аккаунта"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.data)
