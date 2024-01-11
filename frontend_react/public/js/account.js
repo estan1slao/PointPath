@@ -187,8 +187,12 @@ function onSuccessGetProj (res, role) {
             .content
             .querySelector('.active-student-proj');
         const projList = document.querySelector('.projects-list');
+        const projTemplateFull = document.querySelector('#active-student-project-template')
+            .content
+            .querySelector('.student-link');
+        const fullProjList = document.querySelector('#active-proj');
 
-        res.forEach((activeProject) => {
+        res.slice(0, 2).forEach((activeProject) => {
             const newProj = projTemplate.cloneNode(true);
 
             newProj.querySelector('.student-name').textContent = 
@@ -199,6 +203,19 @@ function onSuccessGetProj (res, role) {
             newProj.querySelector('#proj-state-t').textContent = activeProject.state;
             newProj.querySelector('#proj-topic-t').textContent = activeProject.topic;
             projList.append(newProj);
+        });
+
+        res.forEach((activeProject) => {
+            const newProj = projTemplateFull.cloneNode(true);
+
+            newProj.querySelector('.student-name').textContent = 
+                `${activeProject.last_name_student} ${activeProject.first_name_student} ${activeProject.patronymic_student}`;
+            newProj.querySelector('#proj-index-t').textContent = activeProject.id;
+            newProj.querySelector('#proj-sphere-t').textContent = activeProject.field_of_activity;
+            newProj.querySelector('#proj-about-t').textContent = activeProject.about;
+            newProj.querySelector('#proj-state-t').textContent = activeProject.state;
+            newProj.querySelector('#proj-topic-t').textContent = activeProject.topic;
+            fullProjList.append(newProj);
         });
         addEventListeners();
     }
@@ -223,6 +240,18 @@ function addEventListeners () {
     const activeTeacherProjects = activeTeacherProj.querySelectorAll('.active-student-proj');
 
     activeTeacherProjects.forEach((project) => {
+        project.addEventListener('click', projectClickHandler(
+            project.querySelector('#proj-index-t').textContent,
+            project.querySelector('#proj-topic-t').textContent,
+            project.querySelector('#stud-name').textContent,
+            project.querySelector('#proj-sphere-t').textContent,
+            project.querySelector('#proj-about-t').textContent,
+            project.querySelector('#proj-state-t').textContent
+        ));
+    });
+
+    const activeTeacherProjectsFull = document.querySelectorAll('#active-stud-proj');
+    activeTeacherProjectsFull.forEach((project) => {
         project.addEventListener('click', projectClickHandler(
             project.querySelector('#proj-index-t').textContent,
             project.querySelector('#proj-topic-t').textContent,

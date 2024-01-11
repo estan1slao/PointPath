@@ -242,6 +242,7 @@ main {
 
 .student-link {
     display: flex;
+    cursor: pointer;
 }
 
 .student-link > p{
