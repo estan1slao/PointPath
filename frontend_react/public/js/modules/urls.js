@@ -10,6 +10,7 @@ const URL_PROJECTS = `${SERVER}/projects/student-get-projects/`;
 const URL_DENY_PROJ = `${SERVER}/projects/teacher-denied-project/`; // + id проекта
 const URL_ACCEPT_PROJ = `${SERVER}/projects/teacher-accept-project/`; // + id проекта
 const URL_TAKE_PROJ = `${SERVER}/projects/student-choose-project/`; // + id проекта
+const URL_COMPLETE_PROJ = `${SERVER}/projects/complete/`; // + id проекта
 
 const URL_TEACHERS = `${SERVER}/about-teacher/all/`;
 const URL_PROPOSE_PROJ_TEACHER = `${SERVER}/projects/teacher-offers-project/`;
@@ -24,7 +25,7 @@ const URL_CREATE_COMMENT = `${SERVER}/comments/create/`;
 
 export {
     URL_LOGIN, URL_REG, URL_PROFILE, URL_CUR_PROJ, 
-    URL_EDIT, URL_PROJECTS, URL_DENY_PROJ, URL_ACCEPT_PROJ, 
+    URL_EDIT, URL_PROJECTS, URL_DENY_PROJ, URL_ACCEPT_PROJ, URL_COMPLETE_PROJ,  
     URL_TAKE_PROJ, URL_TEACHERS, URL_PROPOSE_PROJ_TEACHER,
     URL_PROPOSE_PROJ_STUDENT, URL_STUDENT_PROJECTS,
     URL_GET_CARDS, URL_OPEN_CARD,

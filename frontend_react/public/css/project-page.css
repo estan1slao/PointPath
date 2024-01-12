@@ -63,8 +63,13 @@ header {
     background-color: #B9C5FF;
 }
 
-.reject {
+.reject, 
+.finish {
     background-color: #FFB2B2;
+}
+
+.trajectory {
+    margin-bottom: 16px;
 }
 
 .proj-info {
@@ -120,4 +125,24 @@ header {
     width: 90%;
     margin-top: 30px;
     margin-bottom: 100px;
+}
+
+
+.finish-project.wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: #BDBDBF;
+}
+
+.finish-project > p {
+    font-size: 48px;
+    font-weight: 600;
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 21px;
+}
+
+.move-links {
+    width: 100%;
+    margin-bottom: 70px;
 }
