@@ -1,5 +1,5 @@
 const archiveProjectsPopupT = document.querySelector('.archive-students-projects').closest('.popup');
-const archiveProjectsAreaT = document.querySelector('.archive-projects-t');
+const archiveProjectsAreaT = document.querySelector('.archive-projects-t').querySelector('.more');
 
 function archiveProjectsAreaHandlerT (evt) {
     evt.preventDefault();

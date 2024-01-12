@@ -119,21 +119,17 @@
 
                     <div class="archive-projects-s">
                         <p class="title">архивные проекты</p>
-                        <!-- <ul>
-                            <li>
-                                <p class="archive-project-text">Новелла на RenPy</p>
-                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                            </li>
-                            <li>
-                                <p class="archive-project-text">Сайт-портфолио для студентов</p>
-                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                            </li>
-                        </ul> -->
-                        <div class='more' href="#">
-                            <div class="more-cycle"></div>
-                            <div class="more-cycle"></div>
-                            <div class="more-cycle"></div>
+                        <div class="proj-info">
+                            <ul class="projects-list-complete-s">
+                                <!-- здесь будут проекты учеников -->  
+                            </ul>
+                            <a class='more' href="#">
+                                <div class="more-cycle"></div>
+                                <div class="more-cycle"></div>
+                                <div class="more-cycle"></div>
+                            </a>
                         </div>
+                        <p class="proj-status hidden">нет активных проектов</p>
                     </div>
                 </div>
 
@@ -155,21 +151,17 @@
                     
                     <div class="archive-projects-t">
                         <p class="title">архивные проекты учеников</p>
-                        <!-- <ul>
-                            <li>
-                                <p class="archive-project-text">Новелла на RenPy</p>
-                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                            </li>
-                            <li>
-                                <p class="archive-project-text">Сайт-портфолио для студентов</p>
-                                <img class="arrow" src="./img/arrow.svg" width="66" height="21">
-                            </li>
-                        </ul> -->
-                        <a class='more' href="#">
-                            <div class="more-cycle"></div>
-                            <div class="more-cycle"></div>
-                            <div class="more-cycle"></div>
-                        </a>
+                        <div class="proj-info">
+                            <ul class="projects-list-complete">
+                                <!-- здесь будут проекты учеников -->  
+                            </ul>
+                            <a class='more' href="#">
+                                <div class="more-cycle"></div>
+                                <div class="more-cycle"></div>
+                                <div class="more-cycle"></div>
+                            </a>
+                        </div>
+                        <p class="proj-status hidden">нет активных проектов</p>
                     </div>
                 </div>
             </div>
@@ -186,32 +178,9 @@
         <section class="archive-student-projects wrapper">
             <button class="close-btn"></button>
             <p class="popup-text"><span class="attention-span">архивные</span>проекты</p>
-            <div class="student-links">
-                <!-- <a class="student-link">
-                    <p class="student-name">Попова Юлия Владимировна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Коновалова Мария Сергеевна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Попова Юлия Владимировна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Коновалова Мария Сергеевна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Попова Юлия Владимировна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Коновалова Мария Сергеевна</p>
-                    <img src="./img/arrow.svg">
-                </a> -->
-            </div>
+            <ul id="completed-proj-s" class="student-links">
+                
+            </ul>
         </section>
     </div>
 
@@ -286,32 +255,9 @@
         <section class="archive-students-projects wrapper">
             <button class="close-btn"></button>
             <p class="popup-text"><span class="attention-span">архивные</span>проекты учеников</p>
-            <div class="student-links">
-                <!-- <a class="student-link">
-                    <p class="student-name">Попова Юлия Владимировна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Коновалова Мария Сергеевна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Попова Юлия Владимировна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Коновалова Мария Сергеевна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Попова Юлия Владимировна</p>
-                    <img src="./img/arrow.svg">
-                </a>
-                <a class="student-link">
-                    <p class="student-name">Коновалова Мария Сергеевна</p>
-                    <img src="./img/arrow.svg">
-                </a> -->
-            </div>
+            <ul id="completed-proj" class="student-links">
+                
+            </ul>
         </section>
     </div>
 
@@ -329,6 +275,27 @@
             <p class="student-name" id="stud-name">Коновалова Мария Сергеевна</p>
             <img src="./img/arrow.svg">
             <p id="proj-topic-t" hidden></p>
+            <p id="proj-index-t" hidden></p>
+            <p id="proj-sphere-t" hidden></p>
+            <p id="proj-about-t" hidden></p>
+            <p id="proj-state-t" hidden></p>
+        </li>
+    </template>
+
+    <template id="complete-student-project-template">
+        <li class="active-student-proj">
+            <p class="archive-project-text proj-name" id="proj-topic-t">Название проекта</p>
+            <img class="arrow" src="./img/arrow.svg" width="66" height="21">
+            <p id="stud-name" hidden></p>
+            <p id="proj-index-t" hidden></p>
+            <p id="proj-sphere-t" hidden></p>
+            <p id="proj-about-t" hidden></p>
+            <p id="proj-state-t" hidden></p>
+        </li>
+        <li id='active-stud-proj' class="student-link">
+            <p class="student-name" id="proj-topic-t">Коновалова Мария Сергеевна</p>
+            <img src="./img/arrow.svg">
+            <p id="stud-name" hidden></p>
             <p id="proj-index-t" hidden></p>
             <p id="proj-sphere-t" hidden></p>
             <p id="proj-about-t" hidden></p>

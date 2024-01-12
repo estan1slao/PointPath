@@ -1,5 +1,5 @@
 import { getTokens, getJSONForm, projectClickHandler } from "./modules/utility.js";
-import { URL_PROFILE, URL_CUR_PROJ, URL_EDIT } from "./modules/urls.js";
+import { URL_PROFILE, URL_CUR_PROJ, URL_EDIT, URL_GET_COMPLETED_PROJ } from "./modules/urls.js";
 import { getData, editData, getCurrentProjData } from "./modules/requests.js";
 
 const fio = document.querySelector('#fio');
@@ -155,6 +155,7 @@ function fillData (data) {
     }
 
     getCurrentProjData(URL_CUR_PROJ, tokens.access, onSuccessGetProj, onErrorGetProj, data.role);
+    getCurrentProjData(URL_GET_COMPLETED_PROJ, tokens.access, onSuccessGetProjComplete, onErrorGetProjComplete, data.role);
 }
 
 // получить инфу о текущем проекте
@@ -182,6 +183,19 @@ function onSuccessGetProj (res, role) {
         activeStudentProj.querySelector('#proj-about').textContent = res[0].about;
         activeStudentProj.querySelector('#proj-state').textContent = res[0].state;
 
+        activeStudentProj.addEventListener('click', () => {
+            const activeStudentProject = document.querySelector('.active-projects-s');
+         
+            const transferData = projectClickHandler(
+                activeStudentProject.querySelector('#proj-index').textContent,
+                activeStudentProject.querySelector('.proj-title').textContent,
+                activeStudentProject.querySelector('.proj-teacher').textContent,
+                activeStudentProject.querySelector('#proj-sphere').textContent,
+                activeStudentProject.querySelector('#proj-about').textContent,
+                activeStudentProject.querySelector('#proj-state').textContent
+            )
+            transferData();
+        });
     } else if (role === "учитель") {
         const projTemplate = document.querySelector('#active-student-project-template')
             .content
@@ -221,23 +235,69 @@ function onSuccessGetProj (res, role) {
     }
 }
 
+function onSuccessGetProjComplete (res, role) {
+
+    const projTemplate = document.querySelector('#complete-student-project-template')
+        .content
+        .querySelector('.active-student-proj');
+    const projList = document.querySelector('.projects-list-complete');
+    const projListS =  document.querySelector('.projects-list-complete-s');
+
+    const projTemplateFull = document.querySelector('#complete-student-project-template')
+        .content
+        .querySelector('.student-link');
+    const fullProjList = document.querySelector('#completed-proj');
+    const fullProjListS = document.querySelector('#completed-proj-s');
+
+    res.slice(0, 2).forEach((activeProject) => {
+        const newProj = projTemplate.cloneNode(true);
+
+        newProj.querySelector('#stud-name').textContent = 
+            `${activeProject.last_name_student} ${activeProject.first_name_student} ${activeProject.patronymic_student}`;
+        newProj.querySelector('#proj-index-t').textContent = activeProject.id;
+        newProj.querySelector('#proj-sphere-t').textContent = activeProject.field_of_activity;
+        newProj.querySelector('#proj-about-t').textContent = activeProject.about;
+        newProj.querySelector('#proj-state-t').textContent = activeProject.state;
+        newProj.querySelector('#proj-topic-t').textContent = activeProject.topic;
+
+        if (role === 'учитель') {
+            projList.append(newProj);
+        } else if (role === 'ученик') {
+            projListS.append(newProj);
+        }
+        
+    });
+
+    res.forEach((activeProject) => {
+        const newProj = projTemplateFull.cloneNode(true);
+
+        newProj.querySelector('.student-name').textContent = 
+            `${activeProject.last_name_student} ${activeProject.first_name_student} ${activeProject.patronymic_student}`;
+        newProj.querySelector('#proj-index-t').textContent = activeProject.id;
+        newProj.querySelector('#proj-sphere-t').textContent = activeProject.field_of_activity;
+        newProj.querySelector('#proj-about-t').textContent = activeProject.about;
+        newProj.querySelector('#proj-state-t').textContent = activeProject.state;
+        newProj.querySelector('#proj-topic-t').textContent = activeProject.topic;
+        
+        if (role === 'учитель') {
+            fullProjList.append(newProj);
+        } else if (role === 'ученик') {
+            fullProjListS.append(newProj);
+        }
+    });
+
+    addEventListeners();
+}
+
+function onErrorGetProjComplete () {
+
+}
+
 // переход на страницу проекта
-activeStudentProj.addEventListener('click', () => {
-    const activeStudentProject = document.querySelector('.active-projects-s');
- 
-    const transferData = projectClickHandler(
-        activeStudentProject.querySelector('#proj-index').textContent,
-        activeStudentProject.querySelector('.proj-title').textContent,
-        activeStudentProject.querySelector('.proj-teacher').textContent,
-        activeStudentProject.querySelector('#proj-sphere').textContent,
-        activeStudentProject.querySelector('#proj-about').textContent,
-        activeStudentProject.querySelector('#proj-state').textContent
-    )
-    transferData();
-});
+
 
 function addEventListeners () {
-    const activeTeacherProjects = activeTeacherProj.querySelectorAll('.active-student-proj');
+    const activeTeacherProjects = document.querySelectorAll('.active-student-proj');
 
     activeTeacherProjects.forEach((project) => {
         project.addEventListener('click', projectClickHandler(
@@ -262,3 +322,4 @@ function addEventListeners () {
         ));
     });
 }
+

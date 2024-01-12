@@ -83,6 +83,9 @@ if (projState === '1') {
     rejectButton.addEventListener('click', () => {
         deleteProject(URL_DENY, tokens.access, onSuccessDeny);
     });
+} else if (projState === '2') {
+    takeButton.classList.add('hidden');
+    
 }
 
 const URL_TAKE = URL_TAKE_PROJ + `${projId}/`;

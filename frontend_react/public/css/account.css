@@ -168,7 +168,8 @@ main {
 }
 
 .archive-projects-s .title,
-.active-projects-t .title
+.active-projects-t .title,
+.archive-projects-t .title
 {
     margin-bottom: 18px;
 }
@@ -188,7 +189,12 @@ main {
     margin: 0;
     margin-right: 60px;
 
+    display: inline-block;
     padding-left: 33px; 
+}
+
+.active-student-proj {
+    cursor: pointer;
 }
 
 .arrow {
