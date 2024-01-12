@@ -1,3 +1,5 @@
+import { URL_PROFILE } from "./modules/urls";
+
 const questionsList = document.querySelectorAll('.question-item');
 
 questionsList.forEach((item) => {
@@ -18,7 +20,7 @@ questionsList.forEach((item) => {
 })
 
 // Логика для вкладок header
-const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
+// const URL_PROFILE = 'http://127.0.0.1:8000/profile/';
 
 function getDataLogin (url, token, onSuccess) {
     fetch(url,
